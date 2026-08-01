@@ -6,8 +6,7 @@
     <p class="meta">{{ 'customer.order.date_html' | t: date: order.created_at | date: '%B %d, %Y' }}</p>
     {%- if order.cancelled -%}
       <p class="field__error">
-        {{ 'customer.order.cancelled_html' | t: date: order.cancelled_at | date: '%B %d, %Y' }}
-        — {{ 'customer.order.cancelled_reason' | t: reason: order.cancel_reason_label }}
+        {{ 'customer.order.cancelled_html' | t: date: order.cancelled_at | date: '%B %d, %Y' }} - {{ 'customer.order.cancelled_reason' | t: reason: order.cancel_reason_label }}
       </p>
     {%- endif -%}
   </header>
@@ -30,8 +29,7 @@
               {%- if line_item.fulfillment -%}
                 <br><span class="meta">
                   {{ line_item.fulfillment.tracking_company }}
-                  {%- if line_item.fulfillment.tracking_url -%}
-                    — <a href="{{ line_item.fulfillment.tracking_url }}" target="_blank" rel="noopener">
+                  {%- if line_item.fulfillment.tracking_url -%} - <a href="{{ line_item.fulfillment.tracking_url }}" target="_blank" rel="noopener">
                         {{ 'customer.order.track_shipment' | t }}</a>
                   {%- endif -%}
                 </span>

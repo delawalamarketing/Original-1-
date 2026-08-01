@@ -26,7 +26,7 @@
       {%- else -%}
         <div class="header__logo-wrap">
       {%- endif -%}
-        <a href="{{ routes.root_url }}" class="header__logo" aria-label="{{ shop.name }} — {{ 'general.breadcrumbs.home' | t }}">
+        <a href="{{ routes.root_url }}" class="header__logo" aria-label="{{ shop.name }}, {{ 'general.breadcrumbs.home' | t }}">
           {%- if settings.logo -%}
             <img
               src="{{ settings.logo | image_url: width: 400 }}"

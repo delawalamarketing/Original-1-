@@ -1,7 +1,7 @@
-# Original 1% — Design Principles
+# Original 1% - Design Principles
 
 Conversion-focused design decisions for the storefront, and the reasoning behind
-each. Written to be argued with — where a rule doesn't fit, the reason is stated
+each. Written to be argued with - where a rule doesn't fit, the reason is stated
 so you can judge the trade-off yourself.
 
 ---
@@ -15,7 +15,7 @@ fill, teal `#469D99` is the ring, forest `#304824` is the carton, brass
 
 **Why it matters:** when a shopper moves from an Instagram ad to the site to the
 box on their doorstep, three different greens read as three different companies.
-One palette across all three reads as one brand that has its act together — and
+One palette across all three reads as one brand that has its act together - and
 on a premium price point, that perception *is* the product.
 
 **Rule:** never hard-code a hex in a section. Everything flows from CSS custom
@@ -29,7 +29,7 @@ This is the single most important decision in the build.
 
 Four SKUs on a grid is four independent decisions, each with its own chance to
 end in nothing. The same four presented as **Step 0 → 1 → 2 → 3** is one
-decision — *start the ritual* — with a natural upgrade to the full set.
+decision - *start the ritual* - with a natural upgrade to the full set.
 
 The numbering also answers the question every skincare shopper asks silently and
 almost never types into search: **what goes on first?**
@@ -59,7 +59,7 @@ a glance and disastrous for SEO. Splitting it gives a headline the eye can take
 in one movement, with the substantiating detail immediately underneath.
 
 **Rule of thumb:** an H1 should be readable in under two seconds. If it isn't,
-you don't have a headline — you have a paragraph in a large font.
+you don't have a headline - you have a paragraph in a large font.
 
 ---
 
@@ -73,8 +73,8 @@ objections, in this order:
 3. What if it doesn't work?
 4. What's it going to cost me to find out?
 
-The trust bar answers all four — certified Canadian facility, paraben-free,
-cruelty-free and vegan, Italian glass, free shipping — and it appears on the
+The trust bar answers all four - certified Canadian facility, paraben-free,
+cruelty-free and vegan, Italian glass, free shipping - and it appears on the
 **home page, product page and collection page**, because the objection forms in
 all three places, not just the first.
 
@@ -88,7 +88,7 @@ already cost you the sale.
 - **Cart drawer, not a cart page.** A full-page redirect throws away the
   shopper's place in the browsing flow. The drawer keeps it.
 - **Sticky add-to-cart.** Appears only *after* the real buy button scrolls out
-  of view — never while the shopper is still above it, which would be a
+  of view - never while the shopper is still above it, which would be a
   duplicate control competing with itself.
 - **Express wallets** (Shop Pay, Apple Pay, Google Pay) on the product page.
   These skip the entire address and payment form. On mobile this is the single
@@ -101,7 +101,7 @@ already cost you the sale.
 ## 6. Use the free-shipping meter to change behaviour, not to decorate
 
 The progress bar in the cart works because it converts *"should I check out?"*
-into *"what should I add?"* — a much easier question.
+into *"what should I add?"* - a much easier question.
 
 **It only works if the threshold is set correctly.** Put it slightly **above**
 your current average order value. Below it, every shopper clears it without
@@ -117,7 +117,7 @@ changing anything and you've simply given away shipping margin.
   wait for a line they've already half-read. One specific message beats three
   generic ones.
 - `prefers-reduced-motion` disables reveals, the marquee and smooth scrolling.
-  This is not optional — vestibular disorders are common, and motion sickness
+  This is not optional - vestibular disorders are common, and motion sickness
   from a website is a real outcome.
 
 ---
@@ -146,7 +146,7 @@ against bone. Both are fixed. Contrast is now 9.6:1 and 4.64:1.
 
 Every 100ms of load time is measurable revenue on mobile. The theme therefore:
 
-- Serves fonts from Shopify's CDN via `font_face` — no third-party connection,
+- Serves fonts from Shopify's CDN via `font_face` - no third-party connection,
   no render-blocking stylesheet.
 - Ships **one** CSS file and **one** JS file. No jQuery, no framework, no
   page-builder runtime.
@@ -155,7 +155,7 @@ Every 100ms of load time is measurable revenue on mobile. The theme therefore:
 - Requests the cart drawer markup in the *same* round-trip as the add-to-cart
   mutation via the Section Rendering API, rather than fetching it afterwards.
 
-**The biggest performance risk on this store is not the theme — it is apps.**
+**The biggest performance risk on this store is not the theme - it is apps.**
 Each one injects scripts on every page. Audit them quarterly and remove
 anything not earning its keep.
 
@@ -166,7 +166,7 @@ anything not earning its keep.
 - "Free shipping in Canada" beats "Complimentary domestic delivery."
 - A button says exactly what happens: **Add to cart** → toast says **Added**.
 - Errors say what went wrong and what to do: *"We couldn't update your cart.
-  Please try again."* — not *"An error occurred."*
+  Please try again."* - not *"An error occurred."*
 - Benefits are in the shopper's words, not the lab's. **"Holds water in the skin
   so it stays plump through the day"** beats *"Sodium hyaluronate 1%."* Put the
   INCI list in the accordion for the people who want it.
@@ -181,8 +181,8 @@ These are in the build as realistic placeholders and **must** be replaced:
 2. **"4.8 average from 320+ reviews"** is a placeholder. An untrue aggregate
    rating is a legal and platform-policy problem, not a matter of taste.
 3. **Prices** in the demo content are illustrative.
-4. **Claims** — "certified Canadian facility", "dermatologically tested",
-   "clinically proven" — should match documentation you can produce on request.
+4. **Claims** - "certified Canadian facility", "dermatologically tested",
+   "clinically proven" - should match documentation you can produce on request.
    Health Canada and the FTC both take cosmetic claims seriously.
 5. **A real landscape hero photo.** The preview composites one from your existing
    product photography as a stand-in; it's worth shooting properly.
@@ -193,11 +193,11 @@ These are in the build as realistic placeholders and **must** be replaced:
 
 Don't A/B test button colours. Test decisions, in this order:
 
-1. **Bundle price point** — the largest AOV lever you have.
-2. **Free-shipping threshold** — directly changes basket size.
-3. **Hero headline** — the split version against a shorter benefit-led line.
-4. **PDP benefit order** — lead with hydration vs brightening.
-5. **Subscribe & save discount** — 10% vs 15% vs 20% against retention.
+1. **Bundle price point** - the largest AOV lever you have.
+2. **Free-shipping threshold** - directly changes basket size.
+3. **Hero headline** - the split version against a shorter benefit-led line.
+4. **PDP benefit order** - lead with hydration vs brightening.
+5. **Subscribe & save discount** - 10% vs 15% vs 20% against retention.
 
 Wait for statistical significance. At early-stage traffic, most "wins" are noise,
 and a test you stop early is worse than no test at all.

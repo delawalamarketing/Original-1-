@@ -116,7 +116,7 @@
           "settings": {
             "product": "frank-castor",
             "step_number": "0",
-            "step_label": "Step 00 — Treat",
+            "step_label": "Step 00 · Treat",
             "title": "Frank Castor",
             "description": "Cold-pressed organic castor and steam-distilled frankincense. The weekly deep treatment for skin and hair."
           }
@@ -126,7 +126,7 @@
           "settings": {
             "product": "rice-toner",
             "step_number": "1",
-            "step_label": "Step 01 — Tone",
+            "step_label": "Step 01 · Tone",
             "title": "Rice Toner",
             "description": "In-house rice water with witch hazel and chamomile. Brightens, balances, preps."
           }
@@ -136,7 +136,7 @@
           "settings": {
             "product": "rice-silk-serum",
             "step_number": "2",
-            "step_label": "Step 02 — Treat",
+            "step_label": "Step 02 · Treat",
             "title": "Rice Silk Serum",
             "description": "Vitamin C, hyaluronic acid, panthenol and silk amino acids. Brightening and plumping."
           }
@@ -146,7 +146,7 @@
           "settings": {
             "product": "orchid-lotion",
             "step_number": "3",
-            "step_label": "Step 03 — Seal",
+            "step_label": "Step 03 · Seal",
             "title": "Orchid Lotion",
             "description": "Niacinamide, orchid extract and shea butter. Fragrance-free, seals everything in."
           }
@@ -162,7 +162,7 @@
         "surface": "surface-tint",
         "eyebrow": "The ritual",
         "heading": "Four steps. In this order.",
-        "subheading": "<p>Each formula does one job well, then hands off to the next. Start anywhere — but this is the order your skin prefers.</p>",
+        "subheading": "<p>Each formula does one job well, then hands off to the next. Start anywhere, but this is the order your skin prefers.</p>",
         "cta_label": "Shop all four",
         "cta_link": ""
       }
@@ -173,25 +173,25 @@
         "b1": {
           "type": "item",
           "settings": {
-            "text": "Frank Castor, 50mL — the weekly treatment"
+            "text": "Frank Castor, 50mL: the weekly treatment"
           }
         },
         "b2": {
           "type": "item",
           "settings": {
-            "text": "Rice Toner, 50mL — brighten and balance"
+            "text": "Rice Toner, 50mL: brighten and balance"
           }
         },
         "b3": {
           "type": "item",
           "settings": {
-            "text": "Rice Silk Serum, 50mL — hydrate and repair"
+            "text": "Rice Silk Serum, 50mL: hydrate and repair"
           }
         },
         "b4": {
           "type": "item",
           "settings": {
-            "text": "Orchid Lotion, 48g — seal it all in"
+            "text": "Orchid Lotion, 48g: seal it all in"
           }
         }
       },
@@ -207,7 +207,7 @@
         "discount_percent": 15,
         "eyebrow": "The complete set",
         "heading": "The Full Ritual",
-        "text": "<p>All four steps, in the order your skin wants them. The simplest way to start — and the best value we offer.</p>",
+        "text": "<p>All four steps, in the order your skin wants them. The simplest way to start, and the best value we offer.</p>",
         "cta_label": "Add the full ritual",
         "footnote": "Free shipping in Canada · 30-day money-back guarantee"
       }
@@ -329,7 +329,7 @@
           "type": "faq",
           "settings": {
             "question": "What order do I use the four products in?",
-            "answer": "<p>Toner first on clean skin, then serum, then lotion to seal. Frank Castor is a treatment — use it once or twice a week on skin or hair, or as the last step at night.</p>"
+            "answer": "<p>Toner first on clean skin, then serum, then lotion to seal. Frank Castor is a treatment. Use it once or twice a week on skin or hair, or as the last step at night.</p>"
           }
         },
         "f2": {

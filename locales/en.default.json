@@ -154,7 +154,7 @@
     },
     "404": {
       "title": "Page not found",
-      "subtext": "The page you’re looking for doesn’t exist — but your skin still has a routine waiting.",
+      "subtext": "The page you’re looking for doesn’t exist, but your skin still has a routine waiting.",
       "cta": "Shop the ritual"
     },
     "footer": {
@@ -278,7 +278,7 @@
       "shop_link": "Start shopping",
       "print": "Print",
       "add_to_apple_wallet": "Add to Apple Wallet",
-      "qr_image_alt": "QR code — scan to redeem"
+      "qr_image_alt": "QR code: scan to redeem"
     }
   },
 

@@ -9,7 +9,7 @@
     With nothing uploaded, fall back to the hero art bundled in assets/ so a
     fresh install is never a bare colour field. That art is composed with a
     bone-toned safe zone on the left for the headline, so it needs dark text
-    and no scrim — the merchant's own overlay/scheme settings only apply once
+    and no scrim - the merchant's own overlay/scheme settings only apply once
     they upload their own image.
   endcomment
   assign use_bundled_hero = false
@@ -94,7 +94,7 @@
   {%- endif -%}
 
   {%- comment -%}
-    No scrim over the bundled art — it already carries its own light safe zone,
+    No scrim over the bundled art - it already carries its own light safe zone,
     and darkening it would muddy the bone field the headline sits on.
   {%- endcomment -%}
   {%- if has_media -%}
@@ -160,20 +160,20 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Background image — desktop",
+      "label": "Background image (desktop)",
       "info": "Landscape, around 2000 x 1125. Keep the left third clear of detail: the headline sits there."
     },
     {
       "type": "image_picker",
       "id": "mobile_image",
-      "label": "Background image — mobile",
+      "label": "Background image (mobile)",
       "info": "Portrait, around 1080 x 1620. Keep the top half clear. Without this, a landscape image is stacked above the copy on phones rather than cropped through its middle."
     },
     {
       "type": "video",
       "id": "video",
       "label": "Background video",
-      "info": "Overrides the image. Keep it under 8 seconds and under 4 MB — it loads before anything else the shopper can act on."
+      "info": "Overrides the image. Keep it under 8 seconds and under 4 MB. It loads before anything else the shopper can act on."
     },
     {
       "type": "range",
@@ -197,7 +197,7 @@
     {
       "type": "text",
       "id": "heading_emphasis",
-      "label": "Heading — emphasised line",
+      "label": "Heading (emphasised line)",
       "default": "A luxurious fusion of nature’s finest ingredients."
     },
     {

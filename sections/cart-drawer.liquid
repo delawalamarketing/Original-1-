@@ -105,7 +105,7 @@
                       min="0"
                       value="{{ item.quantity }}"
                       data-line-qty="{{ forloop.index }}"
-                      aria-label="{{ 'products.product.quantity' | t }} — {{ item.product.title | escape }}"
+                      aria-label="{{ 'products.product.quantity' | t }}: {{ item.product.title | escape }}"
                     >
                     <button type="button" class="qty__btn" data-qty-step="1"
                             aria-label="{{ 'products.product.increase_quantity' | t }}">+</button>

@@ -1,4 +1,4 @@
-# Original 1% — Shopify Theme
+# Original 1% - Shopify Theme
 
 A conversion-focused Online Store 2.0 theme built from scratch for **Original 1%**
 (*Conscious Lifestyle & Skincare*). No page-builder app, no framework, no jQuery.
@@ -19,16 +19,16 @@ Brand colours are sampled directly from the packaging and logo lockup:
 
 ## Install
 
-### Option A — upload the ZIP (fastest)
+### Option A - upload the ZIP (fastest)
 
 1. Shopify admin → **Online Store → Themes**
 2. **Add theme → Upload zip file** → choose `original-1pct-theme.zip`
 3. **Customize** to set the menu, images and products.
 
 > Shopify rejects a zip that contains a wrapping folder. `original-1pct-theme.zip`
-> is already packed correctly — `layout/`, `sections/`, `templates/` sit at the root.
+> is already packed correctly - `layout/`, `sections/`, `templates/` sit at the root.
 
-### Option B — Shopify CLI (recommended for ongoing work)
+### Option B - Shopify CLI (recommended for ongoing work)
 
 ```bash
 npm install -g @shopify/cli@latest
@@ -82,12 +82,12 @@ and it degrades gracefully when they're empty.
 
 **Customize → Theme settings**
 
-- **Brand identity** — upload the logo. The theme ships with a bundled wordmark
+- **Brand identity** - upload the logo. The theme ships with a bundled wordmark
   so it looks right immediately; uploading replaces it.
-- **Cart** — set the free-shipping threshold. Put it just above your current
+- **Cart** - set the free-shipping threshold. Put it just above your current
   average order value, not below it: the bar only drives behaviour when the
   shopper has to add something to clear it.
-- **Colours / Typography** — already set to the brand palette.
+- **Colours / Typography** - already set to the brand palette.
 
 ### 4. Navigation
 
@@ -124,7 +124,7 @@ layout/
   theme.liquid             document shell, fonts, JSON-LD, cart + menu drawers
   password.liquid          pre-launch shell
 locales/
-  en.default.json          all UI copy — no hard-coded strings in sections
+  en.default.json          all UI copy - no hard-coded strings in sections
 sections/
   header-group.json        announcement bar + header
   footer-group.json        newsletter + footer
@@ -172,7 +172,7 @@ templates/                 JSON templates, incl. customers/
 ## Accessibility
 
 - Every interactive target is at least 44 × 44 px.
-- Focus is never removed, only restyled — a 2px teal ring at 3px offset.
+- Focus is never removed, only restyled - a 2px teal ring at 3px offset.
 - Drawers trap Tab, close on Escape, and return focus to whatever opened them.
 - Variant pickers are native radio inputs; state is CSS, so it survives JS failure.
 - `prefers-reduced-motion` disables the marquee, reveals and smooth scrolling.
@@ -188,7 +188,7 @@ shopify theme check
 
 ## Performance notes
 
-- Fonts are served through Shopify's `font_face` from their CDN — no third-party
+- Fonts are served through Shopify's `font_face` from their CDN - no third-party
   request, no render-blocking stylesheet.
 - One CSS file, one JS file, both cached at edge. JS is `defer`.
 - Every image below the fold is `loading="lazy"`; hero and first product image
@@ -205,7 +205,7 @@ shopify theme check
    examples, not real reviews. Swap the section for your review app's widget
    as soon as you're collecting.
 2. **The "4.8 from 320+ reviews" aggregate is a placeholder.** Remove it or make
-   it true — a false aggregate rating is a policy problem, not just a taste one.
+   it true - a false aggregate rating is a policy problem, not just a taste one.
 3. **Set the real free-shipping threshold**, and match the announcement bar to it.
 4. **Add your contact email** to the FAQ footer text.
 5. **Confirm the claims copy** ("certified Canadian facility", "dermatologically

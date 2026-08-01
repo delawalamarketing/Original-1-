@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ORIGINAL 1% — Design System
+   ORIGINAL 1% - Design System
    Conscious Lifestyle & Skincare
    Palette sampled directly from brand packaging & logo lockup.
    ========================================================================== */
@@ -9,7 +9,7 @@
    -------------------------------------------------------------------------- */
 :root {
   /* Brand core ---------------------------------------------------------- */
-  --o-bone:        #E4E2DD;  /* primary canvas — the packaging backdrop      */
+  --o-bone:        #E4E2DD;  /* primary canvas - the packaging backdrop      */
   --o-bone-tint:   #EDEBE6;  /* raised surface                                */
   --o-paper:       #FAF9F7;  /* cards, inputs                                 */
   --o-white:       #FFFFFF;
@@ -18,15 +18,15 @@
   --o-ink-2:       #4A534F;  /* secondary copy                                */
   --o-ink-3:       #7C857F;  /* meta, captions                                */
 
-  --o-forest:      #304824;  /* primary action — deep, from the carton        */
+  --o-forest:      #304824;  /* primary action - deep, from the carton        */
   --o-forest-dark: #223318;
   --o-sage:        #99BA8F;  /* logo mark fill                                */
   --o-sage-soft:   #C9DBC2;
   --o-sage-wash:   #EBF1E8;
   --o-teal:        #469D99;  /* logo ring                                     */
-  /* Dark enough to clear 4.5:1 on bone — .eyebrow uses it at 12px.           */
+  /* Dark enough to clear 4.5:1 on bone - .eyebrow uses it at 12px.           */
   --o-teal-dark:   #2A6D6A;
-  --o-brass:       #B27409;  /* accent — price, badges, rules                 */
+  --o-brass:       #B27409;  /* accent - price, badges, rules                 */
   --o-brass-soft:  #E8D3A8;
 
   --o-line:        rgba(20, 24, 26, 0.12);
@@ -51,7 +51,7 @@
   --tracking-wide:  0.08em;
   --tracking-wider: 0.16em;
 
-  /* Space — 4px base ---------------------------------------------------- */
+  /* Space - 4px base ---------------------------------------------------- */
   --sp-1: 0.25rem;  --sp-2: 0.5rem;   --sp-3: 0.75rem;  --sp-4: 1rem;
   --sp-5: 1.5rem;   --sp-6: 2rem;     --sp-7: 3rem;     --sp-8: 4rem;
   --sp-9: 6rem;     --sp-10: 8rem;
@@ -132,7 +132,7 @@ ul, ol { margin: 0 0 var(--sp-4); padding-left: 1.25rem; }
 
 button { font: inherit; cursor: pointer; }
 
-/* Visible, on-brand focus ring — never remove it, only restyle it. */
+/* Visible, on-brand focus ring - never remove it, only restyle it. */
 :focus-visible {
   outline: 2px solid var(--o-teal);
   outline-offset: 3px;
@@ -183,7 +183,7 @@ button { font: inherit; cursor: pointer; }
 }
 @media (max-width: 749px) {
   .grid--2, .grid--4 { grid-template-columns: repeat(2, 1fr); }
-  /* Three-across blocks carry prose — pull quotes, feature copy. Two columns on
+  /* Three-across blocks carry prose - pull quotes, feature copy. Two columns on
      a 375px screen leaves about 90px of text width, roughly four characters per
      line. Stack them instead. */
   .grid--3 { grid-template-columns: 1fr; }
@@ -869,7 +869,7 @@ body.drawer-open { overflow: hidden; }
      brand colour rather than two different greens. */
   color: var(--o-forest);
 }
-/* Over dark imagery forest green would disappear — keep the light sage there. */
+/* Over dark imagery forest green would disappear - keep the light sage there. */
 .hero--light .hero__title em { color: var(--o-sage-soft); }
 
 .hero__actions {
@@ -1253,7 +1253,7 @@ body.drawer-open { overflow: hidden; }
 }
 .variant-swatch[data-unavailable="true"] { opacity: 0.4; text-decoration: line-through; }
 
-/* Purchase options — one-time vs subscribe */
+/* Purchase options - one-time vs subscribe */
 .purchase-options { display: grid; gap: var(--sp-2); }
 .purchase-option {
   display: flex;
@@ -1502,7 +1502,7 @@ body.drawer-open { overflow: hidden; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
 
-/* Reveal-on-scroll — opt-in, and safe if JS never runs */
+/* Reveal-on-scroll - opt-in, and safe if JS never runs */
 [data-reveal] {
   opacity: 0;
   transform: translateY(18px);
@@ -1528,8 +1528,7 @@ body.drawer-open { overflow: hidden; }
 
   /* ---- Hero ----
      A 16:9 image cover-cropped into a portrait viewport shows only its middle
-     third, and the shipped artwork puts its type-safe bone field on the left —
-     so a centred crop lands on the seam, the worst possible slice.
+     third, and the shipped artwork puts its type-safe bone field on the left - so a centred crop lands on the seam, the worst possible slice.
 
      Overlaying copy on it doesn't work either. The text column runs to 87% of
      the hero's height, and a veil that still reads at the proof row would have
@@ -1543,7 +1542,7 @@ body.drawer-open { overflow: hidden; }
   .hero--art-directed .hero__inner { padding-top: 2.25rem; }
 
   /* No portrait source: the only safe move with a landscape crop is to stop
-     overlaying altogether — show it as a band above the copy. */
+     overlaying altogether - show it as a band above the copy. */
   .hero:not(.hero--art-directed) {
     display: block;
     min-height: 0;

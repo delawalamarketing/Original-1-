@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ORIGINAL 1% — Theme behaviour
+   ORIGINAL 1% - Theme behaviour
    Dependency-free custom elements. No framework, no jQuery.
    Every element degrades to a working server-rendered form if JS fails.
    ========================================================================== */
@@ -60,7 +60,7 @@
   };
 
   /* ---------------------------------------------------------------------- */
-  /* Cart store — single source of truth, broadcasts on change               */
+  /* Cart store - single source of truth, broadcasts on change               */
   /* ---------------------------------------------------------------------- */
 
   const CartStore = {
@@ -92,7 +92,7 @@
 
     async add(formData) {
       // Ask for the drawer markup in the same round-trip rather than fetching
-      // it again afterwards — this is the hottest path in the store.
+      // it again afterwards - this is the hottest path in the store.
       const ids = this.sectionIds;
       if (ids.length) formData.append('sections', ids.join(','));
 
@@ -128,7 +128,7 @@
   window.theme.CartStore = CartStore;
 
   /* ---------------------------------------------------------------------- */
-  /* <drawer-element> — mobile nav + cart, shared open/close mechanics       */
+  /* <drawer-element> - mobile nav + cart, shared open/close mechanics       */
   /* ---------------------------------------------------------------------- */
 
   class DrawerElement extends HTMLElement {
@@ -183,7 +183,7 @@
   });
 
   /* ---------------------------------------------------------------------- */
-  /* <cart-drawer> — renders itself from a section render request           */
+  /* <cart-drawer> - renders itself from a section render request           */
   /* ---------------------------------------------------------------------- */
 
   class CartDrawer extends DrawerElement {
@@ -257,7 +257,7 @@
   customElements.define('cart-drawer', CartDrawer);
 
   /* ---------------------------------------------------------------------- */
-  /* Cart count bubbles — update everywhere on any cart change               */
+  /* Cart count bubbles - update everywhere on any cart change               */
   /* ---------------------------------------------------------------------- */
 
   CartStore.subscribe((cart) => {
@@ -271,7 +271,7 @@
   });
 
   /* ---------------------------------------------------------------------- */
-  /* <product-form> — AJAX add to cart, opens the drawer on success          */
+  /* <product-form> - AJAX add to cart, opens the drawer on success          */
   /* ---------------------------------------------------------------------- */
 
   class ProductForm extends HTMLElement {
@@ -322,7 +322,7 @@
   customElements.define('product-form', ProductForm);
 
   /* ---------------------------------------------------------------------- */
-  /* <variant-selector> — swaps price, availability, media, URL              */
+  /* <variant-selector> - swaps price, availability, media, URL              */
   /* ---------------------------------------------------------------------- */
 
   class VariantSelector extends HTMLElement {
@@ -390,7 +390,7 @@
   customElements.define('variant-selector', VariantSelector);
 
   /* ---------------------------------------------------------------------- */
-  /* <product-gallery> — thumbnail → main image                              */
+  /* <product-gallery> - thumbnail → main image                              */
   /* ---------------------------------------------------------------------- */
 
   class ProductGallery extends HTMLElement {
@@ -435,7 +435,7 @@
   customElements.define('quantity-input', QuantityInput);
 
   /* ---------------------------------------------------------------------- */
-  /* <accordion-element> — animated, accessible disclosure                   */
+  /* <accordion-element> - animated, accessible disclosure                   */
   /* ---------------------------------------------------------------------- */
 
   class AccordionElement extends HTMLElement {
@@ -466,7 +466,7 @@
   customElements.define('accordion-element', AccordionElement);
 
   /* ---------------------------------------------------------------------- */
-  /* <sticky-atc> — appears once the real buy button scrolls out of view     */
+  /* <sticky-atc> - appears once the real buy button scrolls out of view     */
   /* ---------------------------------------------------------------------- */
 
   class StickyAtc extends HTMLElement {
@@ -533,7 +533,7 @@
   }
 
   /* ---------------------------------------------------------------------- */
-  /* Collection sort — submit on change, no Apply button needed              */
+  /* Collection sort - submit on change, no Apply button needed              */
   /* ---------------------------------------------------------------------- */
 
   document.querySelectorAll('[data-auto-submit]').forEach((el) => {
@@ -541,7 +541,7 @@
   });
 
   /* ---------------------------------------------------------------------- */
-  /* Newsletter — keep the user on the page after Shopify's redirect         */
+  /* Newsletter - keep the user on the page after Shopify's redirect         */
   /* ---------------------------------------------------------------------- */
 
   if (window.location.search.includes('customer_posted=true')) {

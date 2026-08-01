@@ -33,7 +33,7 @@
 
     {%- for comment in article.comments -%}
       <div style="padding-block:1.25rem;border-bottom:1px solid var(--o-line-soft);">
-        <p class="meta">{{ comment.author }} — {{ comment.created_at | date: '%b %d, %Y' }}</p>
+        <p class="meta">{{ comment.author }} &middot; {{ comment.created_at | date: '%b %d, %Y' }}</p>
         <div class="rte">{{ comment.content }}</div>
       </div>
     {%- endfor -%}

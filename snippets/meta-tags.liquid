@@ -1,7 +1,7 @@
 {%- comment -%}
   Open Graph + Twitter + JSON-LD.
   Product structured data is what earns price/availability/rating in Google
-  results — it is one of the cheapest CTR wins available to a small store.
+  results - it is one of the cheapest CTR wins available to a small store.
 {%- endcomment -%}
 
 <meta property="og:site_name" content="{{ shop.name }}">
@@ -107,7 +107,7 @@
 {%- if request.page_type == 'index' -%}
   {%- comment -%}
     schema.org requires the literal token {search_term_string} in the target
-    URL. It cannot appear inside a {{ }} output tag — Liquid's lexer scans for
+    URL. It cannot appear inside a {{ }} output tag - Liquid's lexer scans for
     the closing braces and trips over it. Build the prefix in Liquid, then emit
     the token as plain text outside the tag.
   {%- endcomment -%}

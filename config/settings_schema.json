@@ -108,7 +108,7 @@
       {
         "type": "image_picker",
         "id": "logo_light",
-        "label": "Logo — light version",
+        "label": "Logo (light version)",
         "info": "Used on the dark footer."
       },
       {

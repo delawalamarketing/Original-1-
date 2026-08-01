@@ -144,7 +144,7 @@
                         {%- assign input_id = 'Option-' | append: section.id | append: '-' | append: forloop.parentloop.index | append: '-' | append: forloop.index -%}
                         {%- comment -%}
                           Native radio + label. The label is the visible control,
-                          the input carries state and keyboard behaviour — no ARIA
+                          the input carries state and keyboard behaviour - no ARIA
                           needed, and it still works with JavaScript disabled.
                         {%- endcomment -%}
                         <input
@@ -260,7 +260,7 @@
 
                   {%- comment -%}
                     Shop Pay / Apple Pay / Google Pay. Express wallets are the
-                    single largest mobile conversion lift available — they remove
+                    single largest mobile conversion lift available - they remove
                     the entire address and payment form.
                   {%- endcomment -%}
                   {%- if block.settings.show_dynamic_checkout -%}
@@ -441,7 +441,7 @@
       "settings": [
         { "type": "text", "id": "item_1", "label": "Item 1", "default": "Free shipping on Canadian orders over $75" },
         { "type": "text", "id": "item_2", "label": "Item 2", "default": "30-day money-back guarantee" },
-        { "type": "text", "id": "item_3", "label": "Item 3", "default": "Secure checkout — Shop Pay, Apple Pay, Google Pay" }
+        { "type": "text", "id": "item_3", "label": "Item 3", "default": "Secure checkout with Shop Pay, Apple Pay and Google Pay" }
       ]
     },
     {
