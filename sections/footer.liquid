@@ -100,8 +100,15 @@
     </div>
 
     <div class="footer__bottom">
+      {%- comment -%}
+        The year has to be computed before it is passed to `t`. A pipe cannot
+        appear inside a filter argument: Liquid reads it as a second filter, so
+        `| t: year: 'now' | date: '%Y', shop: shop.name` hands `date` three
+        arguments when it takes one or two.
+      {%- endcomment -%}
+      {%- assign current_year = 'now' | date: '%Y' -%}
       <p style="margin:0;">
-        {{ 'sections.footer.copyright' | t: year: 'now' | date: '%Y', shop: shop.name }}
+        {{ 'sections.footer.copyright' | t: year: current_year, shop: shop.name }}
         {%- if section.settings.show_policy_links -%}
           {%- for policy in shop.policies -%}
             {%- if policy != blank %} &middot; <a href="{{ policy.url }}">{{ policy.title }}</a>{% endif -%}
