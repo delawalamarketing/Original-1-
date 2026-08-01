@@ -6,11 +6,15 @@
   endif
 
   comment
-    Light text is only legible over the scrim. With no media uploaded yet the
-    background is bone, so force dark text rather than shipping a hero nobody
-    can read before the merchant adds an image.
+    With nothing uploaded, fall back to the hero art bundled in assets/ so a
+    fresh install is never a bare colour field. That art is composed with a
+    bone-toned safe zone on the left for the headline, so it needs dark text
+    and no scrim — the merchant's own overlay/scheme settings only apply once
+    they upload their own image.
   endcomment
+  assign use_bundled_hero = false
   unless has_media
+    assign use_bundled_hero = true
     assign scheme = 'dark'
   endunless
 -%}
@@ -38,8 +42,21 @@
         fetchpriority="high"
       >
     </div>
+  {%- elsif use_bundled_hero -%}
+    <div class="hero__media">
+      <img
+        src="{{ 'hero-default.jpg' | asset_url }}"
+        alt=""
+        width="1600" height="900"
+        fetchpriority="high"
+      >
+    </div>
   {%- endif -%}
 
+  {%- comment -%}
+    No scrim over the bundled art — it already carries its own light safe zone,
+    and darkening it would muddy the bone field the headline sits on.
+  {%- endcomment -%}
   {%- if has_media -%}
     <div class="hero__scrim" style="opacity: {{ section.settings.overlay | divided_by: 100.0 }};"></div>
   {%- endif -%}

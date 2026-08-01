@@ -34,7 +34,9 @@
                width="{{ bundle.featured_image.width }}" height="{{ bundle.featured_image.height }}"
                loading="lazy">
         {%- else -%}
-          {{ 'product-2' | placeholder_svg_tag: 'placeholder' }}
+          {%- comment -%} Bundled art beats a grey placeholder on a fresh install. {%- endcomment -%}
+          <img src="{{ 'bundle-default.jpg' | asset_url }}" alt=""
+               width="700" height="1200" loading="lazy">
         {%- endif -%}
       </div>
 
