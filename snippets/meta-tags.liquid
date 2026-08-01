@@ -105,6 +105,13 @@
 </script>
 
 {%- if request.page_type == 'index' -%}
+  {%- comment -%}
+    schema.org requires the literal token {search_term_string} in the target
+    URL. It cannot appear inside a {{ }} output tag — Liquid's lexer scans for
+    the closing braces and trips over it. Build the prefix in Liquid, then emit
+    the token as plain text outside the tag.
+  {%- endcomment -%}
+  {%- assign search_target = shop.url | append: routes.search_url -%}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -113,7 +120,7 @@
       "url": {{ shop.url | json }},
       "potentialAction": {
         "@type": "SearchAction",
-        "target": {{ shop.url | append: routes.search_url | append: "?q={search_term_string}" | json }},
+        "target": "{{ search_target }}?q={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     }
