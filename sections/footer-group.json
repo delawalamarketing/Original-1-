@@ -14,9 +14,9 @@
     "footer": {
       "type": "footer",
       "blocks": {
-        "menu-shop": {
-          "type": "menu",
-          "settings": { "heading": "Shop", "menu": "footer" }
+        "pages-all": {
+          "type": "pages",
+          "settings": { "heading": "Explore", "show_policies": true }
         },
         "text-promise": {
           "type": "text",
@@ -33,10 +33,10 @@
           }
         }
       },
-      "block_order": ["menu-shop", "text-promise", "newsletter"],
+      "block_order": ["pages-all", "text-promise", "newsletter"],
       "settings": {
         "show_payment_icons": true,
-        "show_policy_links": true
+        "show_policy_links": false
       }
     }
   },

@@ -4,18 +4,13 @@
     <div class="footer__grid">
       <div>
         {%- comment -%}
-          The footer sits on forest green, so it needs the light lockup. The
-          bundled light wordmark is the fallback when none is uploaded — the
-          dark logo would be effectively invisible here.
+          Set as type rather than an image: it stays crisp at any pixel density,
+          costs no extra request, scales with the type system, and still reads
+          if images fail to load.
         {%- endcomment -%}
-        {%- if settings.logo_light -%}
-          <img class="footer__logo" src="{{ settings.logo_light | image_url: width: 440 }}"
-               alt="{{ shop.name }}" width="220" height="61" loading="lazy">
-        {%- else -%}
-          <img class="footer__logo" src="{{ 'logo-wordmark-light.png' | asset_url }}"
-               alt="{{ shop.name }}" width="220" height="61"
-               style="width:220px;height:auto;" loading="lazy">
-        {%- endif -%}
+        <a href="{{ routes.root_url }}" class="footer__wordmark">
+          {{ shop.name }}<sup>&reg;</sup>
+        </a>
 
         {%- if settings.brand_tagline != blank -%}
           <p class="footer__tagline">{{ settings.brand_tagline }}</p>
@@ -38,6 +33,30 @@
                 {%- for link in block.settings.menu.links -%}
                   <li><a href="{{ link.url }}">{{ link.title }}</a></li>
                 {%- endfor -%}
+              </ul>
+            </div>
+
+          {%- when 'pages' -%}
+            {%- comment -%}
+              Lists every visible page automatically, so a page added or hidden
+              in the admin appears or disappears here with no menu to maintain.
+              Hidden pages have no published_at, which is what filters them out.
+            {%- endcomment -%}
+            <div {{ block.shopify_attributes }}>
+              <h2 class="footer__heading">{{ block.settings.heading }}</h2>
+              <ul class="footer__list">
+                {%- for page in pages -%}
+                  {%- if page.published_at and page.title != blank -%}
+                    <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- if block.settings.show_policies -%}
+                  {%- for policy in shop.policies -%}
+                    {%- if policy != blank -%}
+                      <li><a href="{{ policy.url }}">{{ policy.title }}</a></li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endif -%}
               </ul>
             </div>
 
@@ -116,6 +135,19 @@
       "settings": [
         { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" },
         { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+      ]
+    },
+    {
+      "type": "pages",
+      "name": "All pages (automatic)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Lists every visible page in the store. Hide a page in Online Store → Pages and it disappears from here automatically."
+        },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Explore" },
+        { "type": "checkbox", "id": "show_policies", "label": "Also list store policies", "default": true }
       ]
     },
     {

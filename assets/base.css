@@ -865,8 +865,12 @@ body.drawer-open { overflow: hidden; }
 }
 .hero__title em {
   font-style: italic;
-  color: var(--o-sage-soft);
+  /* Same green as the footer, so the emphasis line and the footer read as one
+     brand colour rather than two different greens. */
+  color: var(--o-forest);
 }
+/* Over dark imagery forest green would disappear — keep the light sage there. */
+.hero--light .hero__title em { color: var(--o-sage-soft); }
 
 .hero__actions {
   display: flex;
@@ -1381,8 +1385,34 @@ body.drawer-open { overflow: hidden; }
 /* `:not(.btn)` is load-bearing. `.footer a` scores (0,1,1) and would outrank
    `.btn` (0,1,0), painting any button-styled link in the footer with the
    footer's link colour instead of its own. */
-.footer a:not(.btn) { color: inherit; text-decoration: none; }
-.footer a:not(.btn):hover { color: var(--o-paper); text-decoration: underline; text-underline-offset: 4px; }
+/* The wordmark is excluded here for the same specificity reason as .btn:
+   `.footer a:not(.btn)` scores (0,2,1) and would otherwise force the muted
+   link colour onto it. */
+.footer a:not(.btn):not(.footer__wordmark) { color: inherit; text-decoration: none; }
+.footer a:not(.btn):not(.footer__wordmark):hover {
+  color: var(--o-paper);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.footer__wordmark {
+  display: inline-block;
+  margin-bottom: var(--sp-4);
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--o-paper);
+  text-decoration: none;
+  transition: opacity var(--dur) var(--ease);
+}
+.footer__wordmark sup {
+  font-size: 0.38em;
+  vertical-align: super;
+  margin-left: 0.1em;
+  letter-spacing: 0;
+}
+.footer__wordmark:hover { opacity: 0.82; text-decoration: none; }
 
 .footer__grid {
   display: grid;
@@ -1402,7 +1432,6 @@ body.drawer-open { overflow: hidden; }
 }
 .footer__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); font-size: var(--fs-sm); }
 
-.footer__logo { max-height: 54px; width: auto; margin-bottom: var(--sp-4); }
 .footer__tagline {
   font-family: var(--font-display);
   font-size: var(--fs-lg);
