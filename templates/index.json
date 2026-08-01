@@ -1,0 +1,268 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "p1": { "type": "proof", "settings": { "icon": "maple", "text": "Made in Canada" } },
+        "p2": { "type": "proof", "settings": { "icon": "leaf", "text": "Paraben-free" } },
+        "p3": { "type": "proof", "settings": { "icon": "rabbit", "text": "Cruelty-free & vegan" } },
+        "p4": { "type": "proof", "settings": { "icon": "bottle", "text": "Italian glass" } }
+      },
+      "block_order": ["p1", "p2", "p3", "p4"],
+      "settings": {
+        "overlay": 55,
+        "text_scheme": "light",
+        "eyebrow": "Conscious lifestyle & skincare",
+        "heading": "Imagine this.",
+        "heading_emphasis": "A luxurious fusion of nature’s finest ingredients.",
+        "subheading": "<p>Meticulously crafted by experts in a certified Canadian facility, formulated without parabens, and beautifully packaged in eco-friendly Italian glass bottles.</p>",
+        "cta_label": "Shop the ritual",
+        "cta2_label": "Find my routine"
+      }
+    },
+
+    "trust-bar": {
+      "type": "trust-bar",
+      "blocks": {
+        "t1": { "type": "item", "settings": { "icon": "flask", "text": "Certified Canadian facility" } },
+        "t2": { "type": "item", "settings": { "icon": "leaf", "text": "Paraben & sulphate free" } },
+        "t3": { "type": "item", "settings": { "icon": "rabbit", "text": "Cruelty-free & vegan" } },
+        "t4": { "type": "item", "settings": { "icon": "bottle", "text": "Eco-friendly Italian glass" } },
+        "t5": { "type": "item", "settings": { "icon": "truck", "text": "Free shipping in Canada" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4", "t5"],
+      "settings": {}
+    },
+
+    "ritual": {
+      "type": "ritual-steps",
+      "blocks": {
+        "s0": {
+          "type": "step",
+          "settings": {
+            "step_number": "0",
+            "step_label": "Step 00 — Treat",
+            "title": "Frank Castor",
+            "description": "Cold-pressed organic castor and steam-distilled frankincense. The weekly deep treatment for skin and hair."
+          }
+        },
+        "s1": {
+          "type": "step",
+          "settings": {
+            "step_number": "1",
+            "step_label": "Step 01 — Tone",
+            "title": "Rice Toner",
+            "description": "In-house rice water with witch hazel and chamomile. Brightens, balances, preps."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "step_number": "2",
+            "step_label": "Step 02 — Treat",
+            "title": "Rice Silk Serum",
+            "description": "Vitamin C, hyaluronic acid, panthenol and silk amino acids. Brightening and plumping."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "step_number": "3",
+            "step_label": "Step 03 — Seal",
+            "title": "Orchid Lotion",
+            "description": "Niacinamide, orchid extract and shea butter. Fragrance-free, seals everything in."
+          }
+        }
+      },
+      "block_order": ["s0", "s1", "s2", "s3"],
+      "settings": {
+        "surface": "surface-tint",
+        "eyebrow": "The ritual",
+        "heading": "Four steps. In this order.",
+        "subheading": "<p>Each formula does one job well, then hands off to the next. Start anywhere — but this is the order your skin prefers.</p>",
+        "cta_label": "Shop all four"
+      }
+    },
+
+    "bundle": {
+      "type": "bundle",
+      "blocks": {
+        "b1": { "type": "item", "settings": { "text": "Frank Castor, 50mL — the weekly treatment" } },
+        "b2": { "type": "item", "settings": { "text": "Rice Toner, 50mL — brighten and balance" } },
+        "b3": { "type": "item", "settings": { "text": "Rice Silk Serum, 50mL — hydrate and repair" } },
+        "b4": { "type": "item", "settings": { "text": "Orchid Lotion, 48g — seal it all in" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"],
+      "settings": {
+        "discount_percent": 15,
+        "eyebrow": "The complete set",
+        "heading": "The Full Ritual",
+        "text": "<p>All four steps, in the order your skin wants them. The simplest way to start — and the best value we offer.</p>",
+        "cta_label": "Add the full ritual",
+        "footnote": "Free shipping in Canada · 30-day money-back guarantee"
+      }
+    },
+
+    "ingredients": {
+      "type": "ingredients",
+      "blocks": {
+        "i1": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "droplet",
+            "name": "Rice water",
+            "description": "Brightens and evens tone. Formulated in-house, not bought in."
+          }
+        },
+        "i2": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "droplet",
+            "name": "Hyaluronic acid",
+            "description": "Holds water in the skin so it stays plump and smooth through the day."
+          }
+        },
+        "i3": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "flask",
+            "name": "Niacinamide",
+            "description": "Evens tone and texture, softens fine lines, calms redness."
+          }
+        },
+        "i4": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "leaf",
+            "name": "Orchid extract",
+            "description": "Antioxidant-rich protection against everyday environmental stress."
+          }
+        }
+      },
+      "block_order": ["i1", "i2", "i3", "i4"],
+      "settings": {
+        "surface": "surface-bone",
+        "eyebrow": "What's inside",
+        "heading": "Actives you can actually name",
+        "text": "<p>No filler, no mystery blends. Every ingredient earns its place, and we tell you exactly what it does.</p>"
+      }
+    },
+
+    "story": {
+      "type": "image-with-text",
+      "settings": {
+        "surface": "surface-paper",
+        "layout": "media_first",
+        "media_shape": "landscape",
+        "eyebrow": "Why we started",
+        "heading": "One percent, compounded",
+        "text": "<p>Most skincare asks you to overhaul everything at once. We think the opposite works better: four honest formulas, used consistently, getting you one percent closer to the skin you want every single day.</p><p>Everything is made in a certified Canadian facility, without parabens, and bottled in Italian glass we would happily leave out on the counter.</p>",
+        "cta_label": "Read our story"
+      }
+    },
+
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "q1": {
+          "type": "quote",
+          "settings": {
+            "rating": 5,
+            "quote": "Three weeks in and the texture on my cheeks has genuinely calmed down. The toner smells like nothing, which is exactly what I wanted.",
+            "author": "Amara K.",
+            "product_name": "Rice Toner",
+            "verified": true
+          }
+        },
+        "q2": {
+          "type": "quote",
+          "settings": {
+            "rating": 5,
+            "quote": "I've paid four times this for a serum that did less. It sinks in fast and my makeup sits better over it.",
+            "author": "Danielle R.",
+            "product_name": "Rice Silk Serum",
+            "verified": true
+          }
+        },
+        "q3": {
+          "type": "quote",
+          "settings": {
+            "rating": 5,
+            "quote": "The fragrance-free lotion is the reason I stayed. My skin reacts to everything and this one just doesn't bother it.",
+            "author": "Priya S.",
+            "product_name": "Orchid Lotion",
+            "verified": true
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3"],
+      "settings": {
+        "surface": "surface-sage",
+        "eyebrow": "In their words",
+        "heading": "One percent better, every day",
+        "show_aggregate": true,
+        "aggregate_text": "4.8 average from 320+ reviews"
+      }
+    },
+
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "f1": {
+          "type": "faq",
+          "settings": {
+            "question": "What order do I use the four products in?",
+            "answer": "<p>Toner first on clean skin, then serum, then lotion to seal. Frank Castor is a treatment — use it once or twice a week on skin or hair, or as the last step at night.</p>"
+          }
+        },
+        "f2": {
+          "type": "faq",
+          "settings": {
+            "question": "Is this suitable for sensitive skin?",
+            "answer": "<p>Yes. Everything is formulated without parabens or harsh chemicals, and the Orchid Lotion is fragrance-free. As with any new product, patch test on your inner arm for 24 hours first.</p>"
+          }
+        },
+        "f3": {
+          "type": "faq",
+          "settings": {
+            "question": "Where is it made?",
+            "answer": "<p>Formulated and filled in a certified facility in Canada, then bottled in recyclable Italian glass.</p>"
+          }
+        },
+        "f4": {
+          "type": "faq",
+          "settings": {
+            "question": "How long will one bottle last?",
+            "answer": "<p>Roughly eight to ten weeks with twice-daily use. The bottles are sized so the whole ritual runs out at about the same time.</p>"
+          }
+        },
+        "f5": {
+          "type": "faq",
+          "settings": {
+            "question": "What if it doesn't work for me?",
+            "answer": "<p>Return it within 30 days, opened or not, and we'll refund you. Skincare is personal and we would rather you find the right thing.</p>"
+          }
+        }
+      },
+      "block_order": ["f1", "f2", "f3", "f4", "f5"],
+      "settings": {
+        "surface": "surface-bone",
+        "eyebrow": "Before you ask",
+        "heading": "Questions, answered",
+        "single_open": true,
+        "footer_text": "Still deciding? Email us and a human will answer."
+      }
+    }
+  },
+
+  "order": [
+    "hero",
+    "trust-bar",
+    "ritual",
+    "bundle",
+    "ingredients",
+    "story",
+    "testimonials",
+    "faq"
+  ]
+}

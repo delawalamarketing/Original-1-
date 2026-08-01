@@ -1,0 +1,202 @@
+{%- comment -%}
+  The highest-leverage block on the page for average order value.
+
+  Two ways to run it:
+  1. Point it at a real bundle product (Shopify Bundles app) — cleanest, one
+     line item, one inventory record, discount handled by Shopify.
+  2. Leave the product empty and it adds the four step products in one request,
+     letting an automatic discount do the maths at checkout.
+
+  Option 1 is strongly preferred once the bundle SKU exists.
+{%- endcomment -%}
+
+{%- liquid
+  assign bundle = section.settings.bundle_product
+  assign step_products = section.settings.step_products
+-%}
+
+<section class="section surface-forest">
+  <div class="container">
+    <div class="bundle">
+
+      <div class="bundle__media" data-reveal>
+        {%- if section.settings.image != blank -%}
+          <img src="{{ section.settings.image | image_url: width: 1200 }}"
+               srcset="{{ section.settings.image | image_url: width: 700 }} 700w,
+                       {{ section.settings.image | image_url: width: 1200 }} 1200w"
+               sizes="(min-width: 990px) 50vw, 100vw"
+               alt="{{ section.settings.image.alt | escape }}"
+               width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}"
+               loading="lazy">
+        {%- elsif bundle.featured_image -%}
+          <img src="{{ bundle.featured_image | image_url: width: 1200 }}"
+               alt="{{ bundle.featured_image.alt | escape | default: bundle.title }}"
+               width="{{ bundle.featured_image.width }}" height="{{ bundle.featured_image.height }}"
+               loading="lazy">
+        {%- else -%}
+          {{ 'product-2' | placeholder_svg_tag: 'placeholder' }}
+        {%- endif -%}
+      </div>
+
+      <div data-reveal data-reveal-delay="120">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+
+        <h2>{{ section.settings.heading }}</h2>
+
+        {%- if section.settings.text != blank -%}
+          <div class="lede">{{ section.settings.text }}</div>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <ul class="bundle__list">
+            {%- for block in section.blocks -%}
+              <li {{ block.shopify_attributes }}>
+                {% render 'icon', name: 'check', size: 18 %}
+                <span>{{ block.settings.text }}</span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- comment -%} ---- Pricing ---- {%- endcomment -%}
+        {%- if bundle != blank -%}
+          <div class="bundle__price">
+            <span class="bundle__price-now">{{ bundle.price | money }}</span>
+            {%- if bundle.compare_at_price > bundle.price -%}
+              <s class="bundle__price-was">{{ bundle.compare_at_price | money }}</s>
+              <span class="badge badge--brass">
+                Save {{ bundle.compare_at_price | minus: bundle.price | money_without_trailing_zeros }}
+              </span>
+            {%- endif -%}
+          </div>
+
+          <product-form>
+            {%- form 'product', bundle, id: null -%}
+              <input type="hidden" name="id" value="{{ bundle.selected_or_first_available_variant.id }}">
+              <button type="submit" class="btn btn--light btn--lg btn--full"
+                      {% unless bundle.available %}disabled{% endunless %}>
+                <span data-btn-label>
+                  {%- if bundle.available -%}
+                    {{ section.settings.cta_label }}
+                  {%- else -%}
+                    {{ 'products.product.sold_out' | t }}
+                  {%- endif -%}
+                </span>
+                <span data-btn-spinner hidden>{% render 'icon', name: 'spinner', size: 16 %}</span>
+              </button>
+            {%- endform -%}
+            <p class="field__error" data-form-error hidden role="alert"></p>
+          </product-form>
+
+        {%- elsif step_products != blank -%}
+          {%- liquid
+            assign total = 0
+            for p in step_products
+              assign total = total | plus: p.price
+            endfor
+            assign discounted = total | times: section.settings.discount_percent | divided_by: 100
+            assign discounted = total | minus: discounted
+          -%}
+
+          <div class="bundle__price">
+            <span class="bundle__price-now">{{ discounted | money }}</span>
+            <s class="bundle__price-was">{{ total | money }}</s>
+            <span class="badge badge--brass">Save {{ section.settings.discount_percent }}%</span>
+          </div>
+
+          <product-form>
+            <form method="post" action="{{ routes.cart_add_url }}" novalidate>
+              <input type="hidden" name="form_type" value="product">
+              <input type="hidden" name="utf8" value="✓">
+              {%- for p in step_products -%}
+                <input type="hidden" name="items[{{ forloop.index0 }}][id]"
+                       value="{{ p.selected_or_first_available_variant.id }}">
+                <input type="hidden" name="items[{{ forloop.index0 }}][quantity]" value="1">
+              {%- endfor -%}
+              <button type="submit" class="btn btn--light btn--lg btn--full">
+                <span data-btn-label>{{ section.settings.cta_label }}</span>
+                <span data-btn-spinner hidden>{% render 'icon', name: 'spinner', size: 16 %}</span>
+              </button>
+            </form>
+            <p class="field__error" data-form-error hidden role="alert"></p>
+          </product-form>
+
+          <p style="font-size:var(--fs-xs);opacity:0.7;margin-top:0.75rem;">
+            Discount applied automatically at checkout.
+          </p>
+        {%- endif -%}
+
+        {%- if section.settings.footnote != blank -%}
+          <p style="font-size:var(--fs-xs);opacity:0.7;margin-top:1rem;">{{ section.settings.footnote }}</p>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bundle / full ritual",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Point this at a real bundle product if you have one. Otherwise pick the individual step products and set a discount percentage that matches an automatic discount in Shopify Discounts."
+    },
+    { "type": "product", "id": "bundle_product", "label": "Bundle product (preferred)" },
+    {
+      "type": "product_list",
+      "id": "step_products",
+      "label": "Or: individual products",
+      "limit": 6,
+      "info": "Used only when no bundle product is selected."
+    },
+    {
+      "type": "range",
+      "id": "discount_percent",
+      "label": "Bundle discount",
+      "min": 0, "max": 40, "step": 5, "unit": "%", "default": 15,
+      "info": "Display only. Create a matching automatic discount in Shopify → Discounts."
+    },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The complete set" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Full Ritual" },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>All four steps, in the order your skin wants them. The simplest way to start — and the best value.</p>"
+    },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Add the full ritual" },
+    {
+      "type": "text",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "Free shipping in Canada · 30-day money-back guarantee"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Included item",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Rice Toner, 50mL" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bundle / full ritual",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Frank Castor, 50mL — the weekly treatment" } },
+        { "type": "item", "settings": { "text": "Rice Toner, 50mL — brighten and balance" } },
+        { "type": "item", "settings": { "text": "Rice Silk Serum, 50mL — hydrate and repair" } },
+        { "type": "item", "settings": { "text": "Orchid Lotion, 48g — seal it all in" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

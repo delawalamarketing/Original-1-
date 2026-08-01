@@ -1,0 +1,128 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_forest | default: '#304824' }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
+    {%- endif -%}
+
+    {%- capture seo_title -%}
+      {{ page_title }}
+      {%- if current_tags %} &ndash; {{ 'general.meta.tags' | t: tags: current_tags | join: ', ' }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    {%- endcapture -%}
+    <title>{{ seo_title | strip }}</title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    {% render 'meta-tags' %}
+
+    {{ content_for_header }}
+
+    {%- comment -%}
+      Fonts are served from Shopify's CDN via font_face — no third-party request,
+      no render-blocking stylesheet, and the font files are already cached at edge.
+    {%- endcomment -%}
+    {%- liquid
+      assign body_font = settings.type_body_font
+      assign body_font_bold = body_font | font_modify: 'weight', '600'
+      assign body_font_italic = body_font | font_modify: 'style', 'italic'
+      assign heading_font = settings.type_heading_font
+      assign heading_font_italic = heading_font | font_modify: 'style', 'italic'
+    -%}
+    <style>
+      {{ body_font | font_face: font_display: 'swap' }}
+      {{ body_font_bold | font_face: font_display: 'swap' }}
+      {{ body_font_italic | font_face: font_display: 'swap' }}
+      {{ heading_font | font_face: font_display: 'swap' }}
+      {{ heading_font_italic | font_face: font_display: 'swap' }}
+
+      :root {
+        --font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+        --font-display: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+
+        --o-bone:      {{ settings.color_bone }};
+        --o-bone-tint: {{ settings.color_bone | color_mix: '#ffffff', 65 }};
+        --o-paper:     {{ settings.color_paper }};
+        --o-ink:       {{ settings.color_ink }};
+        --o-ink-2:     {{ settings.color_ink | color_mix: settings.color_bone, 65 }};
+        --o-ink-3:     {{ settings.color_ink | color_mix: settings.color_bone, 45 }};
+        --o-forest:      {{ settings.color_forest }};
+        --o-forest-dark: {{ settings.color_forest | color_darken: 8 }};
+        --o-sage:      {{ settings.color_sage }};
+        --o-sage-soft: {{ settings.color_sage | color_lighten: 14 }};
+        --o-sage-wash: {{ settings.color_sage | color_mix: settings.color_paper, 18 }};
+        --o-teal:      {{ settings.color_teal }};
+        {%- comment -%} 16% keeps the eyebrow above 4.5:1 on the bone canvas. {%- endcomment -%}
+        --o-teal-dark: {{ settings.color_teal | color_darken: 16 }};
+        --o-brass:     {{ settings.color_brass }};
+        --o-line:      {{ settings.color_ink | color_to_rgb | replace: 'rgb(', 'rgba(' | replace: ')', ', 0.12)' }};
+        --o-line-soft: {{ settings.color_ink | color_to_rgb | replace: 'rgb(', 'rgba(' | replace: ')', ', 0.07)' }};
+        --page-max: {{ settings.page_width }}px;
+      }
+    </style>
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+
+    <script>
+      // Flip the no-js class immediately so CSS never waits on theme.js.
+      document.documentElement.classList.remove('no-js');
+
+      window.theme = {
+        locale: {{ request.locale.iso_code | json }},
+        moneyFormat: {{ shop.money_format | json }},
+        routes: {
+          root: {{ routes.root_url | json }},
+          cart_url: {{ routes.cart_url | json }},
+          cart_add_url: {{ routes.cart_add_url | json }},
+          cart_change_url: {{ routes.cart_change_url | json }},
+          predictive_search_url: {{ routes.predictive_search_url | json }}
+        },
+        strings: {
+          addToCart: {{ 'products.product.add_to_cart' | t | json }},
+          soldOut: {{ 'products.product.sold_out' | t | json }},
+          unavailable: {{ 'products.product.unavailable' | t | json }},
+          added: {{ 'products.product.added' | t | json }},
+          cartError: {{ 'sections.cart.error' | t | json }}
+        }
+      };
+    </script>
+
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+  </head>
+
+  <body class="template-{{ template.name | handle }}">
+    <a class="skip-to-content" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {%- comment -%}
+      Rendered as sections, not snippets, so theme.js can re-fetch the cart
+      drawer through the Section Rendering API without duplicating markup in JS.
+      They sit outside the header because the header's backdrop-filter would
+      otherwise become the containing block for their fixed positioning.
+    {%- endcomment -%}
+    {% section 'cart-drawer' %}
+    {% section 'mobile-menu' %}
+
+    <ul hidden>
+      <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
+    </ul>
+  </body>
+</html>

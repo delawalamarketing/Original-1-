@@ -1,0 +1,103 @@
+{%- comment -%}
+  Accepts:
+    product        — required
+    lazy           — bool, true for anything below the fold
+    show_quick_add — bool, default true
+    index          — loop index, used for the reveal stagger
+
+  Conversion notes:
+  - The whole card is clickable via the title's ::after overlay, so there is
+    still exactly one link per card for screen readers.
+  - Quick-add posts straight to the cart when the product has a single variant;
+    multi-variant products send the shopper to the PDP to choose instead of
+    silently adding the wrong one.
+{%- endcomment -%}
+
+{%- liquid
+  assign step = product.metafields.custom.routine_step.value
+  assign short = product.metafields.custom.short_description.value | default: product.description
+  assign single_variant = false
+  if product.variants.size == 1
+    assign single_variant = true
+  endif
+  assign second_image = product.images[1]
+-%}
+
+<article class="card" data-reveal {% if index %}data-reveal-delay="{{ index | times: 70 }}"{% endif %}>
+  <div class="card__media">
+    <div class="card__badges">
+      {%- if settings.show_sale_badge and product.compare_at_price > product.price -%}
+        <span class="badge badge--brass">
+          {{ 'products.product.on_sale' | t: amount: product.compare_at_price | minus: product.price | money_without_trailing_zeros }}
+        </span>
+      {%- endif -%}
+      {%- unless product.available -%}
+        <span class="badge badge--sold-out">{{ 'products.product.sold_out' | t }}</span>
+      {%- endunless -%}
+    </div>
+
+    {%- if product.featured_image -%}
+      <img
+        src="{{ product.featured_image | image_url: width: 600 }}"
+        srcset="{{ product.featured_image | image_url: width: 400 }} 400w,
+                {{ product.featured_image | image_url: width: 600 }} 600w,
+                {{ product.featured_image | image_url: width: 900 }} 900w"
+        sizes="(min-width: 1200px) 320px, (min-width: 750px) 30vw, 45vw"
+        alt="{{ product.featured_image.alt | escape | default: product.title }}"
+        width="{{ product.featured_image.width }}"
+        height="{{ product.featured_image.height }}"
+        {% if lazy != false %}loading="lazy"{% endif %}
+      >
+      {%- if second_image -%}
+        <img class="card__media-alt"
+          src="{{ second_image | image_url: width: 600 }}"
+          alt=""
+          width="{{ second_image.width }}" height="{{ second_image.height }}"
+          loading="lazy" aria-hidden="true"
+        >
+      {%- endif -%}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
+    {%- endif -%}
+  </div>
+
+  <div class="card__body">
+    {%- if settings.show_step_badge and step != blank -%}
+      <span class="card__step">{{ step }}</span>
+    {%- endif -%}
+
+    <h3 class="card__title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h3>
+
+    {% render 'rating', product: product %}
+
+    {%- if short != blank -%}
+      <p class="card__desc">{{ short | strip_html | truncatewords: 18 }}</p>
+    {%- endif -%}
+
+    <div class="card__footer">
+      {% render 'price', product: product %}
+
+      {%- if show_quick_add != false and product.available -%}
+        <div class="card__cta">
+          {%- if single_variant -%}
+            <product-form>
+              {%- form 'product', product, id: null, class: 'card__form' -%}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                <button type="submit" class="btn btn--secondary" style="min-height:40px;padding-inline:1.15rem;">
+                  <span data-btn-label>{{ 'products.product.add_to_cart' | t }}</span>
+                  <span data-btn-spinner hidden>{% render 'icon', name: 'spinner', size: 15 %}</span>
+                </button>
+              {%- endform -%}
+            </product-form>
+          {%- else -%}
+            <a href="{{ product.url }}" class="btn btn--secondary" style="min-height:40px;padding-inline:1.15rem;">
+              {{ 'products.product.choose_options' | t }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</article>

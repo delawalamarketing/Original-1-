@@ -1,0 +1,195 @@
+{%- comment -%}
+  Rendered statically from layout/theme.liquid so that theme.js can refresh it
+  through the Section Rendering API (`/cart?section_id=cart-drawer`). Keeping the
+  markup in Liquid means the drawer and the cart page never drift apart.
+{%- endcomment -%}
+
+{%- liquid
+  assign threshold = settings.cart_free_shipping_threshold | times: 100
+  assign remaining = threshold | minus: cart.total_price
+  assign progress = 0
+  if threshold > 0
+    assign progress = cart.total_price | times: 100.0 | divided_by: threshold
+    if progress > 100
+      assign progress = 100
+    endif
+  endif
+-%}
+
+<cart-drawer
+  id="CartDrawer"
+  class="drawer"
+  data-section-id="{{ section.id }}"
+  data-cart-section="{{ section.id }}"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  aria-label="{{ 'sections.cart.title' | t }}"
+>
+  <div class="drawer__overlay" data-drawer-overlay></div>
+
+  <div class="drawer__panel" data-drawer-panel>
+    <div class="drawer__header">
+      <h2 class="drawer__title">
+        {{ 'sections.cart.title' | t }}
+        <span data-cart-count-inline>{% if cart.item_count > 0 %}({{ cart.item_count }}){% endif %}</span>
+      </h2>
+      <button type="button" class="icon-btn" data-drawer-close aria-label="{{ 'general.close' | t }}">
+        {% render 'icon', name: 'close', size: 20 %}
+      </button>
+    </div>
+
+    <div class="drawer__body" data-drawer-body>
+      <p class="field__error" data-cart-error hidden role="alert"></p>
+
+      {%- if cart.item_count == 0 -%}
+
+        <div class="cart-empty">
+          <p class="lede">{{ 'sections.cart.empty' | t }}</p>
+          <p class="meta" style="margin-bottom:1.5rem;">{{ 'sections.cart.empty_note' | t }}</p>
+          <a href="{{ routes.all_products_collection_url }}" class="btn">{{ 'general.continue_shopping' | t }}</a>
+        </div>
+
+      {%- else -%}
+
+        {%- if settings.cart_free_shipping_bar and threshold > 0 -%}
+          <div class="ship-meter">
+            <span class="ship-meter__label">
+              {%- if remaining > 0 -%}
+                {{ 'sections.cart.free_shipping_progress' | t: amount: remaining | money }}
+              {%- else -%}
+                {% render 'icon', name: 'check', size: 13 %} {{ 'sections.cart.free_shipping_reached' | t }}
+              {%- endif -%}
+            </span>
+            <div class="ship-meter__track" role="progressbar"
+                 aria-valuenow="{{ progress | round }}" aria-valuemin="0" aria-valuemax="100">
+              <div class="ship-meter__fill" style="width: {{ progress }}%;"></div>
+            </div>
+          </div>
+        {%- endif -%}
+
+        <div class="cart-lines">
+          {%- for item in cart.items -%}
+            <div class="line-item">
+              <a href="{{ item.url }}" class="line-item__media" tabindex="-1" aria-hidden="true">
+                {%- if item.image -%}
+                  <img src="{{ item.image | image_url: width: 200 }}" alt="" width="100" height="133" loading="lazy">
+                {%- endif -%}
+              </a>
+
+              <div class="line-item__info">
+                <h3 class="line-item__title"><a href="{{ item.url }}">{{ item.product.title }}</a></h3>
+
+                {%- unless item.product.has_only_default_variant -%}
+                  <p class="line-item__variant">{{ item.variant.title }}</p>
+                {%- endunless -%}
+
+                {%- if item.selling_plan_allocation -%}
+                  <p class="line-item__variant">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+                {%- endif -%}
+
+                {%- for property in item.properties -%}
+                  {%- unless property.last == blank or property.first[0] == '_' -%}
+                    <p class="line-item__variant">{{ property.first }}: {{ property.last }}</p>
+                  {%- endunless -%}
+                {%- endfor -%}
+
+                <div class="line-item__row">
+                  <quantity-input class="qty">
+                    <button type="button" class="qty__btn" data-qty-step="-1"
+                            aria-label="{{ 'products.product.decrease_quantity' | t }}">&minus;</button>
+                    <input
+                      class="qty__input"
+                      type="number"
+                      inputmode="numeric"
+                      min="0"
+                      value="{{ item.quantity }}"
+                      data-line-qty="{{ forloop.index }}"
+                      aria-label="{{ 'products.product.quantity' | t }} — {{ item.product.title | escape }}"
+                    >
+                    <button type="button" class="qty__btn" data-qty-step="1"
+                            aria-label="{{ 'products.product.increase_quantity' | t }}">+</button>
+                  </quantity-input>
+
+                  <span class="price">
+                    {%- if item.original_line_price > item.final_line_price -%}
+                      <span class="price__current">{{ item.final_line_price | money }}</span>
+                      <s class="price__compare">{{ item.original_line_price | money }}</s>
+                    {%- else -%}
+                      <span class="price__current">{{ item.final_line_price | money }}</span>
+                    {%- endif -%}
+                  </span>
+                </div>
+
+                {%- if item.line_level_discount_allocations.size > 0 -%}
+                  {%- for allocation in item.line_level_discount_allocations -%}
+                    <p class="badge badge--brass" style="margin-top:0.5rem;">
+                      {{ allocation.discount_application.title }} &minus;{{ allocation.amount | money }}
+                    </p>
+                  {%- endfor -%}
+                {%- endif -%}
+
+                <button type="button" class="line-item__remove" data-line-remove="{{ forloop.index }}">
+                  {{ 'sections.cart.remove' | t }}
+                </button>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+      {%- endif -%}
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <div class="drawer__footer" data-drawer-footer>
+        {%- if cart.cart_level_discount_applications.size > 0 -%}
+          {%- for discount in cart.cart_level_discount_applications -%}
+            <div class="cart-summary__row" style="color:var(--o-brass);">
+              <span>{{ discount.title }}</span>
+              <span>&minus;{{ discount.total_allocated_amount | money }}</span>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+
+        <div class="cart-summary__row">
+          <span class="meta">{{ 'sections.cart.subtotal' | t }}</span>
+          <span class="cart-summary__total" data-cart-total>{{ cart.total_price | money }}</span>
+        </div>
+
+        <p class="cart-note">{{ 'sections.cart.taxes_note' | t }}</p>
+
+        <form action="{{ routes.cart_url }}" method="post" novalidate>
+          {%- if settings.cart_show_note -%}
+            <div class="field" style="margin-bottom:1rem;">
+              <label class="field__label" for="CartDrawerNote">{{ 'sections.cart.note' | t }}</label>
+              <textarea class="textarea" id="CartDrawerNote" name="note"
+                        placeholder="{{ 'sections.cart.note_placeholder' | t }}"
+                        style="min-height:76px;">{{ cart.note }}</textarea>
+            </div>
+          {%- endif -%}
+
+          <button type="submit" name="checkout" class="btn btn--full btn--lg">
+            {{ 'sections.cart.checkout' | t }} &middot; {{ cart.total_price | money }}
+          </button>
+        </form>
+
+        <a href="{{ routes.cart_url }}" class="btn btn--ghost btn--full" style="margin-top:0.5rem;">
+          {{ 'sections.cart.view_cart' | t }}
+        </a>
+
+        {%- if settings.cart_reassurance != blank -%}
+          <p class="cart-note" style="margin-top:0.75rem;">{{ settings.cart_reassurance }}</p>
+        {%- endif -%}
+      </div>
+    {%- else -%}
+      <div data-drawer-footer hidden></div>
+    {%- endif -%}
+  </div>
+</cart-drawer>
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": []
+}
+{% endschema %}

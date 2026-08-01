@@ -1,0 +1,29 @@
+{%- comment -%}
+  Accepts: id (unique string), section_id, title, content
+{%- endcomment -%}
+
+<div class="accordion__item">
+  <h3 style="margin:0;">
+    <button
+      type="button"
+      class="accordion__trigger"
+      aria-expanded="false"
+      aria-controls="Panel-{{ section_id }}-{{ id }}"
+      id="Trigger-{{ section_id }}-{{ id }}"
+    >
+      <span>{{ title }}</span>
+      <span class="accordion__icon" aria-hidden="true"></span>
+    </button>
+  </h3>
+  <div
+    class="accordion__panel"
+    id="Panel-{{ section_id }}-{{ id }}"
+    role="region"
+    aria-labelledby="Trigger-{{ section_id }}-{{ id }}"
+    data-open="false"
+  >
+    <div>
+      <div class="accordion__content rte">{{ content }}</div>
+    </div>
+  </div>
+</div>

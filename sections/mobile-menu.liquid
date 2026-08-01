@@ -1,0 +1,71 @@
+<drawer-element
+  id="MobileMenu"
+  class="drawer drawer--left"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  aria-label="{{ 'general.menu' | t }}"
+>
+  <div class="drawer__overlay" data-drawer-overlay></div>
+
+  <div class="drawer__panel" data-drawer-panel>
+    <div class="drawer__header">
+      <span class="drawer__title">{{ 'general.menu' | t }}</span>
+      <button type="button" class="icon-btn" data-drawer-close aria-label="{{ 'general.close' | t }}">
+        {% render 'icon', name: 'close', size: 20 %}
+      </button>
+    </div>
+
+    <div class="drawer__body">
+      <ul class="mobile-nav">
+        {%- for link in section.settings.menu.links -%}
+          <li>
+            <a href="{{ link.url }}">
+              {{ link.title }}
+              {% render 'icon', name: 'arrow-right', size: 18 %}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- if section.settings.promo_text != blank -%}
+        <div style="margin-top:2rem;padding:1.25rem;background:var(--o-sage-wash);border-radius:var(--radius-lg);">
+          <p class="eyebrow" style="margin-bottom:0.5rem;">{{ section.settings.promo_heading }}</p>
+          <p style="font-size:var(--fs-sm);margin-bottom:1rem;">{{ section.settings.promo_text }}</p>
+          {%- if section.settings.promo_link != blank -%}
+            <a href="{{ section.settings.promo_link }}" class="btn btn--full">{{ section.settings.promo_cta }}</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="drawer__footer">
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" class="btn btn--secondary btn--full">
+          {% render 'icon', name: 'account', size: 18 %}
+          {{ 'general.account' | t }}
+        </a>
+      {%- endif -%}
+      {% render 'social-links' %}
+    </div>
+  </div>
+</drawer-element>
+
+{% schema %}
+{
+  "name": "Mobile menu",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "header", "content": "Promo panel" },
+    { "type": "text", "id": "promo_heading", "label": "Heading", "default": "New here?" },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Text",
+      "default": "Take the 60-second skin quiz and we’ll build your four-step ritual."
+    },
+    { "type": "text", "id": "promo_cta", "label": "Button label", "default": "Start the quiz" },
+    { "type": "url", "id": "promo_link", "label": "Button link" }
+  ]
+}
+{% endschema %}

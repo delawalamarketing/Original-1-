@@ -1,0 +1,118 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": { "type": "title", "settings": {} },
+        "rating": { "type": "rating", "settings": {} },
+        "price": { "type": "price", "settings": { "low_stock_threshold": 8 } },
+        "description": { "type": "description", "settings": {} },
+        "benefits": {
+          "type": "benefits",
+          "settings": {
+            "fallback_text": "Brightens and evens tone\nDeeply hydrates without a heavy finish\nFormulated without parabens or harsh chemicals\nSuitable for sensitive skin"
+          }
+        },
+        "variant_picker": { "type": "variant_picker", "settings": {} },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity": true,
+            "show_dynamic_checkout": true,
+            "show_subscribe": true
+          }
+        },
+        "reassurance": {
+          "type": "reassurance",
+          "settings": {
+            "item_1": "Free shipping on Canadian orders over $75",
+            "item_2": "30-day money-back guarantee",
+            "item_3": "Secure checkout — Shop Pay, Apple Pay, Google Pay"
+          }
+        },
+        "accordion": {
+          "type": "accordion",
+          "settings": {
+            "how_to_use": "<p>Apply to clean skin morning and night. Follow with the next step in your ritual while skin is still damp.</p>",
+            "shipping": "<p>Free shipping on Canadian orders over $75. Orders ship within 1–2 business days from Ontario. Return anything within 30 days, opened or not, for a full refund.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "rating",
+        "price",
+        "description",
+        "benefits",
+        "variant_picker",
+        "buy_buttons",
+        "reassurance",
+        "accordion"
+      ],
+      "settings": {
+        "enable_sticky_atc": true
+      }
+    },
+
+    "complete-ritual": {
+      "type": "complete-the-ritual",
+      "settings": {
+        "products_to_show": 3,
+        "surface": "surface-tint",
+        "eyebrow": "Better together",
+        "heading": "Complete your ritual",
+        "text": "<p>Each step makes the next one work harder. Here's what pairs with this one.</p>"
+      }
+    },
+
+    "trust-bar": {
+      "type": "trust-bar",
+      "blocks": {
+        "t1": { "type": "item", "settings": { "icon": "flask", "text": "Certified Canadian facility" } },
+        "t2": { "type": "item", "settings": { "icon": "leaf", "text": "Paraben & sulphate free" } },
+        "t3": { "type": "item", "settings": { "icon": "rabbit", "text": "Cruelty-free & vegan" } },
+        "t4": { "type": "item", "settings": { "icon": "bottle", "text": "Eco-friendly Italian glass" } },
+        "t5": { "type": "item", "settings": { "icon": "return", "text": "30-day returns" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4", "t5"],
+      "settings": {}
+    },
+
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "f1": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I use this with the rest of the ritual?",
+            "answer": "<p>Toner first on clean skin, then serum, then lotion to seal. Frank Castor is a weekly treatment — use it on skin or hair, or as the final step at night.</p>"
+          }
+        },
+        "f2": {
+          "type": "faq",
+          "settings": {
+            "question": "Is it safe for sensitive skin?",
+            "answer": "<p>Yes. Formulated without parabens or harsh chemicals. Patch test on your inner arm for 24 hours before first use, as you would with any new product.</p>"
+          }
+        },
+        "f3": {
+          "type": "faq",
+          "settings": {
+            "question": "When will I see a difference?",
+            "answer": "<p>Hydration is immediate. Tone and texture changes usually show at the three to four week mark with consistent twice-daily use.</p>"
+          }
+        }
+      },
+      "block_order": ["f1", "f2", "f3"],
+      "settings": {
+        "surface": "surface-bone",
+        "eyebrow": "Good to know",
+        "heading": "Questions about this product",
+        "single_open": true,
+        "footer_text": ""
+      }
+    }
+  },
+
+  "order": ["main", "complete-ritual", "trust-bar", "faq"]
+}

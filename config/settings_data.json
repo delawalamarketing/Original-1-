@@ -1,0 +1,29 @@
+{
+  "current": {
+    "color_bone": "#E4E2DD",
+    "color_paper": "#FAF9F7",
+    "color_ink": "#14181A",
+    "color_forest": "#304824",
+    "color_sage": "#99BA8F",
+    "color_teal": "#469D99",
+    "color_brass": "#B27409",
+    "type_heading_font": "playfair_display_n4",
+    "type_body_font": "assistant_n4",
+    "page_width": 1360,
+    "logo_width": 150,
+    "brand_tagline": "One percent more you, every day.",
+    "brand_blurb": "Conscious lifestyle & skincare. Formulated in a certified Canadian facility, bottled in eco-friendly Italian glass.",
+    "cart_type": "drawer",
+    "cart_free_shipping_bar": true,
+    "cart_free_shipping_threshold": 75,
+    "cart_show_note": false,
+    "cart_reassurance": "Free shipping in Canada · 30-day returns · Secure checkout",
+    "show_sale_badge": true,
+    "show_step_badge": true,
+    "social_instagram": "",
+    "social_tiktok": "",
+    "social_facebook": "",
+    "social_youtube": ""
+  },
+  "platform_customizations": {}
+}

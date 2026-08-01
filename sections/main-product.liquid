@@ -1,0 +1,473 @@
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign step = product.metafields.custom.routine_step.value
+  assign size_label = product.metafields.custom.size.value
+  assign benefits = product.metafields.custom.benefits.value
+  assign ingredients_full = product.metafields.custom.ingredients_full.value
+  assign how_to_use = product.metafields.custom.how_to_use.value
+  assign has_selling_plans = false
+  if product.selling_plan_groups.size > 0
+    assign has_selling_plans = true
+  endif
+-%}
+
+{%- comment -%}
+  data-product-root wraps the info column *and* the sticky bar so a variant
+  change updates both prices. The sticky bar is position:fixed, so nesting it
+  here costs nothing visually.
+{%- endcomment -%}
+<div data-product-root>
+<div class="container">
+
+  <nav class="breadcrumbs" aria-label="{{ 'general.breadcrumbs.aria_label' | t }}">
+    <a href="{{ routes.root_url }}">{{ 'general.breadcrumbs.home' | t }}</a>
+    <span aria-hidden="true">/</span>
+    {%- if collection -%}
+      <a href="{{ collection.url }}">{{ collection.title }}</a>
+      <span aria-hidden="true">/</span>
+    {%- endif -%}
+    <span aria-current="page">{{ product.title }}</span>
+  </nav>
+
+  <div class="pdp">
+
+    {%- comment -%} ============ GALLERY ============ {%- endcomment -%}
+    <product-gallery class="pdp__gallery">
+      <div class="pdp__main-image" data-gallery-main>
+        {%- if product.featured_media -%}
+          <img
+            src="{{ product.featured_media | image_url: width: 1200 }}"
+            srcset="{{ product.featured_media | image_url: width: 700 }} 700w,
+                    {{ product.featured_media | image_url: width: 1200 }} 1200w,
+                    {{ product.featured_media | image_url: width: 1600 }} 1600w"
+            sizes="(min-width: 990px) 55vw, 100vw"
+            alt="{{ product.featured_media.alt | escape | default: product.title }}"
+            width="{{ product.featured_media.width }}"
+            height="{{ product.featured_media.height }}"
+            fetchpriority="high"
+          >
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
+        {%- endif -%}
+      </div>
+
+      {%- if product.media.size > 1 -%}
+        <div class="pdp__thumbs" role="group" aria-label="{{ 'products.product.media.gallery_label' | t }}">
+          {%- for media in product.media -%}
+            <button type="button" class="pdp__thumb"
+                    data-media-id="{{ media.id }}"
+                    aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+                    aria-label="{{ 'products.product.media.thumbnail' | t: number: forloop.index }}">
+              <img
+                src="{{ media | image_url: width: 200 }}"
+                data-full="{{ media | image_url: width: 1200 }}"
+                data-full-srcset="{{ media | image_url: width: 700 }} 700w, {{ media | image_url: width: 1200 }} 1200w"
+                alt="{{ media.alt | escape | default: product.title }}"
+                width="100" height="100" loading="lazy"
+              >
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </product-gallery>
+
+    {%- comment -%} ============ INFO ============ {%- endcomment -%}
+    <div class="pdp__info">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+
+          {%- when 'title' -%}
+            <div {{ block.shopify_attributes }}>
+              {%- if step != blank -%}
+                <span class="card__step" style="display:block;margin-bottom:0.5rem;">{{ step }}</span>
+              {%- endif -%}
+              <h1 class="pdp__title">{{ product.title }}</h1>
+              {%- if size_label != blank -%}
+                <p class="meta" style="margin-top:0.5rem;">{{ size_label }}</p>
+              {%- endif -%}
+            </div>
+
+          {%- when 'rating' -%}
+            <div {{ block.shopify_attributes }}>{% render 'rating', product: product %}</div>
+
+          {%- when 'price' -%}
+            <div class="pdp__price-row" {{ block.shopify_attributes }}>
+              <div class="pdp__price" data-price-block>
+                {% render 'price', product: variant, show_unit: true %}
+              </div>
+              {%- if variant.available == false -%}
+                <span class="badge badge--sold-out">{{ 'products.product.sold_out' | t }}</span>
+              {%- elsif variant.inventory_management == 'shopify' and variant.inventory_quantity > 0 and variant.inventory_quantity <= block.settings.low_stock_threshold -%}
+                <span class="badge badge--brass">
+                  {{ 'products.product.low_stock' | t: count: variant.inventory_quantity }}
+                </span>
+              {%- endif -%}
+            </div>
+            <p class="meta" style="margin:-0.5rem 0 0;">{{ 'products.product.shipping_note' | t }}</p>
+
+          {%- when 'description' -%}
+            <div class="rte" {{ block.shopify_attributes }}>
+              {%- assign short = product.metafields.custom.short_description.value -%}
+              {%- if short != blank -%}
+                <p class="lede">{{ short }}</p>
+              {%- else -%}
+                <p class="lede">{{ product.description | strip_html | truncatewords: 45 }}</p>
+              {%- endif -%}
+            </div>
+
+          {%- when 'benefits' -%}
+            {%- if benefits != blank or block.settings.fallback_text != blank -%}
+              <ul class="pdp__benefits" {{ block.shopify_attributes }}>
+                {%- if benefits != blank -%}
+                  {%- for benefit in benefits -%}
+                    <li>{% render 'icon', name: 'check-circle', size: 18 %}<span>{{ benefit }}</span></li>
+                  {%- endfor -%}
+                {%- else -%}
+                  {%- assign lines = block.settings.fallback_text | newline_to_br | split: '<br />' -%}
+                  {%- for line in lines -%}
+                    {%- if line != blank -%}
+                      <li>{% render 'icon', name: 'check-circle', size: 18 %}<span>{{ line | strip }}</span></li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endif -%}
+              </ul>
+            {%- endif -%}
+
+          {%- when 'variant_picker' -%}
+            {%- unless product.has_only_default_variant -%}
+              <variant-selector class="variant-picker" {{ block.shopify_attributes }}>
+                {%- for option in product.options_with_values -%}
+                  <fieldset style="border:0;padding:0;margin:0;">
+                    <legend class="field__label" style="margin-bottom:0.5rem;">{{ option.name }}</legend>
+                    <div class="variant-swatches">
+                      {%- for value in option.values -%}
+                        {%- assign input_id = 'Option-' | append: section.id | append: '-' | append: forloop.parentloop.index | append: '-' | append: forloop.index -%}
+                        {%- comment -%}
+                          Native radio + label. The label is the visible control,
+                          the input carries state and keyboard behaviour — no ARIA
+                          needed, and it still works with JavaScript disabled.
+                        {%- endcomment -%}
+                        <input
+                          type="radio"
+                          class="visually-hidden variant-input"
+                          id="{{ input_id }}"
+                          name="{{ option.name | escape }}-{{ section.id }}"
+                          value="{{ value | escape }}"
+                          {% if option.selected_value == value %}checked{% endif %}
+                        >
+                        <label class="variant-swatch" for="{{ input_id }}">{{ value }}</label>
+                      {%- endfor -%}
+                    </div>
+                  </fieldset>
+                {%- endfor -%}
+
+                <script type="application/json" data-variants>
+                  [
+                    {%- for v in product.variants -%}
+                      {
+                        "id": {{ v.id }},
+                        "options": {{ v.options | json }},
+                        "price": {{ v.price }},
+                        "compare_at_price": {{ v.compare_at_price | default: 0 }},
+                        "available": {{ v.available }},
+                        "featured_media": {% if v.featured_media %}{ "id": {{ v.featured_media.id }} }{% else %}null{% endif %}
+                      }{% unless forloop.last %},{% endunless %}
+                    {%- endfor -%}
+                  ]
+                </script>
+              </variant-selector>
+            {%- endunless -%}
+
+          {%- when 'buy_buttons' -%}
+            <div {{ block.shopify_attributes }}>
+              <product-form>
+                {%- form 'product', product, id: 'ProductForm', novalidate: 'novalidate' -%}
+                  <input type="hidden" name="id" value="{{ variant.id }}" data-variant-id>
+
+                  {%- comment -%} ---- Purchase options ---- {%- endcomment -%}
+                  {%- if has_selling_plans and block.settings.show_subscribe -%}
+                    <div class="purchase-options" style="margin-bottom:1.25rem;">
+                      <label class="purchase-option">
+                        <input type="radio" name="selling_plan" value="" checked>
+                        <span>
+                          <span class="purchase-option__label">
+                            {{ 'products.product.purchase_type.one_time' | t }}
+                            <span class="price" style="font-size:var(--fs-base);">{{ variant.price | money }}</span>
+                          </span>
+                        </span>
+                      </label>
+
+                      {%- for group in product.selling_plan_groups -%}
+                        {%- for plan in group.selling_plans -%}
+                          {%- assign allocation = variant.selling_plan_allocations
+                                | where: 'selling_plan_id', plan.id | first -%}
+                          <label class="purchase-option">
+                            <input type="radio" name="selling_plan" value="{{ plan.id }}">
+                            <span>
+                              <span class="purchase-option__label">
+                                {{ plan.name }}
+                                {%- if allocation -%}
+                                  <span class="price" style="font-size:var(--fs-base);">
+                                    {{ allocation.price | money }}
+                                  </span>
+                                  {%- if allocation.compare_at_price > allocation.price -%}
+                                    <span class="badge badge--brass">
+                                      Save {{ allocation.compare_at_price | minus: allocation.price | money_without_trailing_zeros }}
+                                    </span>
+                                  {%- endif -%}
+                                {%- endif -%}
+                              </span>
+                              <span class="purchase-option__note">
+                                {{ 'products.product.purchase_type.subscribe_note' | t }}
+                              </span>
+                            </span>
+                          </label>
+                        {%- endfor -%}
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
+
+                  <div class="pdp__buy">
+                    {%- if block.settings.show_quantity -%}
+                      <quantity-input class="qty">
+                        <button type="button" class="qty__btn" data-qty-step="-1"
+                                aria-label="{{ 'products.product.decrease_quantity' | t }}">&minus;</button>
+                        <input class="qty__input" type="number" name="quantity"
+                               inputmode="numeric" min="1" value="1"
+                               aria-label="{{ 'products.product.quantity' | t }}">
+                        <button type="button" class="qty__btn" data-qty-step="1"
+                                aria-label="{{ 'products.product.increase_quantity' | t }}">+</button>
+                      </quantity-input>
+                    {%- endif -%}
+
+                    <button
+                      type="submit"
+                      name="add"
+                      class="btn btn--lg"
+                      data-add-button
+                      {% unless variant.available %}disabled{% endunless %}
+                    >
+                      <span data-btn-label>
+                        {%- if variant.available -%}
+                          {{ 'products.product.add_to_cart' | t }}
+                        {%- else -%}
+                          {{ 'products.product.sold_out' | t }}
+                        {%- endif -%}
+                      </span>
+                      <span data-btn-spinner hidden>{% render 'icon', name: 'spinner', size: 16 %}</span>
+                    </button>
+                  </div>
+
+                  {%- comment -%}
+                    Shop Pay / Apple Pay / Google Pay. Express wallets are the
+                    single largest mobile conversion lift available — they remove
+                    the entire address and payment form.
+                  {%- endcomment -%}
+                  {%- if block.settings.show_dynamic_checkout -%}
+                    <div style="margin-top:0.75rem;">{{ form | payment_button }}</div>
+                  {%- endif -%}
+                {%- endform -%}
+
+                <p class="field__error" data-form-error hidden role="alert" style="margin-top:0.75rem;"></p>
+              </product-form>
+            </div>
+
+          {%- when 'reassurance' -%}
+            <div class="pdp__reassurance" {{ block.shopify_attributes }}>
+              <ul>
+                {%- if block.settings.item_1 != blank -%}
+                  <li>{% render 'icon', name: 'truck', size: 18 %}<span>{{ block.settings.item_1 }}</span></li>
+                {%- endif -%}
+                {%- if block.settings.item_2 != blank -%}
+                  <li>{% render 'icon', name: 'return', size: 18 %}<span>{{ block.settings.item_2 }}</span></li>
+                {%- endif -%}
+                {%- if block.settings.item_3 != blank -%}
+                  <li>{% render 'icon', name: 'lock', size: 18 %}<span>{{ block.settings.item_3 }}</span></li>
+                {%- endif -%}
+              </ul>
+            </div>
+
+          {%- when 'accordion' -%}
+            <accordion-element class="accordion" data-single style="margin-top:0.5rem;" {{ block.shopify_attributes }}>
+
+              {%- if product.description != blank -%}
+                {% render 'accordion-item',
+                     id: 'desc',
+                     section_id: section.id,
+                     title: 'Full description',
+                     content: product.description %}
+              {%- endif -%}
+
+              {%- if how_to_use != blank or block.settings.how_to_use != blank -%}
+                {% render 'accordion-item',
+                     id: 'how',
+                     section_id: section.id,
+                     title: 'How to use',
+                     content: how_to_use | default: block.settings.how_to_use %}
+              {%- endif -%}
+
+              {%- if ingredients_full != blank or block.settings.ingredients != blank -%}
+                {% render 'accordion-item',
+                     id: 'ing',
+                     section_id: section.id,
+                     title: 'Full ingredients',
+                     content: ingredients_full | default: block.settings.ingredients %}
+              {%- endif -%}
+
+              {%- if block.settings.shipping != blank -%}
+                {% render 'accordion-item',
+                     id: 'ship',
+                     section_id: section.id,
+                     title: 'Shipping & returns',
+                     content: block.settings.shipping %}
+              {%- endif -%}
+
+            </accordion-element>
+
+          {%- when 'custom_text' -%}
+            <div class="rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+
+{%- comment -%} ============ STICKY ADD TO CART ============ {%- endcomment -%}
+{%- if section.settings.enable_sticky_atc -%}
+  <sticky-atc class="sticky-atc" data-watch="[data-add-button]">
+    <div class="sticky-atc__inner">
+      {%- if product.featured_image -%}
+        <div class="sticky-atc__media">
+          <img src="{{ product.featured_image | image_url: width: 96 }}" alt=""
+               width="48" height="48" loading="lazy"
+               style="border-radius:6px;background:#fff;object-fit:contain;">
+        </div>
+      {%- endif -%}
+      <div class="sticky-atc__meta">
+        <p class="sticky-atc__title">{{ product.title }}</p>
+        <span class="sticky-atc__price" data-price-block>{{ variant.price | money }}</span>
+      </div>
+      <button type="button" class="btn" data-sticky-buy
+              {% unless variant.available %}disabled{% endunless %}>
+        {%- if variant.available -%}
+          {{ 'products.product.add_to_cart' | t }}
+        {%- else -%}
+          {{ 'products.product.sold_out' | t }}
+        {%- endif -%}
+      </button>
+    </div>
+  </sticky-atc>
+{%- endif -%}
+
+</div>{%- comment -%} /data-product-root {%- endcomment -%}
+
+{% schema %}
+{
+  "name": "Product",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_atc",
+      "label": "Sticky add to cart",
+      "default": true,
+      "info": "Keeps the buy button reachable after the shopper scrolls past it. One of the most reliable mobile conversion wins."
+    }
+  ],
+  "blocks": [
+    { "type": "title", "name": "Title", "limit": 1 },
+    { "type": "rating", "name": "Rating", "limit": 1 },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "low_stock_threshold",
+          "label": "Low stock threshold",
+          "min": 0, "max": 30, "step": 1, "default": 8,
+          "info": "Shows 'Only N left' at or below this. Set to 0 to switch it off. Only ever show this when it is true."
+        }
+      ]
+    },
+    { "type": "description", "name": "Short description", "limit": 1 },
+    {
+      "type": "benefits",
+      "name": "Benefits",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Reads the product metafield custom.benefits (list of single-line text). The text below is used only if that metafield is empty."
+        },
+        {
+          "type": "textarea",
+          "id": "fallback_text",
+          "label": "Fallback benefits",
+          "info": "One benefit per line."
+        }
+      ]
+    },
+    { "type": "variant_picker", "name": "Variant picker", "limit": 1 },
+    {
+      "type": "buy_buttons",
+      "name": "Buy buttons",
+      "limit": 1,
+      "settings": [
+        { "type": "checkbox", "id": "show_quantity", "label": "Show quantity selector", "default": true },
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "label": "Show express checkout buttons",
+          "default": true,
+          "info": "Shop Pay, Apple Pay, Google Pay. Leave this on."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_subscribe",
+          "label": "Show subscribe & save options",
+          "default": true,
+          "info": "Only appears when the product has a selling plan attached."
+        }
+      ]
+    },
+    {
+      "type": "reassurance",
+      "name": "Reassurance",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "item_1", "label": "Item 1", "default": "Free shipping on Canadian orders over $75" },
+        { "type": "text", "id": "item_2", "label": "Item 2", "default": "30-day money-back guarantee" },
+        { "type": "text", "id": "item_3", "label": "Item 3", "default": "Secure checkout — Shop Pay, Apple Pay, Google Pay" }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Details accordion",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Prefers the product metafields custom.how_to_use and custom.ingredients_full. The fields below are per-product fallbacks."
+        },
+        { "type": "richtext", "id": "how_to_use", "label": "How to use" },
+        { "type": "richtext", "id": "ingredients", "label": "Full ingredients" },
+        {
+          "type": "richtext",
+          "id": "shipping",
+          "label": "Shipping & returns",
+          "default": "<p>Free shipping on Canadian orders over $75. Orders ship within 1–2 business days. Return anything within 30 days, opened or not, for a full refund.</p>"
+        }
+      ]
+    },
+    {
+      "type": "custom_text",
+      "name": "Custom text",
+      "settings": [{ "type": "richtext", "id": "text", "label": "Text" }]
+    }
+  ]
+}
+{% endschema %}

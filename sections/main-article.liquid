@@ -1,0 +1,67 @@
+<article class="container container--narrow section">
+
+  <nav class="breadcrumbs" aria-label="{{ 'general.breadcrumbs.aria_label' | t }}">
+    <a href="{{ routes.root_url }}">{{ 'general.breadcrumbs.home' | t }}</a>
+    <span aria-hidden="true">/</span>
+    <a href="{{ blog.url }}">{{ blog.title }}</a>
+  </nav>
+
+  <header style="text-align:center;margin-bottom:2.5rem;">
+    <p class="eyebrow">{{ article.published_at | date: '%B %d, %Y' }}</p>
+    <h1>{{ article.title }}</h1>
+    {%- if article.author != blank -%}
+      <p class="meta">{{ 'sections.blog.by_author' | t: author: article.author }}</p>
+    {%- endif -%}
+  </header>
+
+  {%- if article.image -%}
+    <img src="{{ article.image | image_url: width: 1400 }}"
+         srcset="{{ article.image | image_url: width: 700 }} 700w,
+                 {{ article.image | image_url: width: 1400 }} 1400w"
+         sizes="(min-width: 760px) 760px, 100vw"
+         alt="{{ article.image.alt | escape }}"
+         width="{{ article.image.width }}" height="{{ article.image.height }}"
+         style="border-radius:var(--radius-lg);margin-bottom:2.5rem;"
+         fetchpriority="high">
+  {%- endif -%}
+
+  <div class="rte">{{ article.content }}</div>
+
+  {%- if blog.comments_enabled? -%}
+    <hr class="rule">
+    <h2 style="font-size:var(--fs-xl);">Comments ({{ article.comments_count }})</h2>
+
+    {%- for comment in article.comments -%}
+      <div style="padding-block:1.25rem;border-bottom:1px solid var(--o-line-soft);">
+        <p class="meta">{{ comment.author }} — {{ comment.created_at | date: '%b %d, %Y' }}</p>
+        <div class="rte">{{ comment.content }}</div>
+      </div>
+    {%- endfor -%}
+
+    {%- form 'new_comment', article, style: 'margin-top:2rem;display:grid;gap:1rem;' -%}
+      {%- if form.errors -%}
+        <p class="field__error" role="alert">{{ form.errors.messages.form }}</p>
+      {%- endif -%}
+      <div class="grid grid--2">
+        <div class="field">
+          <label class="field__label" for="CommentAuthor">Name</label>
+          <input class="input" id="CommentAuthor" type="text" name="comment[author]" required>
+        </div>
+        <div class="field">
+          <label class="field__label" for="CommentEmail">Email</label>
+          <input class="input" id="CommentEmail" type="email" name="comment[email]" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field__label" for="CommentBody">Comment</label>
+        <textarea class="textarea" id="CommentBody" name="comment[body]" required></textarea>
+      </div>
+      <button type="submit" class="btn" style="justify-self:start;">Post comment</button>
+    {%- endform -%}
+  {%- endif -%}
+
+</article>
+
+{% schema %}
+{ "name": "Article", "tag": "section", "settings": [] }
+{% endschema %}

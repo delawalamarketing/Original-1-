@@ -1,0 +1,161 @@
+{%- liquid
+  assign threshold = settings.cart_free_shipping_threshold | times: 100
+  assign remaining = threshold | minus: cart.total_price
+  assign progress = 0
+  if threshold > 0
+    assign progress = cart.total_price | times: 100.0 | divided_by: threshold
+    if progress > 100
+      assign progress = 100
+    endif
+  endif
+-%}
+
+<div class="container section">
+
+  <h1 style="text-align:center;margin-bottom:2.5rem;">{{ 'sections.cart.title' | t }}</h1>
+
+  {%- if cart.item_count == 0 -%}
+
+    <div class="cart-empty">
+      <p class="lede">{{ 'sections.cart.empty' | t }}</p>
+      <p class="meta" style="margin-bottom:2rem;">{{ 'sections.cart.empty_note' | t }}</p>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn--lg">
+        {{ 'general.continue_shopping' | t }}
+      </a>
+    </div>
+
+  {%- else -%}
+
+    <form action="{{ routes.cart_url }}" method="post" novalidate
+          style="display:grid;gap:3rem;align-items:start;"
+          class="cart-form">
+
+      <div style="display:grid;gap:3rem;grid-template-columns:1fr;" class="cart-layout">
+
+        <div>
+          {%- if settings.cart_free_shipping_bar and threshold > 0 -%}
+            <div class="ship-meter">
+              <span class="ship-meter__label">
+                {%- if remaining > 0 -%}
+                  {{ 'sections.cart.free_shipping_progress' | t: amount: remaining | money }}
+                {%- else -%}
+                  {{ 'sections.cart.free_shipping_reached' | t }}
+                {%- endif -%}
+              </span>
+              <div class="ship-meter__track" role="progressbar"
+                   aria-valuenow="{{ progress | round }}" aria-valuemin="0" aria-valuemax="100">
+                <div class="ship-meter__fill" style="width: {{ progress }}%;"></div>
+              </div>
+            </div>
+          {%- endif -%}
+
+          {%- for item in cart.items -%}
+            <div class="line-item">
+              <a href="{{ item.url }}" class="line-item__media" tabindex="-1" aria-hidden="true">
+                {%- if item.image -%}
+                  <img src="{{ item.image | image_url: width: 200 }}" alt="" width="100" height="133" loading="lazy">
+                {%- endif -%}
+              </a>
+
+              <div class="line-item__info">
+                <h2 class="line-item__title"><a href="{{ item.url }}">{{ item.product.title }}</a></h2>
+
+                {%- unless item.product.has_only_default_variant -%}
+                  <p class="line-item__variant">{{ item.variant.title }}</p>
+                {%- endunless -%}
+                {%- if item.selling_plan_allocation -%}
+                  <p class="line-item__variant">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+                {%- endif -%}
+
+                <div class="line-item__row">
+                  <quantity-input class="qty">
+                    <button type="button" class="qty__btn" data-qty-step="-1"
+                            aria-label="{{ 'products.product.decrease_quantity' | t }}">&minus;</button>
+                    <input class="qty__input" type="number" inputmode="numeric" min="0"
+                           name="updates[]" value="{{ item.quantity }}"
+                           data-line-qty="{{ forloop.index }}"
+                           aria-label="{{ 'products.product.quantity' | t }} — {{ item.product.title | escape }}">
+                    <button type="button" class="qty__btn" data-qty-step="1"
+                            aria-label="{{ 'products.product.increase_quantity' | t }}">+</button>
+                  </quantity-input>
+
+                  <span class="price">
+                    <span class="price__current">{{ item.final_line_price | money }}</span>
+                    {%- if item.original_line_price > item.final_line_price -%}
+                      <s class="price__compare">{{ item.original_line_price | money }}</s>
+                    {%- endif -%}
+                  </span>
+                </div>
+
+                <a href="{{ item.url_to_remove }}" class="line-item__remove"
+                   data-line-remove="{{ forloop.index }}">{{ 'sections.cart.remove' | t }}</a>
+              </div>
+            </div>
+          {%- endfor -%}
+
+          <noscript>
+            <button type="submit" name="update" class="btn btn--secondary" style="margin-top:1.5rem;">
+              Update cart
+            </button>
+          </noscript>
+        </div>
+
+        <aside style="background:var(--o-paper);border-radius:var(--radius-lg);padding:1.75rem;position:sticky;top:calc(var(--header-h) + 1rem);">
+          <h2 style="font-size:var(--fs-lg);margin-bottom:1.25rem;">Summary</h2>
+
+          {%- for discount in cart.cart_level_discount_applications -%}
+            <div class="cart-summary__row" style="color:var(--o-brass);">
+              <span>{{ discount.title }}</span>
+              <span>&minus;{{ discount.total_allocated_amount | money }}</span>
+            </div>
+          {%- endfor -%}
+
+          <div class="cart-summary__row">
+            <span class="meta">{{ 'sections.cart.subtotal' | t }}</span>
+            <span class="cart-summary__total" data-cart-total>{{ cart.total_price | money }}</span>
+          </div>
+
+          <p class="cart-note" style="text-align:left;">{{ 'sections.cart.taxes_note' | t }}</p>
+
+          {%- if settings.cart_show_note -%}
+            <div class="field" style="margin:1.25rem 0;">
+              <label class="field__label" for="CartNote">{{ 'sections.cart.note' | t }}</label>
+              <textarea class="textarea" id="CartNote" name="note"
+                        placeholder="{{ 'sections.cart.note_placeholder' | t }}"
+                        style="min-height:80px;">{{ cart.note }}</textarea>
+            </div>
+          {%- endif -%}
+
+          <button type="submit" name="checkout" class="btn btn--full btn--lg" style="margin-top:1.25rem;">
+            {{ 'sections.cart.checkout' | t }}
+          </button>
+
+          {%- if additional_checkout_buttons -%}
+            <div style="margin-top:0.75rem;">{{ content_for_additional_checkout_buttons }}</div>
+          {%- endif -%}
+
+          {%- if settings.cart_reassurance != blank -%}
+            <p class="cart-note" style="margin-top:1rem;">{{ settings.cart_reassurance }}</p>
+          {%- endif -%}
+        </aside>
+
+      </div>
+    </form>
+
+    <style>
+      @media (min-width: 990px) {
+        .cart-layout { grid-template-columns: minmax(0, 1.6fr) minmax(320px, 0.9fr) !important; }
+      }
+    </style>
+
+  {%- endif -%}
+
+</div>
+
+{% schema %}
+{
+  "name": "Cart",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

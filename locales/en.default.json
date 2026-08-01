@@ -1,0 +1,289 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "search": {
+      "search": "Search",
+      "placeholder": "Search products, ingredients, rituals",
+      "results_with_count": {
+        "one": "{{ count }} result",
+        "other": "{{ count }} results"
+      },
+      "no_results": "No results for “{{ terms }}”. Try a different ingredient or product name.",
+      "reset": "Clear search"
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {{ number }}"
+    },
+    "newsletter": {
+      "label": "Email address",
+      "placeholder": "you@email.com",
+      "button": "Join",
+      "success": "Thank you. Check your inbox for your welcome offer.",
+      "consent": "By subscribing you agree to receive marketing emails. Unsubscribe any time."
+    },
+    "social": {
+      "instagram": "Instagram",
+      "tiktok": "TikTok",
+      "facebook": "Facebook",
+      "youtube": "YouTube"
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "aria_label": "Breadcrumb"
+    },
+    "continue_shopping": "Continue shopping",
+    "close": "Close",
+    "menu": "Menu",
+    "account": "Account",
+    "view_all": "View all"
+  },
+
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "close": "Close",
+    "menu": "Open menu",
+    "cart": "Open cart",
+    "search": "Open search",
+    "previous": "Previous",
+    "next": "Next",
+    "loading": "Loading",
+    "link_messages": {
+      "new_window": "Opens in a new window."
+    },
+    "star_rating": "{{ rating }} out of {{ max }} stars"
+  },
+
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "added": "Added to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "on_sale": "Save {{ amount }}",
+      "quantity": "Quantity",
+      "decrease_quantity": "Decrease quantity",
+      "increase_quantity": "Increase quantity",
+      "price": "Price",
+      "regular_price": "Regular price",
+      "sale_price": "Sale price",
+      "unit_price": "Unit price",
+      "vendor": "Vendor",
+      "view_details": "View details",
+      "choose_options": "Choose options",
+      "variant_sold_out": "Sold out",
+      "size": "Size",
+      "shipping_note": "Taxes included. Shipping calculated at checkout.",
+      "low_stock": "Only {{ count }} left",
+      "in_stock": "In stock, ready to ship",
+      "purchase_type": {
+        "label": "Purchase options",
+        "one_time": "One-time purchase",
+        "subscribe": "Subscribe & save {{ percent }}%",
+        "subscribe_note": "Delivered every 60 days. Skip, pause or cancel any time.",
+        "delivery_frequency": "Delivery frequency"
+      },
+      "details": {
+        "benefits": "Benefits",
+        "ingredients": "Full ingredients",
+        "how_to_use": "How to use",
+        "shipping_returns": "Shipping & returns",
+        "formulation": "Our promise"
+      },
+      "media": {
+        "gallery_label": "Product images",
+        "thumbnail": "Show image {{ number }}"
+      }
+    },
+    "facets": {
+      "sort_by_label": "Sort by",
+      "filter_label": "Filter",
+      "clear_all": "Clear all",
+      "apply": "Apply",
+      "product_count": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      }
+    }
+  },
+
+  "sections": {
+    "header": {
+      "announcement": "Announcement",
+      "cart_count": {
+        "one": "{{ count }} item in cart",
+        "other": "{{ count }} items in cart"
+      }
+    },
+    "cart": {
+      "title": "Your cart",
+      "empty": "Your cart is empty",
+      "empty_note": "Start with the full ritual, or pick the step your skin needs most.",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "checkout": "Checkout",
+      "view_cart": "View cart",
+      "remove": "Remove",
+      "note": "Order note",
+      "note_placeholder": "Delivery instructions, gift message…",
+      "error": "We couldn’t update your cart. Please try again.",
+      "taxes_note": "Taxes and shipping calculated at checkout.",
+      "free_shipping_progress": "You’re {{ amount }} away from free shipping",
+      "free_shipping_reached": "You’ve unlocked free shipping",
+      "quantity_error": "Only {{ count }} available"
+    },
+    "collection": {
+      "title": "Shop",
+      "empty": "No products here yet.",
+      "browse_all": "Browse everything"
+    },
+    "blog": {
+      "title": "Journal",
+      "read_more": "Read article",
+      "posted_on": "Posted on {{ date }}",
+      "by_author": "by {{ author }}"
+    },
+    "search": {
+      "title": "Search",
+      "heading": "Results for “{{ terms }}”"
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you’re looking for doesn’t exist — but your skin still has a routine waiting.",
+      "cta": "Shop the ritual"
+    },
+    "footer": {
+      "newsletter_heading": "Join the 1%",
+      "copyright": "© {{ year }} {{ shop }}. All rights reserved.",
+      "payment_methods": "Payment methods we accept"
+    },
+    "quick_order": {
+      "add_bundle": "Add all four to cart"
+    }
+  },
+
+  "customer": {
+    "account": {
+      "title": "My account",
+      "details": "Account details",
+      "view_addresses": "View addresses",
+      "return": "Return to account",
+      "orders": "Order history",
+      "no_orders": "You haven’t placed any orders yet."
+    },
+    "activate_account": {
+      "title": "Activate account",
+      "subtext": "Create your password to activate your account.",
+      "password": "Password",
+      "password_confirm": "Confirm password",
+      "submit": "Activate account",
+      "cancel": "Decline invitation"
+    },
+    "addresses": {
+      "title": "Your addresses",
+      "add_new": "Add a new address",
+      "edit": "Edit",
+      "delete": "Delete",
+      "delete_confirm": "Delete this address?",
+      "default": "Set as default address",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "company": "Company",
+      "address1": "Address",
+      "address2": "Apartment, suite, etc.",
+      "city": "City",
+      "country": "Country/region",
+      "province": "Province",
+      "zip": "Postal code",
+      "phone": "Phone",
+      "add": "Add address",
+      "update": "Update address",
+      "cancel": "Cancel"
+    },
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "forgot_password": "Forgot your password?",
+      "submit": "Sign in",
+      "guest_title": "Continue as a guest",
+      "guest_continue": "Continue"
+    },
+    "recover_password": {
+      "title": "Reset your password",
+      "subtext": "We’ll send you an email to reset your password.",
+      "submit": "Send reset link",
+      "cancel": "Cancel",
+      "success": "We’ve sent you an email with a link to update your password."
+    },
+    "register": {
+      "title": "Create account",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create account"
+    },
+    "reset_password": {
+      "title": "Reset account password",
+      "subtext": "Enter a new password.",
+      "password": "Password",
+      "password_confirm": "Confirm password",
+      "submit": "Reset password"
+    },
+    "order": {
+      "title": "Order {{ name }}",
+      "date_html": "Placed on {{ date }}",
+      "cancelled_html": "Cancelled on {{ date }}",
+      "cancelled_reason": "Reason: {{ reason }}",
+      "billing_address": "Billing address",
+      "payment_status": "Payment status",
+      "shipping_address": "Shipping address",
+      "fulfillment_status": "Fulfillment status",
+      "discount": "Discount",
+      "product": "Product",
+      "sku": "SKU",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "track_shipment": "Track shipment"
+    },
+    "orders": {
+      "order_number": "Order",
+      "date": "Date",
+      "payment_status": "Payment",
+      "fulfillment_status": "Fulfillment",
+      "total": "Total"
+    },
+    "log_out": "Log out",
+    "log_in": "Log in",
+    "create_account": "Create account"
+  },
+
+  "gift_cards": {
+    "issued": {
+      "title": "Here’s your {{ value }} gift card for {{ shop }}",
+      "subtext": "Your gift card",
+      "expires_on": "Expires on {{ expires_on }}",
+      "copy_code": "Copy code",
+      "copied": "Code copied",
+      "shop_link": "Start shopping",
+      "print": "Print",
+      "add_to_apple_wallet": "Add to Apple Wallet",
+      "qr_image_alt": "QR code — scan to redeem"
+    }
+  },
+
+  "onboarding": {
+    "product_title": "Example product",
+    "collection_title": "Example collection"
+  }
+}

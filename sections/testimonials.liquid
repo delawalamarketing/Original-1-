@@ -1,0 +1,128 @@
+<section class="section {{ section.settings.surface }}">
+  <div class="container">
+
+    <div class="flow-center" style="margin-bottom:3rem;">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+
+      {%- if section.settings.show_aggregate -%}
+        <div style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-top:1rem;">
+          <span class="rating__stars">
+            {%- for i in (1..5) -%}{% render 'icon', name: 'star', size: 17 %}{%- endfor -%}
+          </span>
+          <span class="meta">{{ section.settings.aggregate_text }}</span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="grid grid--3">
+      {%- for block in section.blocks -%}
+        <blockquote class="quote" data-reveal data-reveal-delay="{{ forloop.index0 | times: 90 }}"
+                    {{ block.shopify_attributes }}>
+          {%- if block.settings.rating > 0 -%}
+            <span class="rating__stars" role="img"
+                  aria-label="{{ block.settings.rating }} out of 5 stars">
+              {%- for i in (1..block.settings.rating) -%}{% render 'icon', name: 'star', size: 14 %}{%- endfor -%}
+            </span>
+          {%- endif -%}
+
+          <p class="quote__text">{{ block.settings.quote }}</p>
+
+          <footer class="quote__author">
+            {{ block.settings.author }}
+            {%- if block.settings.verified -%}
+              <span class="quote__verified">
+                {% render 'icon', name: 'check-circle', size: 13 %} Verified buyer
+              </span>
+            {%- endif -%}
+            {%- if block.settings.product_name != blank -%}
+              <span style="display:block;margin-top:2px;text-transform:none;letter-spacing:0;">
+                on {{ block.settings.product_name }}
+              </span>
+            {%- endif -%}
+          </footer>
+        </blockquote>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Replace these with real reviews as soon as you have them. Swap this section for your review app's homepage widget once it's collecting — real, dated, verified reviews outperform curated quotes."
+    },
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Background",
+      "options": [
+        { "value": "surface-bone", "label": "Bone" },
+        { "value": "surface-tint", "label": "Bone tint" },
+        { "value": "surface-sage", "label": "Sage wash" }
+      ],
+      "default": "surface-sage"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "In their words" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "One percent better, every day" },
+    { "type": "checkbox", "id": "show_aggregate", "label": "Show aggregate rating", "default": true },
+    {
+      "type": "text",
+      "id": "aggregate_text",
+      "label": "Aggregate text",
+      "default": "4.8 average from 320+ reviews"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Quote",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Stars", "min": 0, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Quote" },
+        { "type": "text", "id": "author", "label": "Author", "default": "Amara K." },
+        { "type": "text", "id": "product_name", "label": "Product" },
+        { "type": "checkbox", "id": "verified", "label": "Verified buyer", "default": true }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        {
+          "type": "quote",
+          "settings": {
+            "quote": "Three weeks in and the texture on my cheeks has genuinely calmed down. The toner smells like nothing, which is exactly what I wanted.",
+            "author": "Amara K.",
+            "product_name": "Rice Toner"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "quote": "I've paid four times this for a serum that did less. It sinks in fast and my makeup sits better over it.",
+            "author": "Danielle R.",
+            "product_name": "Rice Silk Serum"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "quote": "The fragrance-free lotion is the reason I stayed. My skin reacts to everything and this one just doesn't bother it.",
+            "author": "Priya S.",
+            "product_name": "Orchid Lotion"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

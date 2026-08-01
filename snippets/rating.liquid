@@ -1,0 +1,31 @@
+{%- comment -%}
+  Reads the standard review metafields written by Shopify Product Reviews,
+  Judge.me, Okendo, Loox and Yotpo. If no reviews exist yet the block renders
+  nothing at all — an empty "0 reviews" is worse than silence on a new store.
+
+  Accepts: product, show_count (bool, default true)
+{%- endcomment -%}
+
+{%- liquid
+  assign rating = product.metafields.reviews.rating.value
+  assign count = product.metafields.reviews.rating_count | default: 0
+-%}
+
+{%- if rating and count > 0 -%}
+  {%- assign rounded = rating.rating | round -%}
+  <div class="rating">
+    <span class="rating__stars" role="img"
+      aria-label="{{ 'accessibility.star_rating' | t: rating: rating.rating, max: rating.scale_max }}">
+      {%- for i in (1..rating.scale_max) -%}
+        {%- if i <= rounded -%}
+          {% render 'icon', name: 'star', size: 13 %}
+        {%- else -%}
+          {% render 'icon', name: 'star-outline', size: 13 %}
+        {%- endif -%}
+      {%- endfor -%}
+    </span>
+    {%- unless show_count == false -%}
+      <span class="rating__count">({{ count }})</span>
+    {%- endunless -%}
+  </div>
+{%- endif -%}

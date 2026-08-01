@@ -1,0 +1,223 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Original 1% — Conscious Skincare",
+    "theme_version": "1.0.0",
+    "theme_author": "Original 1%",
+    "theme_documentation_url": "https://shopify.dev/docs/themes",
+    "theme_support_url": "https://help.shopify.com/"
+  },
+  {
+    "name": "Brand colours",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Sampled from the Original 1% packaging and logo lockup. Changing these updates the whole store."
+      },
+      {
+        "type": "color",
+        "id": "color_bone",
+        "label": "Canvas (bone)",
+        "default": "#E4E2DD",
+        "info": "The page background. Matches the packaging backdrop."
+      },
+      {
+        "type": "color",
+        "id": "color_paper",
+        "label": "Surface (paper)",
+        "default": "#FAF9F7",
+        "info": "Cards, inputs and raised panels."
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Ink",
+        "default": "#14181A"
+      },
+      {
+        "type": "color",
+        "id": "color_forest",
+        "label": "Primary action (forest)",
+        "default": "#304824",
+        "info": "Buttons, footer, dark sections."
+      },
+      {
+        "type": "color",
+        "id": "color_sage",
+        "label": "Sage",
+        "default": "#99BA8F"
+      },
+      {
+        "type": "color",
+        "id": "color_teal",
+        "label": "Teal",
+        "default": "#469D99"
+      },
+      {
+        "type": "color",
+        "id": "color_brass",
+        "label": "Brass accent",
+        "default": "#B27409",
+        "info": "Prices, step numbers, badges."
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "type_heading_font",
+        "label": "Headings",
+        "default": "playfair_display_n4",
+        "info": "A high-contrast serif carries the luxury cue. Keep it for headings only."
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "Body",
+        "default": "assistant_n4",
+        "info": "A neutral sans keeps ingredient and claim copy legible at small sizes."
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Page width",
+        "min": 1000,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "default": 1360
+      }
+    ]
+  },
+  {
+    "name": "Brand identity",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo",
+        "info": "Use the transparent PNG. Recommended height 92px @2x."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_light",
+        "label": "Logo — light version",
+        "info": "Used on the dark footer."
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo width",
+        "min": 80,
+        "max": 260,
+        "step": 10,
+        "unit": "px",
+        "default": 150
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "32 x 32 px recommended."
+      },
+      {
+        "type": "text",
+        "id": "brand_tagline",
+        "label": "Tagline",
+        "default": "One percent more you, every day."
+      },
+      {
+        "type": "textarea",
+        "id": "brand_blurb",
+        "label": "Short brand description",
+        "default": "Conscious lifestyle & skincare. Formulated in a certified Canadian facility, bottled in eco-friendly Italian glass."
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart behaviour",
+        "options": [
+          { "value": "drawer", "label": "Slide-out drawer (recommended)" },
+          { "value": "page", "label": "Go to cart page" }
+        ],
+        "default": "drawer",
+        "info": "A drawer keeps shoppers on the page they were browsing. It reliably outperforms a full-page redirect."
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_bar",
+        "label": "Show free-shipping progress bar",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "cart_free_shipping_threshold",
+        "label": "Free shipping threshold",
+        "default": 75,
+        "info": "In your store currency, before tax. Set to the value that nudges a second product into the cart."
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_show_note",
+        "label": "Allow order notes",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "cart_reassurance",
+        "label": "Checkout reassurance line",
+        "default": "Free shipping in Canada · 30-day returns · Secure checkout"
+      }
+    ]
+  },
+  {
+    "name": "Product badges",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_sale_badge",
+        "label": "Show sale badge",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_step_badge",
+        "label": "Show routine step badge",
+        "default": true,
+        "info": "Reads the product metafield custom.routine_step (e.g. \"Step 1\")."
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      { "type": "text", "id": "social_instagram", "label": "Instagram" },
+      { "type": "text", "id": "social_tiktok", "label": "TikTok" },
+      { "type": "text", "id": "social_facebook", "label": "Facebook" },
+      { "type": "text", "id": "social_youtube", "label": "YouTube" }
+    ]
+  },
+  {
+    "name": "Social sharing image",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": "Default sharing image",
+        "info": "1200 x 630 px. Used when a page has no image of its own."
+      }
+    ]
+  }
+]

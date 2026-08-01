@@ -1,0 +1,63 @@
+<div class="container container--narrow section">
+
+  <header style="display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;">
+    <h1 style="margin:0;">{{ 'customer.addresses.title' | t }}</h1>
+    <a href="{{ routes.account_url }}" class="btn btn--ghost">{{ 'customer.account.return' | t }}</a>
+  </header>
+
+  {%- paginate customer.addresses by 6 -%}
+
+    <details style="margin-bottom:2rem;border:1px solid var(--o-line);border-radius:var(--radius-lg);padding:1.25rem;background:var(--o-paper);">
+      <summary style="cursor:pointer;font-weight:600;">{{ 'customer.addresses.add_new' | t }}</summary>
+      {%- form 'customer_address', customer.new_address, style: 'display:grid;gap:1rem;margin-top:1.25rem;' -%}
+        {% render 'address-fields', form: form, prefix: 'AddressNew' %}
+        <div style="display:flex;gap:0.75rem;">
+          <button type="submit" class="btn">{{ 'customer.addresses.add' | t }}</button>
+        </div>
+      {%- endform -%}
+    </details>
+
+    {%- for address in customer.addresses -%}
+      <div style="border:1px solid var(--o-line);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1rem;background:var(--o-paper);">
+        {%- if address == customer.default_address -%}
+          <span class="badge" style="margin-bottom:0.75rem;">Default</span>
+        {%- endif -%}
+
+        <div style="font-size:var(--fs-sm);color:var(--o-ink-2);margin-bottom:1rem;">
+          {{ address | format_address }}
+        </div>
+
+        <details>
+          <summary style="cursor:pointer;font-size:var(--fs-sm);">{{ 'customer.addresses.edit' | t }}</summary>
+          {%- form 'customer_address', address, style: 'display:grid;gap:1rem;margin-top:1.25rem;' -%}
+            {% render 'address-fields', form: form, prefix: address.id %}
+            <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+              <button type="submit" class="btn">{{ 'customer.addresses.update' | t }}</button>
+              <button type="button" class="btn btn--ghost"
+                      onclick="if(confirm('{{ 'customer.addresses.delete_confirm' | t }}')){Shopify.postLink('{{ address.url }}',{parameters:{_method:'delete'}});}">
+                {{ 'customer.addresses.delete' | t }}
+              </button>
+            </div>
+          {%- endform -%}
+        </details>
+      </div>
+    {%- endfor -%}
+
+    {%- if paginate.pages > 1 -%}
+      <nav class="pagination">
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}
+            <a href="{{ part.url }}">{{ part.title }}</a>
+          {%- else -%}
+            <span {% if part.title == paginate.current_page %}aria-current="page"{% endif %}>{{ part.title }}</span>
+          {%- endif -%}
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{ "name": "Addresses", "tag": "section", "settings": [] }
+{% endschema %}

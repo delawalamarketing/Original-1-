@@ -1,0 +1,132 @@
+<section class="section {{ section.settings.surface }}">
+  <div class="container">
+
+    <div class="flow-center" style="margin-bottom:3rem;">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}
+        <div class="lede">{{ section.settings.text }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="grid grid--4">
+      {%- for block in section.blocks -%}
+        <div class="ingredient" data-reveal data-reveal-delay="{{ forloop.index0 | times: 80 }}"
+             {{ block.shopify_attributes }}>
+          <div class="ingredient__media">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 320 }}"
+                   alt="{{ block.settings.image.alt | escape | default: block.settings.name }}"
+                   width="160" height="160" loading="lazy">
+            {%- else -%}
+              {% render 'icon', name: block.settings.icon, size: 44 %}
+            {%- endif -%}
+          </div>
+          <h3 class="ingredient__name">{{ block.settings.name }}</h3>
+          {%- if block.settings.description != blank -%}
+            <p class="ingredient__desc">{{ block.settings.description }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ingredients",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Background",
+      "options": [
+        { "value": "surface-bone", "label": "Bone" },
+        { "value": "surface-tint", "label": "Bone tint" },
+        { "value": "surface-sage", "label": "Sage wash" },
+        { "value": "surface-paper", "label": "Paper" }
+      ],
+      "default": "surface-bone"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "What's inside" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Actives you can actually name" },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>No filler, no mystery blends. Every ingredient earns its place, and we tell you what it does.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Fallback icon",
+          "options": [
+            { "value": "droplet", "label": "Droplet" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "flask", "label": "Lab" },
+            { "value": "shield", "label": "Shield" }
+          ],
+          "default": "droplet"
+        },
+        { "type": "text", "id": "name", "label": "Name", "default": "Hyaluronic acid" },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "What it does",
+          "default": "Holds water in the skin so it stays plump through the day."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredients",
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "icon": "droplet",
+            "name": "Rice water",
+            "description": "Brightens and evens tone. The oldest trick in skincare, formulated in-house."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "icon": "droplet",
+            "name": "Hyaluronic acid",
+            "description": "Holds water in the skin so it stays plump and smooth through the day."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "icon": "flask",
+            "name": "Niacinamide",
+            "description": "Evens tone and texture, softens fine lines, calms redness."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "icon": "leaf",
+            "name": "Orchid extract",
+            "description": "Antioxidant-rich protection against everyday environmental stress."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

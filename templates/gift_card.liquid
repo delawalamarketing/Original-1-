@@ -1,0 +1,50 @@
+{% layout none %}
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ 'gift_cards.issued.title' | t: value: gift_card.initial_value | money, shop: shop.name }}</title>
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    <style>
+      body { display:grid; place-items:center; min-height:100vh; padding:2rem 1.25rem; }
+      .gift-card { max-width:460px; width:100%; text-align:center; background:var(--o-paper);
+                   border-radius:var(--radius-lg); padding:2.5rem 2rem; box-shadow:var(--shadow); }
+      .gift-card__code { font-family:var(--font-body); font-size:1.35rem; font-weight:600;
+                         letter-spacing:0.12em; padding:1rem; margin:1.5rem 0;
+                         background:var(--o-bone); border-radius:var(--radius); word-break:break-all; }
+      @media print { .no-print { display:none; } body { background:#fff; } }
+    </style>
+  </head>
+  <body>
+    <div class="gift-card">
+      {%- if settings.logo -%}
+        <img src="{{ settings.logo | image_url: width: 360 }}" alt="{{ shop.name }}"
+             width="180" height="55" style="margin:0 auto 1.5rem;width:180px;height:auto;">
+      {%- endif -%}
+
+      <p class="eyebrow">{{ 'gift_cards.issued.subtext' | t }}</p>
+      <h1 style="font-size:var(--fs-2xl);">{{ gift_card.balance | money }}</h1>
+
+      {%- if gift_card.balance != gift_card.initial_value -%}
+        <p class="meta">Originally {{ gift_card.initial_value | money }}</p>
+      {%- endif -%}
+
+      {{ gift_card.qr_identifier | img_tag: 'gift_cards.issued.qr_image_alt' | t }}
+
+      <div class="gift-card__code">{{ gift_card.code | format_code }}</div>
+
+      {%- if gift_card.expires_on -%}
+        <p class="meta">{{ 'gift_cards.issued.expires_on' | t: expires_on: gift_card.expires_on | date: '%B %d, %Y' }}</p>
+      {%- endif -%}
+
+      <div class="no-print" style="display:grid;gap:0.5rem;margin-top:1.5rem;">
+        <a href="{{ shop.url }}" class="btn btn--full">{{ 'gift_cards.issued.shop_link' | t }}</a>
+        <button type="button" class="btn btn--secondary btn--full" onclick="window.print();">
+          {{ 'gift_cards.issued.print' | t }}
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

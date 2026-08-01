@@ -1,0 +1,82 @@
+{%- comment -%} Accepts: form, prefix {%- endcomment -%}
+
+<div class="grid grid--2">
+  <div class="field">
+    <label class="field__label" for="{{ prefix }}FirstName">{{ 'customer.addresses.first_name' | t }}</label>
+    <input class="input" type="text" id="{{ prefix }}FirstName" name="address[first_name]"
+           value="{{ form.first_name }}" autocomplete="given-name">
+  </div>
+  <div class="field">
+    <label class="field__label" for="{{ prefix }}LastName">{{ 'customer.addresses.last_name' | t }}</label>
+    <input class="input" type="text" id="{{ prefix }}LastName" name="address[last_name]"
+           value="{{ form.last_name }}" autocomplete="family-name">
+  </div>
+</div>
+
+<div class="field">
+  <label class="field__label" for="{{ prefix }}Company">{{ 'customer.addresses.company' | t }}</label>
+  <input class="input" type="text" id="{{ prefix }}Company" name="address[company]"
+         value="{{ form.company }}" autocomplete="organization">
+</div>
+
+<div class="field">
+  <label class="field__label" for="{{ prefix }}Address1">{{ 'customer.addresses.address1' | t }}</label>
+  <input class="input" type="text" id="{{ prefix }}Address1" name="address[address1]"
+         value="{{ form.address1 }}" autocomplete="address-line1">
+</div>
+
+<div class="field">
+  <label class="field__label" for="{{ prefix }}Address2">{{ 'customer.addresses.address2' | t }}</label>
+  <input class="input" type="text" id="{{ prefix }}Address2" name="address[address2]"
+         value="{{ form.address2 }}" autocomplete="address-line2">
+</div>
+
+<div class="grid grid--2">
+  <div class="field">
+    <label class="field__label" for="{{ prefix }}City">{{ 'customer.addresses.city' | t }}</label>
+    <input class="input" type="text" id="{{ prefix }}City" name="address[city]"
+           value="{{ form.city }}" autocomplete="address-level2">
+  </div>
+  <div class="field">
+    <label class="field__label" for="{{ prefix }}Zip">{{ 'customer.addresses.zip' | t }}</label>
+    <input class="input" type="text" id="{{ prefix }}Zip" name="address[zip]"
+           value="{{ form.zip }}" autocapitalize="characters" autocomplete="postal-code">
+  </div>
+</div>
+
+<div class="grid grid--2">
+  <div class="field">
+    <label class="field__label" for="{{ prefix }}Country">{{ 'customer.addresses.country' | t }}</label>
+    <select class="select" id="{{ prefix }}Country" name="address[country]"
+            data-address-country data-default="{{ form.country }}" autocomplete="country">
+      {{ all_country_option_tags }}
+    </select>
+  </div>
+  <div class="field" id="{{ prefix }}ProvinceWrapper">
+    <label class="field__label" for="{{ prefix }}Province">{{ 'customer.addresses.province' | t }}</label>
+    <select class="select" id="{{ prefix }}Province" name="address[province]"
+            data-default="{{ form.province }}" autocomplete="address-level1"></select>
+  </div>
+</div>
+
+<div class="field">
+  <label class="field__label" for="{{ prefix }}Phone">{{ 'customer.addresses.phone' | t }}</label>
+  <input class="input" type="tel" id="{{ prefix }}Phone" name="address[phone]"
+         value="{{ form.phone }}" autocomplete="tel">
+</div>
+
+<label style="display:flex;align-items:center;gap:0.5rem;font-size:var(--fs-sm);">
+  {{ form.set_as_default_checkbox }}
+  {{ 'customer.addresses.default' | t }}
+</label>
+
+<script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+<script>
+  // Shopify's country/province linker needs the DOM and shopify_common.js ready.
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof Shopify === 'undefined' || !Shopify.CountryProvinceSelector) return;
+    new Shopify.CountryProvinceSelector('{{ prefix }}Country', '{{ prefix }}Province', {
+      hideElement: '{{ prefix }}ProvinceWrapper'
+    });
+  });
+</script>

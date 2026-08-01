@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "products_per_page": 24,
+        "show_description": true,
+        "show_toolbar": true
+      }
+    },
+    "trust-bar": {
+      "type": "trust-bar",
+      "blocks": {
+        "t1": { "type": "item", "settings": { "icon": "flask", "text": "Certified Canadian facility" } },
+        "t2": { "type": "item", "settings": { "icon": "leaf", "text": "Paraben & sulphate free" } },
+        "t3": { "type": "item", "settings": { "icon": "rabbit", "text": "Cruelty-free & vegan" } },
+        "t4": { "type": "item", "settings": { "icon": "bottle", "text": "Eco-friendly Italian glass" } },
+        "t5": { "type": "item", "settings": { "icon": "truck", "text": "Free shipping in Canada" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4", "t5"],
+      "settings": {}
+    }
+  },
+  "order": ["main", "trust-bar"]
+}

@@ -1,0 +1,44 @@
+{%- comment -%}
+  Accepts: product (or variant), show_unit (bool), size ('lg')
+  Always renders the compare-at price *after* the current price — reading
+  "$33 was $42" is faster than the reverse, and it keeps the number the
+  shopper pays in the strongest position.
+{%- endcomment -%}
+
+{%- liquid
+  assign target = product | default: variant
+  if target.object_type == 'product'
+    assign price = target.price
+    assign compare = target.compare_at_price
+    assign available = target.available
+    assign price_varies = target.price_varies
+  else
+    assign price = target.price
+    assign compare = target.compare_at_price
+    assign available = target.available
+    assign price_varies = false
+  endif
+  assign on_sale = false
+  if compare > price
+    assign on_sale = true
+  endif
+-%}
+
+<span class="price{% if on_sale %} price--sale{% endif %}{% if available == false %} price--unavailable{% endif %}">
+  {%- if price_varies -%}
+    <span class="price__current">From {{ target.price_min | money }}</span>
+  {%- else -%}
+    <span class="price__current">{{ price | money }}</span>
+  {%- endif -%}
+
+  {%- if on_sale -%}
+    <s class="price__compare">{{ compare | money }}</s>
+    <span class="visually-hidden">{{ 'products.product.regular_price' | t }} {{ compare | money }}</span>
+  {%- endif -%}
+
+  {%- if show_unit and target.unit_price_measurement -%}
+    <span class="price__unit">
+      {{ target.unit_price | money }}/{% if target.unit_price_measurement.reference_value != 1 %}{{ target.unit_price_measurement.reference_value }}{% endif %}{{ target.unit_price_measurement.reference_unit }}
+    </span>
+  {%- endif -%}
+</span>

@@ -1,0 +1,105 @@
+<header class="header" data-scrolled="false">
+  <div class="container">
+    <div class="header__inner">
+
+      {%- comment -%} Left: nav on desktop, hamburger on mobile {%- endcomment -%}
+      <div style="display:flex;align-items:center;gap:0.25rem;">
+        <button
+          type="button"
+          class="icon-btn header__menu-toggle"
+          data-drawer-trigger="#MobileMenu"
+          aria-label="{{ 'accessibility.menu' | t }}"
+        >
+          {% render 'icon', name: 'menu', size: 22 %}
+        </button>
+
+        <nav class="header__nav" aria-label="{{ 'general.menu' | t }}">
+          {%- for link in section.settings.menu.links -%}
+            <a href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>{{ link.title }}</a>
+          {%- endfor -%}
+        </nav>
+      </div>
+
+      {%- comment -%} Centre: logo {%- endcomment -%}
+      {%- if request.page_type == 'index' -%}
+        <h1 style="margin:0;" class="header__logo-wrap">
+      {%- else -%}
+        <div class="header__logo-wrap">
+      {%- endif -%}
+        <a href="{{ routes.root_url }}" class="header__logo" aria-label="{{ shop.name }} — {{ 'general.breadcrumbs.home' | t }}">
+          {%- if settings.logo -%}
+            <img
+              src="{{ settings.logo | image_url: width: 400 }}"
+              srcset="{{ settings.logo | image_url: width: 200 }} 1x, {{ settings.logo | image_url: width: 400 }} 2x"
+              alt="{{ shop.name }}"
+              width="{{ settings.logo.width }}"
+              height="{{ settings.logo.height }}"
+              style="width:{{ settings.logo_width }}px;height:auto;"
+              fetchpriority="high"
+            >
+          {%- else -%}
+            {%- comment -%}
+              Ships with the theme so a fresh install is already branded.
+              Uploading a logo in Theme settings replaces it.
+            {%- endcomment -%}
+            <img
+              src="{{ 'logo-wordmark.png' | asset_url }}"
+              alt="{{ shop.name }}"
+              width="560" height="155"
+              style="width:{{ settings.logo_width }}px;height:auto;"
+              fetchpriority="high"
+            >
+          {%- endif -%}
+        </a>
+      {%- if request.page_type == 'index' -%}
+        </h1>
+      {%- else -%}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Right: search / account / cart {%- endcomment -%}
+      <div class="header__actions">
+        <a href="{{ routes.search_url }}" class="icon-btn" aria-label="{{ 'accessibility.search' | t }}">
+          {% render 'icon', name: 'search', size: 21 %}
+        </a>
+
+        {%- if shop.customer_accounts_enabled -%}
+          <a href="{{ routes.account_url }}" class="icon-btn" aria-label="{{ 'general.account' | t }}">
+            {% render 'icon', name: 'account', size: 21 %}
+          </a>
+        {%- endif -%}
+
+        {%- if settings.cart_type == 'drawer' -%}
+          <button type="button" class="icon-btn" data-drawer-trigger="#CartDrawer"
+                  aria-label="{{ 'accessibility.cart' | t }}">
+            {% render 'icon', name: 'cart', size: 21 %}
+            <span class="cart-count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
+          </button>
+        {%- else -%}
+          <a href="{{ routes.cart_url }}" class="icon-btn" aria-label="{{ 'accessibility.cart' | t }}">
+            {% render 'icon', name: 'cart', size: 21 %}
+            <span class="cart-count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
+          </a>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "header-section",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu",
+      "info": "Keep this to 5 links or fewer. Every extra top-level link splits attention away from Shop."
+    }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

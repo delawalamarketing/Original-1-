@@ -1,0 +1,71 @@
+<div class="container section">
+
+  <header style="text-align:center;margin-bottom:2.5rem;">
+    <h1>{{ 'sections.search.title' | t }}</h1>
+
+    <form action="{{ routes.search_url }}" method="get" role="search"
+          style="display:flex;gap:0.5rem;max-width:520px;margin:1.5rem auto 0;">
+      <label class="visually-hidden" for="SearchInput">{{ 'general.search.search' | t }}</label>
+      <input class="input" id="SearchInput" type="search" name="q"
+             value="{{ search.terms | escape }}"
+             placeholder="{{ 'general.search.placeholder' | t }}"
+             style="border-radius:var(--radius-pill);">
+      <input type="hidden" name="options[prefix]" value="last">
+      <button type="submit" class="btn">{{ 'general.search.search' | t }}</button>
+    </form>
+  </header>
+
+  {%- if search.performed -%}
+    {%- if search.results_count > 0 -%}
+
+      <p class="collection__count" style="text-align:center;margin-bottom:2rem;">
+        {{ 'general.search.results_with_count' | t: count: search.results_count }}
+      </p>
+
+      {%- paginate search.results by 24 -%}
+        <div class="collection__grid">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {% render 'product-card', product: item, index: forloop.index0, lazy: forloop.index > 4 %}
+            {%- else -%}
+              <article class="card">
+                <div class="card__body">
+                  <span class="card__step">{{ item.object_type }}</span>
+                  <h2 class="card__title"><a href="{{ item.url }}">{{ item.title }}</a></h2>
+                  <p class="card__desc">{{ item.content | strip_html | truncatewords: 24 }}</p>
+                </div>
+              </article>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <nav class="pagination" aria-label="{{ 'general.pagination.label' | t }}">
+            {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" rel="prev">&larr;</a>{%- endif -%}
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}
+                <a href="{{ part.url }}">{{ part.title }}</a>
+              {%- else -%}
+                <span {% if part.title == paginate.current_page %}aria-current="page"{% endif %}>{{ part.title }}</span>
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if paginate.next -%}<a href="{{ paginate.next.url }}" rel="next">&rarr;</a>{%- endif -%}
+          </nav>
+        {%- endif -%}
+      {%- endpaginate -%}
+
+    {%- else -%}
+      <div class="cart-empty">
+        <p class="lede">{{ 'general.search.no_results' | t: terms: search.terms }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn" style="margin-top:1.5rem;">
+          {{ 'sections.collection.browse_all' | t }}
+        </a>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+
+</div>
+
+{% schema %}
+{ "name": "Search", "tag": "section", "settings": [] }
+{% endschema %}

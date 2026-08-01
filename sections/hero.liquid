@@ -1,0 +1,183 @@
+{%- liquid
+  assign scheme = section.settings.text_scheme
+  assign has_media = false
+  if section.settings.image != blank or section.settings.video != blank
+    assign has_media = true
+  endif
+
+  comment
+    Light text is only legible over the scrim. With no media uploaded yet the
+    background is bone, so force dark text rather than shipping a hero nobody
+    can read before the merchant adds an image.
+  endcomment
+  unless has_media
+    assign scheme = 'dark'
+  endunless
+-%}
+
+<section class="hero {% if scheme == 'light' %}hero--light{% endif %}"
+         style="--section-pt:0;--section-pb:0;">
+
+  {%- if section.settings.video != blank -%}
+    <div class="hero__media">
+      {{ section.settings.video
+         | video_tag: image_size: '1600x', autoplay: true, loop: true, muted: true, controls: false }}
+    </div>
+  {%- elsif section.settings.image != blank -%}
+    <div class="hero__media">
+      <img
+        src="{{ section.settings.image | image_url: width: 2000 }}"
+        srcset="{{ section.settings.image | image_url: width: 750 }} 750w,
+                {{ section.settings.image | image_url: width: 1100 }} 1100w,
+                {{ section.settings.image | image_url: width: 1500 }} 1500w,
+                {{ section.settings.image | image_url: width: 2000 }} 2000w"
+        sizes="100vw"
+        alt="{{ section.settings.image.alt | escape }}"
+        width="{{ section.settings.image.width }}"
+        height="{{ section.settings.image.height }}"
+        fetchpriority="high"
+      >
+    </div>
+  {%- endif -%}
+
+  {%- if has_media -%}
+    <div class="hero__scrim" style="opacity: {{ section.settings.overlay | divided_by: 100.0 }};"></div>
+  {%- endif -%}
+
+  <div class="hero__inner container">
+    <div class="hero__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      <h1 class="hero__title">
+        {{ section.settings.heading }}
+        {%- if section.settings.heading_emphasis != blank -%}
+          <em>{{ section.settings.heading_emphasis }}</em>
+        {%- endif -%}
+      </h1>
+
+      {%- if section.settings.subheading != blank -%}
+        <div class="lede">{{ section.settings.subheading }}</div>
+      {%- endif -%}
+
+      <div class="hero__actions">
+        {%- if section.settings.cta_label != blank -%}
+          <a href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}"
+             class="btn btn--lg {% if scheme == 'light' %}btn--light{% endif %}">
+            {{ section.settings.cta_label }}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.cta2_label != blank -%}
+          <a href="{{ section.settings.cta2_link }}"
+             class="btn btn--lg btn--secondary"
+             {% if scheme == 'light' %}style="color:var(--o-paper);border-color:rgba(250,249,247,0.55);"{% endif %}>
+            {{ section.settings.cta2_label }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="hero__proof">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>
+              {% render 'icon', name: block.settings.icon, size: 16 %}
+              {{ block.settings.text }}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Above the fold you have about 3 seconds. Lead with what the brand is, not a slogan the shopper can't decode yet."
+    },
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Background video",
+      "info": "Overrides the image. Keep it under 8 seconds and under 4 MB — it loads before anything else the shopper can act on."
+    },
+    {
+      "type": "range",
+      "id": "overlay",
+      "label": "Overlay strength",
+      "min": 0, "max": 90, "step": 5, "unit": "%", "default": 55,
+      "info": "Text over imagery needs at least 4.5:1 contrast. If in doubt, go darker."
+    },
+    {
+      "type": "select",
+      "id": "text_scheme",
+      "label": "Text colour",
+      "options": [
+        { "value": "light", "label": "Light (on imagery)" },
+        { "value": "dark", "label": "Dark (on plain background)" }
+      ],
+      "default": "light"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Conscious lifestyle & skincare" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Imagine this." },
+    {
+      "type": "text",
+      "id": "heading_emphasis",
+      "label": "Heading — emphasised line",
+      "default": "A luxurious fusion of nature’s finest ingredients."
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Meticulously crafted by experts in a certified Canadian facility, formulated without parabens, and beautifully packaged in eco-friendly Italian glass bottles.</p>"
+    },
+    { "type": "text", "id": "cta_label", "label": "Primary button", "default": "Shop the ritual" },
+    { "type": "url", "id": "cta_link", "label": "Primary button link" },
+    { "type": "text", "id": "cta2_label", "label": "Secondary button", "default": "Find my routine" },
+    { "type": "url", "id": "cta2_link", "label": "Secondary button link" }
+  ],
+  "blocks": [
+    {
+      "type": "proof",
+      "name": "Proof point",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "maple", "label": "Maple leaf" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "rabbit", "label": "Cruelty-free" },
+            { "value": "bottle", "label": "Bottle" },
+            { "value": "flask", "label": "Lab" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "truck", "label": "Shipping" },
+            { "value": "check-circle", "label": "Check" }
+          ],
+          "default": "check-circle"
+        },
+        { "type": "text", "id": "text", "label": "Text", "default": "Paraben-free" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "blocks": [
+        { "type": "proof", "settings": { "icon": "maple", "text": "Made in Canada" } },
+        { "type": "proof", "settings": { "icon": "leaf", "text": "Paraben-free" } },
+        { "type": "proof", "settings": { "icon": "rabbit", "text": "Cruelty-free & vegan" } },
+        { "type": "proof", "settings": { "icon": "bottle", "text": "Italian glass" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

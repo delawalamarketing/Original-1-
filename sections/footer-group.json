@@ -1,0 +1,44 @@
+{
+  "name": "Footer",
+  "type": "footer",
+  "sections": {
+    "newsletter-cta": {
+      "type": "newsletter",
+      "settings": {
+        "color_scheme": "sage",
+        "heading": "One percent more you, every day.",
+        "text": "<p>Ritual guides, restock notes and 10% off your first order. No noise — we email roughly twice a month.</p>",
+        "align": "center"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "menu-shop": {
+          "type": "menu",
+          "settings": { "heading": "Shop", "menu": "footer" }
+        },
+        "text-promise": {
+          "type": "text",
+          "settings": {
+            "heading": "Made responsibly",
+            "text": "<p>Formulated and filled in a certified Canadian facility. Bottled in recyclable Italian glass. Paraben-free, cruelty-free, vegan-friendly.</p>"
+          }
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Join the 1%",
+            "text": "Ritual guides, restock alerts and 10% off your first order."
+          }
+        }
+      },
+      "block_order": ["menu-shop", "text-promise", "newsletter"],
+      "settings": {
+        "show_payment_icons": true,
+        "show_policy_links": true
+      }
+    }
+  },
+  "order": ["newsletter-cta", "footer"]
+}

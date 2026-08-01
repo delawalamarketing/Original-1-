@@ -1,0 +1,84 @@
+<div class="container section">
+
+  <header style="display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem;">
+    <div>
+      <h1 style="margin-bottom:0.25rem;">{{ 'customer.account.title' | t }}</h1>
+      <p class="meta">{{ customer.email }}</p>
+    </div>
+    <a href="{{ routes.account_logout_url }}" class="btn btn--ghost">{{ 'customer.log_out' | t }}</a>
+  </header>
+
+  <div style="display:grid;gap:3rem;grid-template-columns:1fr;" class="account-layout">
+
+    <div>
+      <h2 style="font-size:var(--fs-xl);">{{ 'customer.account.orders' | t }}</h2>
+
+      {%- paginate customer.orders by 12 -%}
+        {%- if customer.orders.size > 0 -%}
+          <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;font-size:var(--fs-sm);">
+              <thead>
+                <tr style="text-align:left;border-bottom:1px solid var(--o-line);">
+                  <th style="padding:0.75rem 0.5rem 0.75rem 0;">{{ 'customer.orders.order_number' | t }}</th>
+                  <th style="padding:0.75rem 0.5rem;">{{ 'customer.orders.date' | t }}</th>
+                  <th style="padding:0.75rem 0.5rem;">{{ 'customer.orders.fulfillment_status' | t }}</th>
+                  <th style="padding:0.75rem 0 0.75rem 0.5rem;text-align:right;">{{ 'customer.orders.total' | t }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%- for order in customer.orders -%}
+                  <tr style="border-bottom:1px solid var(--o-line-soft);">
+                    <td style="padding:0.85rem 0.5rem 0.85rem 0;"><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+                    <td style="padding:0.85rem 0.5rem;">{{ order.created_at | date: '%b %d, %Y' }}</td>
+                    <td style="padding:0.85rem 0.5rem;">{{ order.fulfillment_status_label }}</td>
+                    <td style="padding:0.85rem 0 0.85rem 0.5rem;text-align:right;font-variant-numeric:tabular-nums;">
+                      {{ order.total_price | money }}
+                    </td>
+                  </tr>
+                {%- endfor -%}
+              </tbody>
+            </table>
+          </div>
+
+          {%- if paginate.pages > 1 -%}
+            <nav class="pagination">
+              {%- for part in paginate.parts -%}
+                {%- if part.is_link -%}
+                  <a href="{{ part.url }}">{{ part.title }}</a>
+                {%- else -%}
+                  <span {% if part.title == paginate.current_page %}aria-current="page"{% endif %}>{{ part.title }}</span>
+                {%- endif -%}
+              {%- endfor -%}
+            </nav>
+          {%- endif -%}
+        {%- else -%}
+          <p class="lede">{{ 'customer.account.no_orders' | t }}</p>
+          <a href="{{ routes.all_products_collection_url }}" class="btn" style="margin-top:1rem;">
+            {{ 'general.continue_shopping' | t }}
+          </a>
+        {%- endif -%}
+      {%- endpaginate -%}
+    </div>
+
+    <aside style="background:var(--o-paper);border-radius:var(--radius-lg);padding:1.5rem;height:max-content;">
+      <h2 style="font-size:var(--fs-lg);">{{ 'customer.account.details' | t }}</h2>
+      <div style="font-size:var(--fs-sm);color:var(--o-ink-2);">
+        {{ customer.default_address | format_address }}
+      </div>
+      <a href="{{ routes.account_addresses_url }}" class="btn btn--secondary btn--full" style="margin-top:1rem;">
+        {{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})
+      </a>
+    </aside>
+
+  </div>
+</div>
+
+<style>
+  @media (min-width: 990px) {
+    .account-layout { grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr) !important; }
+  }
+</style>
+
+{% schema %}
+{ "name": "Account", "tag": "section", "settings": [] }
+{% endschema %}
