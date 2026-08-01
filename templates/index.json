@@ -1,14 +1,52 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero",
       "blocks": {
-        "p1": { "type": "proof", "settings": { "icon": "maple", "text": "Made in Canada" } },
-        "p2": { "type": "proof", "settings": { "icon": "leaf", "text": "Paraben-free" } },
-        "p3": { "type": "proof", "settings": { "icon": "rabbit", "text": "Cruelty-free & vegan" } },
-        "p4": { "type": "proof", "settings": { "icon": "bottle", "text": "Italian glass" } }
+        "p1": {
+          "type": "proof",
+          "settings": {
+            "icon": "maple",
+            "text": "Made in Canada"
+          }
+        },
+        "p2": {
+          "type": "proof",
+          "settings": {
+            "icon": "leaf",
+            "text": "Paraben-free"
+          }
+        },
+        "p3": {
+          "type": "proof",
+          "settings": {
+            "icon": "rabbit",
+            "text": "Cruelty-free & vegan"
+          }
+        },
+        "p4": {
+          "type": "proof",
+          "settings": {
+            "icon": "bottle",
+            "text": "Italian glass"
+          }
+        }
       },
-      "block_order": ["p1", "p2", "p3", "p4"],
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
       "settings": {
         "overlay": 55,
         "text_scheme": "light",
@@ -17,29 +55,66 @@
         "heading_emphasis": "A luxurious fusion of nature’s finest ingredients.",
         "subheading": "<p>Meticulously crafted by experts in a certified Canadian facility, formulated without parabens, and beautifully packaged in eco-friendly Italian glass bottles.</p>",
         "cta_label": "Shop the ritual",
-        "cta2_label": "Find my routine"
+        "cta_link": "",
+        "cta2_label": "Find my routine",
+        "cta2_link": ""
       }
     },
-
     "trust-bar": {
       "type": "trust-bar",
       "blocks": {
-        "t1": { "type": "item", "settings": { "icon": "flask", "text": "Certified Canadian facility" } },
-        "t2": { "type": "item", "settings": { "icon": "leaf", "text": "Paraben & sulphate free" } },
-        "t3": { "type": "item", "settings": { "icon": "rabbit", "text": "Cruelty-free & vegan" } },
-        "t4": { "type": "item", "settings": { "icon": "bottle", "text": "Eco-friendly Italian glass" } },
-        "t5": { "type": "item", "settings": { "icon": "truck", "text": "Free shipping in Canada" } }
+        "t1": {
+          "type": "item",
+          "settings": {
+            "icon": "flask",
+            "text": "Certified Canadian facility"
+          }
+        },
+        "t2": {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "text": "Paraben & sulphate free"
+          }
+        },
+        "t3": {
+          "type": "item",
+          "settings": {
+            "icon": "rabbit",
+            "text": "Cruelty-free & vegan"
+          }
+        },
+        "t4": {
+          "type": "item",
+          "settings": {
+            "icon": "bottle",
+            "text": "Eco-friendly Italian glass"
+          }
+        },
+        "t5": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "text": "Free shipping in Canada"
+          }
+        }
       },
-      "block_order": ["t1", "t2", "t3", "t4", "t5"],
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ],
       "settings": {}
     },
-
     "ritual": {
       "type": "ritual-steps",
       "blocks": {
         "s0": {
           "type": "step",
           "settings": {
+            "product": "frank-castor",
             "step_number": "0",
             "step_label": "Step 00 — Treat",
             "title": "Frank Castor",
@@ -49,6 +124,7 @@
         "s1": {
           "type": "step",
           "settings": {
+            "product": "",
             "step_number": "1",
             "step_label": "Step 01 — Tone",
             "title": "Rice Toner",
@@ -58,6 +134,7 @@
         "s2": {
           "type": "step",
           "settings": {
+            "product": "",
             "step_number": "2",
             "step_label": "Step 02 — Treat",
             "title": "Rice Silk Serum",
@@ -67,6 +144,7 @@
         "s3": {
           "type": "step",
           "settings": {
+            "product": "",
             "step_number": "3",
             "step_label": "Step 03 — Seal",
             "title": "Orchid Lotion",
@@ -74,26 +152,58 @@
           }
         }
       },
-      "block_order": ["s0", "s1", "s2", "s3"],
+      "block_order": [
+        "s0",
+        "s1",
+        "s2",
+        "s3"
+      ],
       "settings": {
         "surface": "surface-tint",
         "eyebrow": "The ritual",
         "heading": "Four steps. In this order.",
         "subheading": "<p>Each formula does one job well, then hands off to the next. Start anywhere — but this is the order your skin prefers.</p>",
-        "cta_label": "Shop all four"
+        "cta_label": "Shop all four",
+        "cta_link": ""
       }
     },
-
     "bundle": {
       "type": "bundle",
       "blocks": {
-        "b1": { "type": "item", "settings": { "text": "Frank Castor, 50mL — the weekly treatment" } },
-        "b2": { "type": "item", "settings": { "text": "Rice Toner, 50mL — brighten and balance" } },
-        "b3": { "type": "item", "settings": { "text": "Rice Silk Serum, 50mL — hydrate and repair" } },
-        "b4": { "type": "item", "settings": { "text": "Orchid Lotion, 48g — seal it all in" } }
+        "b1": {
+          "type": "item",
+          "settings": {
+            "text": "Frank Castor, 50mL — the weekly treatment"
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "text": "Rice Toner, 50mL — brighten and balance"
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "text": "Rice Silk Serum, 50mL — hydrate and repair"
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "text": "Orchid Lotion, 48g — seal it all in"
+          }
+        }
       },
-      "block_order": ["b1", "b2", "b3", "b4"],
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
       "settings": {
+        "bundle_product": "",
+        "step_products": [],
         "discount_percent": 15,
         "eyebrow": "The complete set",
         "heading": "The Full Ritual",
@@ -102,7 +212,6 @@
         "footnote": "Free shipping in Canada · 30-day money-back guarantee"
       }
     },
-
     "ingredients": {
       "type": "ingredients",
       "blocks": {
@@ -139,7 +248,12 @@
           }
         }
       },
-      "block_order": ["i1", "i2", "i3", "i4"],
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ],
       "settings": {
         "surface": "surface-bone",
         "eyebrow": "What's inside",
@@ -147,7 +261,6 @@
         "text": "<p>No filler, no mystery blends. Every ingredient earns its place, and we tell you exactly what it does.</p>"
       }
     },
-
     "story": {
       "type": "image-with-text",
       "settings": {
@@ -157,10 +270,11 @@
         "eyebrow": "Why we started",
         "heading": "One percent, compounded",
         "text": "<p>Most skincare asks you to overhaul everything at once. We think the opposite works better: four honest formulas, used consistently, getting you one percent closer to the skin you want every single day.</p><p>Everything is made in a certified Canadian facility, without parabens, and bottled in Italian glass we would happily leave out on the counter.</p>",
-        "cta_label": "Read our story"
+        "signature": "",
+        "cta_label": "Read our story",
+        "cta_link": ""
       }
     },
-
     "testimonials": {
       "type": "testimonials",
       "blocks": {
@@ -195,7 +309,11 @@
           }
         }
       },
-      "block_order": ["q1", "q2", "q3"],
+      "block_order": [
+        "q1",
+        "q2",
+        "q3"
+      ],
       "settings": {
         "surface": "surface-sage",
         "eyebrow": "In their words",
@@ -204,7 +322,6 @@
         "aggregate_text": "4.8 average from 320+ reviews"
       }
     },
-
     "faq": {
       "type": "faq",
       "blocks": {
@@ -244,7 +361,13 @@
           }
         }
       },
-      "block_order": ["f1", "f2", "f3", "f4", "f5"],
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5"
+      ],
       "settings": {
         "surface": "surface-bone",
         "eyebrow": "Before you ask",
@@ -254,7 +377,6 @@
       }
     }
   },
-
   "order": [
     "hero",
     "trust-bar",
