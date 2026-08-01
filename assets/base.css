@@ -182,7 +182,11 @@ button { font: inherit; cursor: pointer; }
   .grid--4 { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 749px) {
-  .grid--2, .grid--3, .grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .grid--2, .grid--4 { grid-template-columns: repeat(2, 1fr); }
+  /* Three-across blocks carry prose — pull quotes, feature copy. Two columns on
+     a 375px screen leaves about 90px of text width, roughly four characters per
+     line. Stack them instead. */
+  .grid--3 { grid-template-columns: 1fr; }
   .grid--4.grid--stack-mobile,
   .grid--3.grid--stack-mobile,
   .grid--2.grid--stack-mobile { grid-template-columns: 1fr; }
@@ -1485,4 +1489,72 @@ body.drawer-open { overflow: hidden; }
 .section-padding {
   padding-top: var(--section-pt, clamp(3rem, 8vw, 6rem));
   padding-bottom: var(--section-pb, clamp(3rem, 8vw, 6rem));
+}
+
+/* --------------------------------------------------------------------------
+   24. MOBILE CORRECTIONS
+   Measured at 375px against the real cascade, not guessed.
+   -------------------------------------------------------------------------- */
+@media (max-width: 749px) {
+
+  /* ---- Hero ----
+     A 16:9 image cover-cropped into a portrait viewport shows only its middle
+     third, and the shipped artwork puts its type-safe bone field on the left —
+     so a centred crop lands on the seam, the worst possible slice.
+
+     Overlaying copy on it doesn't work either. The text column runs to 87% of
+     the hero's height, and a veil that still reads at the proof row would have
+     to stay near-opaque that far down, reducing the photograph to wallpaper.
+     So stack instead: a photo band, then the copy on solid bone. Legibility is
+     guaranteed and the image is never cropped through its seam. */
+  .hero--bundled {
+    display: block;
+    min-height: 0;
+  }
+  .hero--bundled .hero__media {
+    position: relative;
+    inset: auto;
+    height: 52vw;
+    min-height: 210px;
+    max-height: 330px;
+  }
+  .hero--bundled .hero__media img {
+    height: 100%;
+    object-position: 74% center;
+  }
+  .hero--bundled .hero__inner {
+    padding-block: 2rem 2.75rem;
+  }
+
+  /* Uploaded imagery keeps the overlay treatment — the merchant picks a photo
+     that suits it, and controls scheme and overlay strength themselves. */
+  .hero:not(.hero--bundled) { align-items: start; }
+  .hero:not(.hero--bundled) .hero__inner { padding-top: 2.25rem; }
+
+  /* The default scrim runs left-to-right, which does nothing once the copy
+     stacks to full width. Run it top-to-bottom for uploaded imagery. */
+  .hero__scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(20, 24, 26, 0.74) 0%,
+      rgba(20, 24, 26, 0.46) 56%,
+      rgba(20, 24, 26, 0.14) 100%
+    );
+  }
+
+  /* Two 210px buttons in a 335px row wrap into a ragged stack. Make the stack
+     deliberate and give both a full-width tap target. */
+  .hero__actions { flex-direction: column; align-items: stretch; }
+  .hero__actions .btn { width: 100%; }
+
+  /* ---- Announcement bar ----
+     At 12px with wide tracking this wraps to two lines and costs 56px of the
+     first screen. Tighten it back to one line. */
+  .announcement { font-size: 10.5px; letter-spacing: 0.05em; }
+  .announcement__inner { min-height: 34px; }
+
+  /* ---- Trust bar ----
+     Five items across two columns leaves the fifth stranded in a half-width
+     cell. Let a trailing odd item span the full row. */
+  .trust-bar__item:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }

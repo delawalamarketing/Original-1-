@@ -19,7 +19,12 @@
   endunless
 -%}
 
-<section class="hero {% if scheme == 'light' %}hero--light{% endif %}"
+{%- comment -%}
+  hero--bundled tells the stylesheet it is dealing with the shipped artwork,
+  which has a known composition (subject right, type-safe field left) and so
+  needs a different mobile crop and veil from an arbitrary uploaded photo.
+{%- endcomment -%}
+<section class="hero {% if scheme == 'light' %}hero--light{% endif %}{% if use_bundled_hero %} hero--bundled{% endif %}"
          style="--section-pt:0;--section-pb:0;">
 
   {%- if section.settings.video != blank -%}
