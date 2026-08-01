@@ -1536,29 +1536,41 @@ body.drawer-open { overflow: hidden; }
      to stay near-opaque that far down, reducing the photograph to wallpaper.
      So stack instead: a photo band, then the copy on solid bone. Legibility is
      guaranteed and the image is never cropped through its seam. */
-  .hero--bundled {
+  /* Art-directed: a purpose-made portrait source is loaded via <picture>, so
+     the hero keeps its full-bleed overlay. Those sources carry their type-safe
+     field across the top, so anchor the copy there. */
+  .hero--art-directed { align-items: start; }
+  .hero--art-directed .hero__inner { padding-top: 2.25rem; }
+
+  /* No portrait source: the only safe move with a landscape crop is to stop
+     overlaying altogether — show it as a band above the copy. */
+  .hero:not(.hero--art-directed) {
     display: block;
     min-height: 0;
   }
-  .hero--bundled .hero__media {
+  .hero:not(.hero--art-directed) .hero__media {
     position: relative;
     inset: auto;
     height: 52vw;
     min-height: 210px;
     max-height: 330px;
   }
-  .hero--bundled .hero__media img {
-    height: 100%;
-    object-position: 74% center;
-  }
-  .hero--bundled .hero__inner {
-    padding-block: 2rem 2.75rem;
-  }
+  .hero:not(.hero--art-directed) .hero__media img,
+  .hero:not(.hero--art-directed) .hero__media video { height: 100%; }
+  .hero:not(.hero--art-directed) .hero__inner { padding-block: 2rem 2.75rem; }
 
-  /* Uploaded imagery keeps the overlay treatment — the merchant picks a photo
-     that suits it, and controls scheme and overlay strength themselves. */
-  .hero:not(.hero--bundled) { align-items: start; }
-  .hero:not(.hero--bundled) .hero__inner { padding-top: 2.25rem; }
+  /* These four repeat the trust bar sitting directly beneath the hero. On a
+     phone that duplication costs a third of the hero's height for no new
+     information, and pushes the buttons down over the photograph. */
+  .hero__proof { display: none; }
+
+  /* An outlined button over photography reads as a floating rectangle. Give the
+     secondary action a solid ground on mobile. */
+  .hero__actions .btn--secondary {
+    background: var(--o-paper);
+    border-color: var(--o-paper);
+    color: var(--o-forest);
+  }
 
   /* The default scrim runs left-to-right, which does nothing once the copy
      stacks to full width. Run it top-to-bottom for uploaded imagery. */

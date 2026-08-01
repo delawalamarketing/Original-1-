@@ -17,6 +17,22 @@
     assign use_bundled_hero = true
     assign scheme = 'dark'
   endunless
+
+  comment
+    Art direction: a landscape source cover-cropped into a portrait viewport
+    shows roughly its middle third, and which third depends on the handset. A
+    purpose-made portrait source removes that entirely. When one exists the
+    hero keeps its full-bleed overlay on mobile; when it doesn't, the stylesheet
+    falls back to stacking the image above the copy, which is the only safe
+    thing to do with a landscape crop.
+  endcomment
+  assign art_directed = false
+  if section.settings.mobile_image != blank
+    assign art_directed = true
+  endif
+  if use_bundled_hero
+    assign art_directed = true
+  endif
 -%}
 
 {%- comment -%}
@@ -24,7 +40,7 @@
   which has a known composition (subject right, type-safe field left) and so
   needs a different mobile crop and veil from an arbitrary uploaded photo.
 {%- endcomment -%}
-<section class="hero {% if scheme == 'light' %}hero--light{% endif %}{% if use_bundled_hero %} hero--bundled{% endif %}"
+<section class="hero {% if scheme == 'light' %}hero--light{% endif %}{% if use_bundled_hero %} hero--bundled{% endif %}{% if art_directed %} hero--art-directed{% endif %}"
          style="--section-pt:0;--section-pb:0;">
 
   {%- if section.settings.video != blank -%}
@@ -34,27 +50,46 @@
     </div>
   {%- elsif section.settings.image != blank -%}
     <div class="hero__media">
-      <img
-        src="{{ section.settings.image | image_url: width: 2000 }}"
-        srcset="{{ section.settings.image | image_url: width: 750 }} 750w,
-                {{ section.settings.image | image_url: width: 1100 }} 1100w,
-                {{ section.settings.image | image_url: width: 1500 }} 1500w,
-                {{ section.settings.image | image_url: width: 2000 }} 2000w"
-        sizes="100vw"
-        alt="{{ section.settings.image.alt | escape }}"
-        width="{{ section.settings.image.width }}"
-        height="{{ section.settings.image.height }}"
-        fetchpriority="high"
-      >
+      <picture>
+        {%- if section.settings.mobile_image != blank -%}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ section.settings.mobile_image | image_url: width: 600 }} 600w,
+                    {{ section.settings.mobile_image | image_url: width: 900 }} 900w,
+                    {{ section.settings.mobile_image | image_url: width: 1200 }} 1200w"
+            sizes="100vw"
+          >
+        {%- endif -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 2000 }}"
+          srcset="{{ section.settings.image | image_url: width: 750 }} 750w,
+                  {{ section.settings.image | image_url: width: 1100 }} 1100w,
+                  {{ section.settings.image | image_url: width: 1500 }} 1500w,
+                  {{ section.settings.image | image_url: width: 2000 }} 2000w"
+          sizes="100vw"
+          alt="{{ section.settings.image.alt | escape }}"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          fetchpriority="high"
+        >
+      </picture>
     </div>
   {%- elsif use_bundled_hero -%}
     <div class="hero__media">
-      <img
-        src="{{ 'hero-default.jpg' | asset_url }}"
-        alt=""
-        width="1600" height="900"
-        fetchpriority="high"
-      >
+      {%- comment -%}
+        The bundled set ships both orientations: a 16:9 landscape master and a
+        2:3 portrait companion whose type-safe bone field runs across the top
+        instead of down the left.
+      {%- endcomment -%}
+      <picture>
+        <source media="(max-width: 749px)" srcset="{{ 'hero-default-mobile.jpg' | asset_url }}">
+        <img
+          src="{{ 'hero-default.jpg' | asset_url }}"
+          alt=""
+          width="1600" height="900"
+          fetchpriority="high"
+        >
+      </picture>
     </div>
   {%- endif -%}
 
@@ -122,7 +157,18 @@
       "type": "paragraph",
       "content": "Above the fold you have about 3 seconds. Lead with what the brand is, not a slogan the shopper can't decode yet."
     },
-    { "type": "image_picker", "id": "image", "label": "Background image" },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image — desktop",
+      "info": "Landscape, around 2000 x 1125. Keep the left third clear of detail: the headline sits there."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Background image — mobile",
+      "info": "Portrait, around 1080 x 1620. Keep the top half clear. Without this, a landscape image is stacked above the copy on phones rather than cropped through its middle."
+    },
     {
       "type": "video",
       "id": "video",
