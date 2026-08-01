@@ -124,7 +124,7 @@
         "s1": {
           "type": "step",
           "settings": {
-            "product": "",
+            "product": "rice-toner",
             "step_number": "1",
             "step_label": "Step 01 — Tone",
             "title": "Rice Toner",
@@ -134,7 +134,7 @@
         "s2": {
           "type": "step",
           "settings": {
-            "product": "",
+            "product": "rice-silk-serum",
             "step_number": "2",
             "step_label": "Step 02 — Treat",
             "title": "Rice Silk Serum",
@@ -144,7 +144,7 @@
         "s3": {
           "type": "step",
           "settings": {
-            "product": "",
+            "product": "orchid-lotion",
             "step_number": "3",
             "step_label": "Step 03 — Seal",
             "title": "Orchid Lotion",
@@ -203,7 +203,7 @@
       ],
       "settings": {
         "bundle_product": "",
-        "step_products": [],
+        "step_products": ["frank-castor","rice-toner","rice-silk-serum","orchid-lotion"],
         "discount_percent": 15,
         "eyebrow": "The complete set",
         "heading": "The Full Ritual",
