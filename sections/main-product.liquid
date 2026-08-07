@@ -2,6 +2,7 @@
   assign variant = product.selected_or_first_available_variant
   assign step = product.metafields.custom.routine_step.value
   assign size_label = product.metafields.custom.size.value
+  assign claim_line = product.metafields.custom.claim_line.value
   assign benefits = product.metafields.custom.benefits.value
   assign ingredients_full = product.metafields.custom.ingredients_full.value
   assign how_to_use = product.metafields.custom.how_to_use.value
@@ -84,6 +85,13 @@
               <h1 class="pdp__title">{{ product.title }}</h1>
               {%- if size_label != blank -%}
                 <p class="meta" style="margin-top:0.5rem;">{{ size_label }}</p>
+              {%- endif -%}
+              {%- if claim_line != blank -%}
+                {%- comment -%}
+                  Per-product, so only the products that hold the documentation
+                  carry the claim. Empty metafield renders nothing.
+                {%- endcomment -%}
+                <p class="pdp__claim">{{ claim_line }}</p>
               {%- endif -%}
             </div>
 
@@ -439,7 +447,7 @@
       "name": "Reassurance",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "item_1", "label": "Item 1", "default": "Free shipping on Canadian orders over $75" },
+        { "type": "text", "id": "item_1", "label": "Item 1", "default": "Free shipping on Canadian orders over $100" },
         { "type": "text", "id": "item_2", "label": "Item 2", "default": "30-day money-back guarantee" },
         { "type": "text", "id": "item_3", "label": "Item 3", "default": "Secure checkout with Shop Pay, Apple Pay and Google Pay" }
       ]
@@ -459,7 +467,7 @@
           "type": "richtext",
           "id": "shipping",
           "label": "Shipping & returns",
-          "default": "<p>Free shipping on Canadian orders over $75. Orders ship within 1–2 business days. Return anything within 30 days, opened or not, for a full refund.</p>"
+          "default": "<p>Free shipping on Canadian orders over $100. Orders ship within 1–2 business days. Return anything within 30 days, opened or not, for a full refund.</p>"
         }
       ]
     },

@@ -590,9 +590,29 @@ button { font: inherit; cursor: pointer; }
   justify-self: center;
   display: inline-flex;
   align-items: center;
+  gap: var(--sp-3);
   text-decoration: none;
 }
 .header__logo img { max-height: 46px; width: auto; }
+
+/* Mark and wordmark are two files, so they have to be scaled as one unit or
+   they drift apart at the breakpoint. --logo-w comes from the logo_width theme
+   setting; --logo-scale shrinks the pair together on small screens.
+   The mark is square, so matching the wordmark's height exactly would tower
+   over its cap height - 38px lands the two on the same optical weight. */
+.header__logo { --logo-scale: 1; }
+.header__logo-mark {
+  flex: none;
+  width: auto;
+  height: calc(38px * var(--logo-scale));
+}
+.header__logo-wordmark {
+  width: calc(var(--logo-w, 150px) * var(--logo-scale));
+  height: auto;
+}
+@media (max-width: 749px) {
+  .header__logo { --logo-scale: 0.78; gap: var(--sp-2); }
+}
 .header__logo-text {
   font-family: var(--font-display);
   font-size: var(--fs-xl);
@@ -607,13 +627,16 @@ button { font: inherit; cursor: pointer; }
 .header__nav a {
   font-size: var(--fs-sm);
   letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
+  /* Lowercase, not uppercase: the wordmark already carries the formal voice,
+     so the nav reads softer set against it. */
+  text-transform: lowercase;
   text-decoration: none;
   color: var(--o-ink);
   padding-block: var(--sp-2);
   position: relative;
 }
-.header__nav a::after {
+.header__nav > a::after,
+.header__nav-item > a::after {
   content: "";
   position: absolute;
   left: 0; bottom: 2px;
@@ -623,8 +646,48 @@ button { font: inherit; cursor: pointer; }
   transform-origin: right;
   transition: transform var(--dur) var(--ease);
 }
-.header__nav a:hover::after,
-.header__nav a[aria-current="page"]::after { transform: scaleX(1); transform-origin: left; }
+.header__nav > a:hover::after,
+.header__nav > a[aria-current="page"]::after,
+.header__nav-item > a:hover::after,
+.header__nav-item > a[aria-current="page"]::after { transform: scaleX(1); transform-origin: left; }
+
+/* Submenu -----------------------------------------------------------------
+   Hover for a mouse, :focus-within for a keyboard. No JS, so it behaves the
+   same way whether or not theme.js loaded. */
+.header__nav-item { position: relative; display: flex; align-items: center; }
+
+.header__submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  min-width: 190px;
+  margin: 0;
+  padding: var(--sp-2) 0;
+  list-style: none;
+  background: var(--o-paper);
+  border: 1px solid var(--o-line-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility var(--dur);
+}
+.header__nav-item:hover .header__submenu,
+.header__nav-item:focus-within .header__submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.header__submenu a {
+  display: block;
+  padding: var(--sp-2) var(--sp-4);
+  white-space: nowrap;
+}
+.header__submenu a::after { content: none; }
+.header__submenu a:hover,
+.header__submenu a[aria-current="page"] { background: rgba(20, 24, 26, 0.05); }
 
 .header__actions {
   justify-self: end;
@@ -730,7 +793,7 @@ body.drawer-open { overflow: hidden; }
 
 /* Mobile nav list */
 .mobile-nav { list-style: none; margin: 0; padding: 0; }
-.mobile-nav li + li { border-top: 1px solid var(--o-line-soft); }
+.mobile-nav > li + li { border-top: 1px solid var(--o-line-soft); }
 .mobile-nav a {
   display: flex;
   align-items: center;
@@ -739,6 +802,24 @@ body.drawer-open { overflow: hidden; }
   font-family: var(--font-display);
   font-size: var(--fs-xl);
   text-decoration: none;
+}
+
+/* Sub-links sit a step down in scale and switch to the body face, so the
+   hierarchy reads without needing a disclosure control. */
+.mobile-nav__sub {
+  list-style: none;
+  margin: 0 0 var(--sp-3);
+  padding: 0 0 0 var(--sp-4);
+  border-left: 1px solid var(--o-line-soft);
+}
+.mobile-nav__sub a {
+  padding: var(--sp-3) 0;
+  font-family: inherit;
+  font-size: var(--fs-base);
+  letter-spacing: var(--tracking-wide);
+  text-transform: lowercase;
+  color: var(--o-ink-2);
+  min-height: 44px;
 }
 
 /* --------------------------------------------------------------------------
@@ -892,6 +973,21 @@ body.drawer-open { overflow: hidden; }
 .hero--light .hero__proof { color: rgba(250, 249, 247, 0.86); }
 .hero__proof li { display: flex; align-items: center; gap: 6px; }
 .hero__proof { list-style: none; padding: 0; margin-left: 0; }
+
+/* The full lockup already contains the mark, wordmark, descriptor and slogan,
+   so it is capped well below the headline: it introduces the brand, it does not
+   compete with the offer underneath it. */
+.hero__lockup {
+  display: block;
+  width: auto;
+  max-width: 260px;
+  max-height: 230px;
+  height: auto;
+  margin: 0 0 var(--sp-5);
+}
+@media (max-width: 749px) {
+  .hero__lockup { max-width: 190px; max-height: 170px; margin-inline: auto; }
+}
 
 /* --------------------------------------------------------------------------
    13. TRUST BAR
@@ -1211,6 +1307,16 @@ body.drawer-open { overflow: hidden; }
 .pdp__info { display: flex; flex-direction: column; gap: var(--sp-4); }
 .pdp__title { font-size: clamp(1.875rem, 4vw, 2.75rem); margin: 0; }
 .pdp__subtitle { font-size: var(--fs-md); color: var(--o-ink-2); margin: 0; }
+
+/* A testing or certification line. Set quietly on purpose: it reassures the
+   shopper who goes looking for it without reading as a headline claim. */
+.pdp__claim {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--o-teal);
+}
 
 .pdp__price-row {
   display: flex;

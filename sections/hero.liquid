@@ -103,6 +103,39 @@
 
   <div class="hero__inner container">
     <div class="hero__content">
+      {%- if section.settings.show_lockup -%}
+        {%- comment -%}
+          The full lockup: mark, wordmark, descriptor and slogan in one image.
+          On the light scheme the artwork has to invert, so the bundled fallback
+          picks the bone version the same way the header picks its wordmark.
+        {%- endcomment -%}
+        {%- if section.settings.logo_lockup != blank -%}
+          <img
+            class="hero__lockup"
+            src="{{ section.settings.logo_lockup | image_url: width: 640 }}"
+            srcset="{{ section.settings.logo_lockup | image_url: width: 320 }} 1x,
+                    {{ section.settings.logo_lockup | image_url: width: 640 }} 2x"
+            alt="{{ shop.name }} - {{ settings.brand_tagline }}"
+            width="{{ section.settings.logo_lockup.width }}"
+            height="{{ section.settings.logo_lockup.height }}"
+            fetchpriority="high"
+          >
+        {%- else -%}
+          {%- if scheme == 'light' -%}
+            {%- assign lockup_src = 'logo-light.png' -%}
+          {%- else -%}
+            {%- assign lockup_src = 'logo.png' -%}
+          {%- endif -%}
+          <img
+            class="hero__lockup"
+            src="{{ lockup_src | asset_url }}"
+            alt="{{ shop.name }} - {{ settings.brand_tagline }}"
+            width="620" height="654"
+            fetchpriority="high"
+          >
+        {%- endif -%}
+      {%- endif -%}
+
       {%- if section.settings.eyebrow != blank -%}
         <p class="eyebrow">{{ section.settings.eyebrow }}</p>
       {%- endif -%}
@@ -192,13 +225,27 @@
       ],
       "default": "light"
     },
+    { "type": "header", "content": "Brand lockup" },
+    {
+      "type": "checkbox",
+      "id": "show_lockup",
+      "label": "Show the full logo lockup",
+      "default": true,
+      "info": "Mark, wordmark and slogan, above the heading. Ships with the bundled artwork; upload below to replace it."
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_lockup",
+      "label": "Lockup image",
+      "info": "Transparent PNG. Leave empty to use the bundled lockup."
+    },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Conscious lifestyle & skincare" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Imagine this." },
     {
       "type": "text",
       "id": "heading_emphasis",
       "label": "Heading (emphasised line)",
-      "default": "A luxurious fusion of nature’s finest ingredients."
+      "default": "A refined union of conscious living and nature’s finest ingredients."
     },
     {
       "type": "richtext",

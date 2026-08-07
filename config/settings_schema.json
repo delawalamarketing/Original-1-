@@ -165,7 +165,7 @@
         "type": "number",
         "id": "cart_free_shipping_threshold",
         "label": "Free shipping threshold",
-        "default": 75,
+        "default": 100,
         "info": "In your store currency, before tax. Set to the value that nudges a second product into the cart."
       },
       {
@@ -178,7 +178,7 @@
         "type": "text",
         "id": "cart_reassurance",
         "label": "Checkout reassurance line",
-        "default": "Free shipping in Canada · 30-day returns · Secure checkout"
+        "default": "Free shipping in Canada over $100 · 30-day returns · Secure checkout"
       }
     ]
   },

@@ -78,7 +78,7 @@
       "choose_options": "Choose options",
       "variant_sold_out": "Sold out",
       "size": "Size",
-      "shipping_note": "Taxes included. Shipping calculated at checkout.",
+      "shipping_note": "Taxes and shipping calculated at checkout.",
       "low_stock": "Only {{ count }} left",
       "in_stock": "In stock, ready to ship",
       "purchase_type": {

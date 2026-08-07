@@ -15,7 +15,25 @@
 
         <nav class="header__nav" aria-label="{{ 'general.menu' | t }}">
           {%- for link in section.settings.menu.links -%}
-            <a href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>{{ link.title }}</a>
+            {%- if link.links.size > 0 -%}
+              {%- comment -%}
+                Hover opens it for a mouse, :focus-within opens it for a keyboard.
+                Both are CSS, so the submenu survives a JavaScript failure the same
+                way the variant pickers do.
+              {%- endcomment -%}
+              <div class="header__nav-item has-submenu">
+                <a href="{{ link.url }}" {% if link.active or link.child_active %}aria-current="page"{% endif %}>{{ link.title }}</a>
+                <ul class="header__submenu">
+                  {%- for child in link.links -%}
+                    <li>
+                      <a href="{{ child.url }}" {% if child.active %}aria-current="page"{% endif %}>{{ child.title }}</a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- else -%}
+              <a href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>{{ link.title }}</a>
+            {%- endif -%}
           {%- endfor -%}
         </nav>
       </div>
@@ -26,7 +44,9 @@
       {%- else -%}
         <div class="header__logo-wrap">
       {%- endif -%}
-        <a href="{{ routes.root_url }}" class="header__logo" aria-label="{{ shop.name }}, {{ 'general.breadcrumbs.home' | t }}">
+        <a href="{{ routes.root_url }}" class="header__logo"
+           style="--logo-w:{{ settings.logo_width }}px;"
+           aria-label="{{ shop.name }}, {{ 'general.breadcrumbs.home' | t }}">
           {%- if settings.logo -%}
             <img
               src="{{ settings.logo | image_url: width: 400 }}"
@@ -41,12 +61,23 @@
             {%- comment -%}
               Ships with the theme so a fresh install is already branded.
               Uploading a logo in Theme settings replaces it.
+
+              Two files rather than one lockup: the O1% mark and the wordmark set
+              their own heights, so the mark stays legible when logo_width is
+              turned down without the wordmark shrinking past readable.
             {%- endcomment -%}
             <img
+              class="header__logo-mark"
+              src="{{ 'logo-mark.png' | asset_url }}"
+              alt=""
+              width="240" height="240"
+              fetchpriority="high"
+            >
+            <img
+              class="header__logo-wordmark"
               src="{{ 'logo-wordmark.png' | asset_url }}"
               alt="{{ shop.name }}"
               width="560" height="155"
-              style="width:{{ settings.logo_width }}px;height:auto;"
               fetchpriority="high"
             >
           {%- endif -%}

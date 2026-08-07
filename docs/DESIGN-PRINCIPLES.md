@@ -105,7 +105,8 @@ into *"what should I add?"* - a much easier question.
 
 **It only works if the threshold is set correctly.** Put it slightly **above**
 your current average order value. Below it, every shopper clears it without
-changing anything and you've simply given away shipping margin.
+changing anything and you've simply given away shipping margin. It is currently
+**$100**, which is between two and three of the four products.
 
 ---
 
