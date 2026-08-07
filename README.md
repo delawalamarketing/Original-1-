@@ -54,12 +54,15 @@ Roughly 30 minutes, in this order.
 
 Create the four products with these exact handles so the demo content lines up:
 
-| Handle | Title | Size | Step |
-|---|---|---|---|
-| `frank-castor` | Frank Castor | 50mL | Step 00 |
-| `rice-toner` | Rice Toner | 50mL | Step 01 |
-| `rice-silk-serum` | Rice Silk Serum | 50mL | Step 02 |
-| `orchid-lotion` | Orchid Lotion | 48g | Step 03 |
+| Handle | SKU | Title | Size | Step |
+|---|---|---|---|---|
+| `frank-castor` | `00` | Frank Castor | 50mL | Step 00 · Weekly Lubrication |
+| `rice-toner` | `01` | Rice Toner | 50mL | Step 01 · Daily Hydration |
+| `rice-silk-serum` | `02` | Rice Silk Serum | 50mL | Step 02 · Daily Rejuvenation |
+| `orchid-lotion` | `03` | Orchid Lotion | 48g | Step 03 · Daily Moisturization |
+
+Each ships at **350 g** including the retail box. Avoid "treat" and "treatment"
+in any product copy - both read as medical claims for a cosmetic product.
 
 Create a collection called **The Ritual** containing all four, sorted manually
 in step order (0 → 3). The homepage and the product-page cross-sell both read it.
@@ -77,16 +80,17 @@ and it degrades gracefully when they're empty.
 | `custom.ingredients_full` | Rich text | "Full ingredients" accordion |
 | `custom.how_to_use` | Rich text | "How to use" accordion |
 | `custom.size` | Single line text | `50mL (1.69 oz)` under the PDP title |
+| `custom.claim_line` | Single line text | Testing/certification line under the PDP title. Set it only on products whose documentation you hold. |
 
 ### 3. Theme settings
 
 **Customize → Theme settings**
 
-- **Brand identity** - upload the logo. The theme ships with a bundled wordmark
-  so it looks right immediately; uploading replaces it.
-- **Cart** - set the free-shipping threshold. Put it just above your current
-  average order value, not below it: the bar only drives behaviour when the
-  shopper has to add something to clear it.
+- **Brand identity** - upload the logo. The theme ships with the O1% mark and
+  wordmark bundled so it looks right immediately; uploading replaces both.
+- **Cart** - the free-shipping threshold is **$100**, matching the shipping
+  rates in Settings → Shipping. Change one and you must change the other, or
+  the progress bar promises something checkout will not honour.
 - **Colours / Typography** - already set to the brand palette.
 
 ### 4. Navigation
@@ -206,7 +210,8 @@ shopify theme check
    as soon as you're collecting.
 2. **The "4.8 from 320+ reviews" aggregate is a placeholder.** Remove it or make
    it true - a false aggregate rating is a policy problem, not just a taste one.
-3. **Set the real free-shipping threshold**, and match the announcement bar to it.
+3. **The free-shipping threshold is $100**, matched across the announcement bar,
+   trust bar, PDP and the Shopify shipping rates. Move all five together.
 4. **Add your contact email** to the FAQ footer text.
 5. **Confirm the claims copy** ("certified Canadian facility", "dermatologically
    tested") matches what you can document.

@@ -50,9 +50,10 @@
       "settings": {
         "overlay": 55,
         "text_scheme": "light",
+        "show_lockup": true,
         "eyebrow": "Conscious lifestyle & skincare",
         "heading": "Imagine this.",
-        "heading_emphasis": "A luxurious fusion of nature’s finest ingredients.",
+        "heading_emphasis": "A refined union of conscious living and nature’s finest ingredients.",
         "subheading": "<p>Meticulously crafted by experts in a certified Canadian facility, formulated without parabens, and beautifully packaged in eco-friendly Italian glass bottles.</p>",
         "cta_label": "Shop the ritual",
         "cta_link": "",
@@ -95,7 +96,7 @@
           "type": "item",
           "settings": {
             "icon": "truck",
-            "text": "Free shipping in Canada"
+            "text": "Free shipping over $100"
           }
         }
       },
@@ -116,9 +117,9 @@
           "settings": {
             "product": "frank-castor",
             "step_number": "0",
-            "step_label": "Step 00 · Treat",
+            "step_label": "Step 00 · Weekly Lubrication",
             "title": "Frank Castor",
-            "description": "Cold-pressed organic castor and steam-distilled frankincense. The weekly deep treatment for skin and hair."
+            "description": "Cold-pressed organic castor and steam-distilled frankincense. The weekly conditioning oil for skin and hair."
           }
         },
         "s1": {
@@ -126,7 +127,7 @@
           "settings": {
             "product": "rice-toner",
             "step_number": "1",
-            "step_label": "Step 01 · Tone",
+            "step_label": "Step 01 · Daily Hydration",
             "title": "Rice Toner",
             "description": "In-house rice water with witch hazel and chamomile. Brightens, balances, preps."
           }
@@ -136,7 +137,7 @@
           "settings": {
             "product": "rice-silk-serum",
             "step_number": "2",
-            "step_label": "Step 02 · Treat",
+            "step_label": "Step 02 · Daily Rejuvenation",
             "title": "Rice Silk Serum",
             "description": "Vitamin C, hyaluronic acid, panthenol and silk amino acids. Brightening and plumping."
           }
@@ -146,7 +147,7 @@
           "settings": {
             "product": "orchid-lotion",
             "step_number": "3",
-            "step_label": "Step 03 · Seal",
+            "step_label": "Step 03 · Daily Moisturization",
             "title": "Orchid Lotion",
             "description": "Niacinamide, orchid extract and shea butter. Fragrance-free, seals everything in."
           }
@@ -173,7 +174,7 @@
         "b1": {
           "type": "item",
           "settings": {
-            "text": "Frank Castor, 50mL: the weekly treatment"
+            "text": "Frank Castor, 50mL: the weekly conditioning oil"
           }
         },
         "b2": {
@@ -209,7 +210,7 @@
         "heading": "The Full Ritual",
         "text": "<p>All four steps, in the order your skin wants them. The simplest way to start, and the best value we offer.</p>",
         "cta_label": "Add the full ritual",
-        "footnote": "Free shipping in Canada · 30-day money-back guarantee"
+        "footnote": "Free shipping in Canada over $100 · 30-day money-back guarantee"
       }
     },
     "ingredients": {
@@ -329,7 +330,7 @@
           "type": "faq",
           "settings": {
             "question": "What order do I use the four products in?",
-            "answer": "<p>Toner first on clean skin, then serum, then lotion to seal. Frank Castor is a treatment. Use it once or twice a week on skin or hair, or as the last step at night.</p>"
+            "answer": "<p>Toner first on clean skin, then serum, then lotion last. Frank Castor is the weekly one. Use it once or twice a week on skin or hair, or as the last step at night.</p>"
           }
         },
         "f2": {

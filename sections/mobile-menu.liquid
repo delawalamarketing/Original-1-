@@ -24,6 +24,20 @@
               {{ link.title }}
               {% render 'icon', name: 'arrow-right', size: 18 %}
             </a>
+
+            {%- comment -%}
+              Always expanded rather than an accordion. The drawer is already a
+              tap away, and one more tap to reveal three links buys nothing.
+            {%- endcomment -%}
+            {%- if link.links.size > 0 -%}
+              <ul class="mobile-nav__sub">
+                {%- for child in link.links -%}
+                  <li>
+                    <a href="{{ child.url }}">{{ child.title }}</a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
           </li>
         {%- endfor -%}
       </ul>
