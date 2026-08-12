@@ -48,6 +48,7 @@
         "p4"
       ],
       "settings": {
+        "image": "shopify://shop_images/9-IMG_3866.jpg",
         "overlay": 55,
         "text_scheme": "light",
         "show_lockup": true,
@@ -204,7 +205,12 @@
       ],
       "settings": {
         "bundle_product": "",
-        "step_products": ["frank-castor","rice-toner","rice-silk-serum","orchid-lotion"],
+        "step_products": [
+          "frank-castor",
+          "rice-toner",
+          "rice-silk-serum",
+          "orchid-lotion"
+        ],
         "discount_percent": 15,
         "eyebrow": "The complete set",
         "heading": "The Full Ritual",
