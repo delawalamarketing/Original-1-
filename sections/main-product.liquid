@@ -1,6 +1,12 @@
 {%- liquid
   assign variant = product.selected_or_first_available_variant
   assign step = product.metafields.custom.routine_step.value
+  comment
+    Published but not purchasable yet. The page still has a job to do - it
+    explains the step and captures interest - but it must not show a price or
+    a buy button, both of which would be lies.
+  endcomment
+  assign coming_soon = product.metafields.custom.coming_soon.value
   assign size_label = product.metafields.custom.size.value
   assign claim_line = product.metafields.custom.claim_line.value
   assign benefits = product.metafields.custom.benefits.value
@@ -99,19 +105,25 @@
             <div {{ block.shopify_attributes }}>{% render 'rating', product: product %}</div>
 
           {%- when 'price' -%}
-            <div class="pdp__price-row" {{ block.shopify_attributes }}>
-              <div class="pdp__price" data-price-block>
-                {% render 'price', product: variant, show_unit: true %}
+            {%- if coming_soon -%}
+              <div class="pdp__price-row" {{ block.shopify_attributes }}>
+                <span class="badge badge--soon">{{ 'products.product.coming_soon' | t }}</span>
               </div>
-              {%- if variant.available == false -%}
-                <span class="badge badge--sold-out">{{ 'products.product.sold_out' | t }}</span>
-              {%- elsif variant.inventory_management == 'shopify' and variant.inventory_quantity > 0 and variant.inventory_quantity <= block.settings.low_stock_threshold -%}
-                <span class="badge badge--brass">
-                  {{ 'products.product.low_stock' | t: count: variant.inventory_quantity }}
-                </span>
-              {%- endif -%}
-            </div>
-            <p class="meta" style="margin:-0.5rem 0 0;">{{ 'products.product.shipping_note' | t }}</p>
+            {%- else -%}
+              <div class="pdp__price-row" {{ block.shopify_attributes }}>
+                <div class="pdp__price" data-price-block>
+                  {% render 'price', product: variant, show_unit: true %}
+                </div>
+                {%- if variant.available == false -%}
+                  <span class="badge badge--sold-out">{{ 'products.product.sold_out' | t }}</span>
+                {%- elsif variant.inventory_management == 'shopify' and variant.inventory_quantity > 0 and variant.inventory_quantity <= block.settings.low_stock_threshold -%}
+                  <span class="badge badge--brass">
+                    {{ 'products.product.low_stock' | t: count: variant.inventory_quantity }}
+                  </span>
+                {%- endif -%}
+              </div>
+              <p class="meta" style="margin:-0.5rem 0 0;">{{ 'products.product.shipping_note' | t }}</p>
+            {%- endif -%}
 
           {%- when 'description' -%}
             <div class="rte" {{ block.shopify_attributes }}>
@@ -187,6 +199,16 @@
             {%- endunless -%}
 
           {%- when 'buy_buttons' -%}
+            {%- if coming_soon -%}
+              <div class="pdp__buy" {{ block.shopify_attributes }}>
+                <p class="pdp__soon-note">{{ block.settings.coming_soon_note }}</p>
+                {%- if block.settings.coming_soon_link != blank -%}
+                  <a href="{{ block.settings.coming_soon_link }}" class="btn btn--lg btn--full">
+                    {{ 'products.product.notify_me' | t }}
+                  </a>
+                {%- endif -%}
+              </div>
+            {%- else -%}
             <div {{ block.shopify_attributes }}>
               <product-form>
                 {%- form 'product', product, id: 'ProductForm', novalidate: 'novalidate' -%}
@@ -279,6 +301,7 @@
                 <p class="field__error" data-form-error hidden role="alert" style="margin-top:0.75rem;"></p>
               </product-form>
             </div>
+            {%- endif -%}
 
           {%- when 'reassurance' -%}
             <div class="pdp__reassurance" {{ block.shopify_attributes }}>
@@ -343,7 +366,11 @@
 </div>
 
 {%- comment -%} ============ STICKY ADD TO CART ============ {%- endcomment -%}
-{%- if section.settings.enable_sticky_atc -%}
+{%- comment -%}
+  Never for a coming-soon product: the bar exists to re-offer a purchase, and
+  there is nothing to buy.
+{%- endcomment -%}
+{%- if section.settings.enable_sticky_atc and coming_soon != true -%}
   <sticky-atc class="sticky-atc" data-watch="[data-add-button]">
     <div class="sticky-atc__inner">
       {%- if product.featured_image -%}
@@ -433,6 +460,17 @@
           "default": true,
           "info": "Shop Pay, Apple Pay, Google Pay. Leave this on."
         },
+        {
+          "type": "paragraph",
+          "content": "Shown instead of the buy button when the product's Coming soon metafield is on."
+        },
+        {
+          "type": "text",
+          "id": "coming_soon_note",
+          "label": "Coming soon note",
+          "default": "This step is not available to buy yet. Join the list and we will tell you the moment it is."
+        },
+        { "type": "url", "id": "coming_soon_link", "label": "Coming soon button link" },
         {
           "type": "checkbox",
           "id": "show_subscribe",

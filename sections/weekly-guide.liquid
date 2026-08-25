@@ -1,0 +1,307 @@
+{%- comment -%}
+  Weekly skin maintenance guide.
+
+  The brand has this as a designed chart, and the instruction is explicit:
+  build it as readable text and dots, and keep the image only as a download.
+  So this is a real table - not a screenshot, not a background image. It is
+  selectable, translatable, indexable, and it survives a palette change.
+
+  One DOM, two layouts. The desktop view is the full seven-day grid; on phones
+  the day columns collapse and each row becomes a card showing the days as
+  words ("Tue / Thu / Sat"), which is what the visual guide asks for. Rendering
+  two separate blocks of markup would have meant screen readers meeting the
+  same content twice.
+
+  Accessibility: a dot is a colour and a shape, so every dot cell also carries
+  visually-hidden text. Without it the entire grid is invisible to a screen
+  reader and unusable to anyone who cannot separate filled from outlined.
+{%- endcomment -%}
+
+{%- liquid
+  assign anchor = section.settings.anchor_id | default: 'weekly-guide'
+  assign day_keys  = 'mon,tue,wed,thu,fri,sat,sun' | split: ','
+  assign day_short = 'Mon,Tue,Wed,Thu,Fri,Sat,Sun' | split: ','
+  assign day_long  = 'Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday' | split: ','
+-%}
+
+<section id="{{ anchor }}" class="section {{ section.settings.surface }}">
+  <div class="container">
+
+    <div class="flow-center" style="margin-bottom:2.5rem;max-width:62ch;margin-inline:auto;">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 style="margin-bottom:0.75rem;">{{ section.settings.heading }}</h2>
+      {%- if section.settings.intro != blank -%}
+        <div class="lede">{{ section.settings.intro }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="weekly__scroll">
+      <table class="weekly">
+        {%- if section.settings.table_caption != blank -%}
+          <caption class="visually-hidden">{{ section.settings.table_caption }}</caption>
+        {%- endif -%}
+
+        <thead>
+          <tr>
+            <th scope="col">{{ 'sections.weekly_guide.col_step' | t }}</th>
+            <th scope="col">{{ 'sections.weekly_guide.col_product' | t }}</th>
+            <th scope="col">{{ 'sections.weekly_guide.col_frequency' | t }}</th>
+            {%- for i in (0..6) -%}
+              <th scope="col" class="weekly__day-col">
+                <abbr title="{{ day_long[i] }}">{{ day_short[i] }}</abbr>
+              </th>
+            {%- endfor -%}
+          </tr>
+        </thead>
+
+        <tbody>
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign p = block.settings.product
+              assign title = block.settings.title | default: p.title
+              assign purpose = block.settings.purpose | default: p.metafields.custom.purpose.value
+              assign frequency = block.settings.frequency | default: p.metafields.custom.use_frequency.value
+
+              comment
+                Build the plain-words day list for the phone layout, and count
+                the suggested days so a full week can collapse to "Daily"
+                rather than spelling out all seven.
+              endcomment
+              assign suggested_words = ''
+              assign suggested_count = 0
+              for i in (0..6)
+                assign key = 'day_' | append: day_keys[i]
+                if block.settings[key] == 'suggested'
+                  assign suggested_count = suggested_count | plus: 1
+                  if suggested_words == blank
+                    assign suggested_words = day_short[i]
+                  else
+                    assign suggested_words = suggested_words | append: ' / ' | append: day_short[i]
+                  endif
+                endif
+              endfor
+              if suggested_count == 7
+                assign suggested_words = 'sections.weekly_guide.every_day' | t
+              endif
+            -%}
+
+            <tr {{ block.shopify_attributes }}>
+              <th scope="row" class="weekly__step">
+                <span class="weekly__num" aria-hidden="true">{{ block.settings.step_number }}</span>
+                <span class="weekly__verb">{{ block.settings.step_label }}</span>
+              </th>
+
+              <td class="weekly__product">
+                <span class="weekly__product-name">
+                  {%- if p != blank -%}
+                    <a href="{{ p.url }}">{{ title }}</a>
+                  {%- else -%}
+                    {{ title }}
+                  {%- endif -%}
+                </span>
+                {%- if purpose != blank -%}
+                  <span class="weekly__purpose">{{ purpose }}</span>
+                {%- endif -%}
+              </td>
+
+              <td class="weekly__freq">
+                {{ frequency }}
+                {%- if suggested_words != blank -%}
+                  {%- comment -%}
+                    Shown only on phones, where the day columns are gone. It is
+                    hidden from the desktop layout with CSS rather than a
+                    second markup block.
+                  {%- endcomment -%}
+                  <span class="weekly__days-words">{{ suggested_words }}</span>
+                {%- endif -%}
+              </td>
+
+              {%- for i in (0..6) -%}
+                {%- liquid
+                  assign key = 'day_' | append: day_keys[i]
+                  assign state = block.settings[key]
+                -%}
+                <td class="weekly__day-col">
+                  {%- case state -%}
+                    {%- when 'suggested' -%}
+                      <span class="dot dot--on" aria-hidden="true"></span>
+                      <span class="visually-hidden">
+                        {{ 'sections.weekly_guide.state_suggested' | t }}, {{ day_long[i] }}
+                      </span>
+                    {%- when 'optional' -%}
+                      <span class="dot dot--opt" aria-hidden="true"></span>
+                      <span class="visually-hidden">
+                        {{ 'sections.weekly_guide.state_optional' | t }}, {{ day_long[i] }}
+                      </span>
+                    {%- else -%}
+                      <span class="visually-hidden">
+                        {{ 'sections.weekly_guide.state_none' | t }}, {{ day_long[i] }}
+                      </span>
+                  {%- endcase -%}
+                </td>
+              {%- endfor -%}
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="weekly__legend">
+      <span><span class="dot dot--on" aria-hidden="true"></span>{{ 'sections.weekly_guide.state_suggested' | t }}</span>
+      <span><span class="dot dot--opt" aria-hidden="true"></span>{{ 'sections.weekly_guide.state_optional' | t }}</span>
+    </div>
+
+    {%- if section.settings.footnote != blank or section.settings.guide_url != blank -%}
+      <div class="weekly__foot">
+        {%- if section.settings.footnote != blank -%}
+          <p class="weekly__footnote">{{ section.settings.footnote }}</p>
+        {%- endif -%}
+        {%- if section.settings.guide_url != blank -%}
+          <a class="btn btn--secondary" href="{{ section.settings.guide_url }}" target="_blank" rel="noopener">
+            {{ section.settings.guide_label | default: 'Download the printable guide' }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Weekly guide",
+  "tag": "section",
+  "max_blocks": 7,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The seven-day table. Each row takes its product name, purpose and frequency from the product's metafields unless you override them here."
+    },
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Background",
+      "options": [
+        { "value": "surface-bone", "label": "Canvas" },
+        { "value": "surface-tint", "label": "Canvas tint" },
+        { "value": "surface-sage", "label": "Olive wash" },
+        { "value": "surface-paper", "label": "Ivory" }
+      ],
+      "default": "surface-paper"
+    },
+    { "type": "text", "id": "anchor_id", "label": "Anchor", "default": "weekly-guide" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Weekly skin maintenance guide" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Five simple steps, across the week." },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro",
+      "default": "<p>Did you know the skin is the largest organ of the body? Maintain healthy-looking skin with five simple steps throughout the week.</p>"
+    },
+    {
+      "type": "text",
+      "id": "table_caption",
+      "label": "Table description",
+      "default": "Suggested weekly frequency for each of the five steps, Monday to Sunday.",
+      "info": "Read aloud by screen readers to introduce the table. Not shown on screen."
+    },
+    {
+      "type": "text",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "Five essentials. One simple weekly rhythm."
+    },
+    {
+      "type": "url",
+      "id": "guide_url",
+      "label": "Printable guide file",
+      "info": "Upload the chart to Settings > Files, then paste its URL here. Leave empty to hide the download button."
+    },
+    { "type": "text", "id": "guide_label", "label": "Download button label", "default": "Download the printable guide" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "step_number", "label": "Step number", "default": "1" },
+        { "type": "text", "id": "step_label", "label": "Step", "default": "Hydrate" },
+        { "type": "text", "id": "title", "label": "Product name override" },
+        {
+          "type": "text",
+          "id": "purpose",
+          "label": "Purpose",
+          "info": "Short line under the product name. Leave empty to use the product's Purpose metafield."
+        },
+        {
+          "type": "text",
+          "id": "frequency",
+          "label": "Suggested frequency",
+          "info": "Leave empty to use the product's Use frequency metafield."
+        },
+        { "type": "header", "content": "Days" },
+        {
+          "type": "select", "id": "day_mon", "label": "Monday", "default": "suggested",
+          "options": [
+            { "value": "suggested", "label": "Suggested" },
+            { "value": "optional", "label": "Optional" },
+            { "value": "none", "label": "Not needed" }
+          ]
+        },
+        {
+          "type": "select", "id": "day_tue", "label": "Tuesday", "default": "suggested",
+          "options": [
+            { "value": "suggested", "label": "Suggested" },
+            { "value": "optional", "label": "Optional" },
+            { "value": "none", "label": "Not needed" }
+          ]
+        },
+        {
+          "type": "select", "id": "day_wed", "label": "Wednesday", "default": "suggested",
+          "options": [
+            { "value": "suggested", "label": "Suggested" },
+            { "value": "optional", "label": "Optional" },
+            { "value": "none", "label": "Not needed" }
+          ]
+        },
+        {
+          "type": "select", "id": "day_thu", "label": "Thursday", "default": "suggested",
+          "options": [
+            { "value": "suggested", "label": "Suggested" },
+            { "value": "optional", "label": "Optional" },
+            { "value": "none", "label": "Not needed" }
+          ]
+        },
+        {
+          "type": "select", "id": "day_fri", "label": "Friday", "default": "suggested",
+          "options": [
+            { "value": "suggested", "label": "Suggested" },
+            { "value": "optional", "label": "Optional" },
+            { "value": "none", "label": "Not needed" }
+          ]
+        },
+        {
+          "type": "select", "id": "day_sat", "label": "Saturday", "default": "suggested",
+          "options": [
+            { "value": "suggested", "label": "Suggested" },
+            { "value": "optional", "label": "Optional" },
+            { "value": "none", "label": "Not needed" }
+          ]
+        },
+        {
+          "type": "select", "id": "day_sun", "label": "Sunday", "default": "suggested",
+          "options": [
+            { "value": "suggested", "label": "Suggested" },
+            { "value": "optional", "label": "Optional" },
+            { "value": "none", "label": "Not needed" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Weekly guide" }]
+}
+{% endschema %}

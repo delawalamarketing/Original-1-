@@ -1,4 +1,8 @@
-<section class="section {% if section.settings.color_scheme == 'forest' %}surface-forest{% elsif section.settings.color_scheme == 'sage' %}surface-sage{% else %}surface-tint{% endif %}">
+{%- comment -%}
+  The id is a link target: Coming soon cards and the product page point at
+  /#newsletter so "Notify me" lands on the signup rather than nowhere.
+{%- endcomment -%}
+<section id="newsletter" class="section {% if section.settings.color_scheme == 'forest' %}surface-forest{% elsif section.settings.color_scheme == 'sage' %}surface-sage{% else %}surface-tint{% endif %}">
   <div class="container container--narrow">
     <div class="newsletter {% if section.settings.align == 'center' %}newsletter--center{% endif %}"
          {% if section.settings.align == 'center' %}style="text-align:center;"{% endif %}>

@@ -11,54 +11,18 @@
   "sections": {
     "hero": {
       "type": "hero",
-      "blocks": {
-        "p1": {
-          "type": "proof",
-          "settings": {
-            "icon": "maple",
-            "text": "Made in Canada"
-          }
-        },
-        "p2": {
-          "type": "proof",
-          "settings": {
-            "icon": "leaf",
-            "text": "Paraben-free"
-          }
-        },
-        "p3": {
-          "type": "proof",
-          "settings": {
-            "icon": "rabbit",
-            "text": "Cruelty-free & vegan"
-          }
-        },
-        "p4": {
-          "type": "proof",
-          "settings": {
-            "icon": "bottle",
-            "text": "Italian glass"
-          }
-        }
-      },
-      "block_order": [
-        "p1",
-        "p2",
-        "p3",
-        "p4"
-      ],
       "settings": {
         "image": "shopify://shop_images/9-IMG_3866.jpg",
         "overlay": 55,
         "text_scheme": "light",
         "show_lockup": true,
         "eyebrow": "Conscious lifestyle & skincare",
-        "heading": "Imagine this.",
-        "heading_emphasis": "A refined union of conscious living and nature’s finest ingredients.",
-        "subheading": "<p>Meticulously crafted by experts in a certified Canadian facility, formulated without parabens, and beautifully packaged in eco-friendly Italian glass bottles.</p>",
-        "cta_label": "Shop the ritual",
-        "cta_link": "",
-        "cta2_label": "Find my routine",
+        "heading": "Skincare, understood",
+        "heading_emphasis": "in five steps.",
+        "subheading": "<p>Five purposeful formulas organized around a simple, consistent ritual.</p>",
+        "cta_label": "Explore the five steps",
+        "cta_link": "/#five-step-method",
+        "cta2_label": "",
         "cta2_link": ""
       }
     },
@@ -110,63 +74,185 @@
       ],
       "settings": {}
     },
-    "ritual": {
-      "type": "ritual-steps",
+    "five-step": {
+      "type": "five-step-method",
       "blocks": {
-        "s0": {
-          "type": "step",
-          "settings": {
-            "product": "frank-castor",
-            "step_number": "0",
-            "step_label": "Step 00 · Weekly Lubrication",
-            "title": "Frank Castor",
-            "description": "Cold-pressed organic castor and steam-distilled frankincense. The weekly conditioning oil for skin and hair."
-          }
-        },
         "s1": {
           "type": "step",
           "settings": {
-            "product": "rice-toner",
+            "product": "mineral-veil",
             "step_number": "1",
-            "step_label": "Step 01 · Daily Hydration",
-            "title": "Rice Toner",
-            "description": "In-house rice water with witch hazel and chamomile. Brightens, balances, preps."
+            "step_label": "Hydrate",
+            "title": "Mineral Veil",
+            "description": "Supports surface hydration and freshness."
           }
         },
         "s2": {
           "type": "step",
           "settings": {
-            "product": "rice-silk-serum",
+            "product": "frank-castor",
             "step_number": "2",
-            "step_label": "Step 02 · Daily Rejuvenation",
-            "title": "Rice Silk Serum",
-            "description": "Vitamin C, hyaluronic acid, panthenol and silk amino acids. Brightening and plumping."
+            "step_label": "Lubricate",
+            "title": "Frank Castor",
+            "description": "Provides lipid care for softness and comfort."
           }
         },
         "s3": {
           "type": "step",
           "settings": {
-            "product": "orchid-lotion",
+            "product": "rice-toner",
             "step_number": "3",
-            "step_label": "Step 03 · Daily Moisturization",
+            "step_label": "Tone",
+            "title": "Rice Toner",
+            "description": "Lightweight conditioning after cleansing."
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "product": "rice-silk-serum",
+            "step_number": "4",
+            "step_label": "Nourish",
+            "title": "Rice Silk Serum",
+            "description": "Refined serum care for smooth, conditioned skin."
+          }
+        },
+        "s5": {
+          "type": "step",
+          "settings": {
+            "product": "orchid-lotion",
+            "step_number": "5",
+            "step_label": "Moisturize",
             "title": "Orchid Lotion",
-            "description": "Niacinamide, orchid extract and shea butter. Fragrance-free, seals everything in."
+            "description": "Locks in comfort and a well-moisturized feel."
           }
         }
       },
       "block_order": [
-        "s0",
         "s1",
         "s2",
-        "s3"
+        "s3",
+        "s4",
+        "s5"
       ],
       "settings": {
         "surface": "surface-tint",
-        "eyebrow": "The ritual",
-        "heading": "Four steps. In this order.",
-        "subheading": "<p>Each formula does one job well, then hands off to the next. Start anywhere, but this is the order your skin prefers.</p>",
-        "cta_label": "Shop all four",
-        "cta_link": ""
+        "anchor_id": "five-step-method",
+        "eyebrow": "Intelligent skin maintenance",
+        "heading": "Five essentials.",
+        "subheading": "<p>One complete approach to skin maintenance. These are not five things to layer on every day. Think of them as five areas to address across the week, according to how your skin looks and feels.</p>",
+        "footnote": "Understand what your skin needs. Choose the appropriate step. Maintain it consistently.",
+        "cta_label": "",
+        "cta_link": "",
+        "notify_link": "/#newsletter"
+      }
+    },
+    "weekly-guide": {
+      "type": "weekly-guide",
+      "blocks": {
+        "w1": {
+          "type": "step",
+          "settings": {
+            "product": "mineral-veil",
+            "step_number": "1",
+            "step_label": "Hydrate",
+            "purpose": "Supports surface hydration and freshness",
+            "frequency": "Daily / as needed",
+            "day_mon": "suggested",
+            "day_tue": "suggested",
+            "day_wed": "suggested",
+            "day_thu": "suggested",
+            "day_fri": "suggested",
+            "day_sat": "suggested",
+            "day_sun": "suggested"
+          }
+        },
+        "w2": {
+          "type": "step",
+          "settings": {
+            "product": "frank-castor",
+            "step_number": "2",
+            "step_label": "Lubricate",
+            "purpose": "Provides lipid care for softness and comfort",
+            "frequency": "2-3 times weekly",
+            "day_mon": "optional",
+            "day_tue": "suggested",
+            "day_wed": "optional",
+            "day_thu": "suggested",
+            "day_fri": "optional",
+            "day_sat": "suggested",
+            "day_sun": "optional"
+          }
+        },
+        "w3": {
+          "type": "step",
+          "settings": {
+            "product": "rice-toner",
+            "step_number": "3",
+            "step_label": "Tone",
+            "purpose": "Lightweight conditioning after cleansing",
+            "frequency": "Daily",
+            "day_mon": "suggested",
+            "day_tue": "suggested",
+            "day_wed": "suggested",
+            "day_thu": "suggested",
+            "day_fri": "suggested",
+            "day_sat": "suggested",
+            "day_sun": "suggested"
+          }
+        },
+        "w4": {
+          "type": "step",
+          "settings": {
+            "product": "rice-silk-serum",
+            "step_number": "4",
+            "step_label": "Nourish",
+            "purpose": "Refined serum care for smooth, conditioned skin",
+            "frequency": "3-4 times weekly",
+            "day_mon": "suggested",
+            "day_tue": "optional",
+            "day_wed": "suggested",
+            "day_thu": "optional",
+            "day_fri": "suggested",
+            "day_sat": "optional",
+            "day_sun": "suggested"
+          }
+        },
+        "w5": {
+          "type": "step",
+          "settings": {
+            "product": "orchid-lotion",
+            "step_number": "5",
+            "step_label": "Moisturize",
+            "purpose": "Locks in comfort and a well-moisturized feel",
+            "frequency": "Daily",
+            "day_mon": "suggested",
+            "day_tue": "suggested",
+            "day_wed": "suggested",
+            "day_thu": "suggested",
+            "day_fri": "suggested",
+            "day_sat": "suggested",
+            "day_sun": "suggested"
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5"
+      ],
+      "settings": {
+        "surface": "surface-paper",
+        "anchor_id": "weekly-guide",
+        "eyebrow": "Weekly skin maintenance guide",
+        "heading": "Five simple steps, across the week.",
+        "intro": "<p>Did you know the skin is the largest organ of the body? Maintain healthy-looking skin with five simple steps throughout the week.</p>",
+        "table_caption": "Suggested weekly frequency for each of the five steps, Monday to Sunday.",
+        "footnote": "Five essentials. One simple weekly rhythm.",
+        "guide_url": "",
+        "guide_label": "Download the printable guide"
       }
     },
     "bundle": {
@@ -387,7 +473,8 @@
   "order": [
     "hero",
     "trust-bar",
-    "ritual",
+    "five-step",
+    "weekly-guide",
     "bundle",
     "ingredients",
     "story",

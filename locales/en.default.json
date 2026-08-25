@@ -43,7 +43,6 @@
     "account": "Account",
     "view_all": "View all"
   },
-
   "accessibility": {
     "skip_to_content": "Skip to content",
     "close": "Close",
@@ -58,7 +57,6 @@
     },
     "star_rating": "{{ rating }} out of {{ max }} stars"
   },
-
   "products": {
     "product": {
       "add_to_cart": "Add to cart",
@@ -98,7 +96,10 @@
       "media": {
         "gallery_label": "Product images",
         "thumbnail": "Show image {{ number }}"
-      }
+      },
+      "coming_soon": "Coming soon",
+      "notify_me": "Notify me",
+      "add_short": "Add"
     },
     "facets": {
       "sort_by_label": "Sort by",
@@ -111,8 +112,12 @@
       }
     }
   },
-
   "sections": {
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you’re looking for doesn’t exist, but your skin still has a routine waiting.",
+      "cta": "Shop the ritual"
+    },
     "header": {
       "announcement": "Announcement",
       "cart_count": {
@@ -152,11 +157,6 @@
       "title": "Search",
       "heading": "Results for “{{ terms }}”"
     },
-    "404": {
-      "title": "Page not found",
-      "subtext": "The page you’re looking for doesn’t exist, but your skin still has a routine waiting.",
-      "cta": "Shop the ritual"
-    },
     "footer": {
       "newsletter_heading": "Join the 1%",
       "copyright": "© {{ year }} {{ shop }}. All rights reserved.",
@@ -164,9 +164,17 @@
     },
     "quick_order": {
       "add_bundle": "Add all four to cart"
+    },
+    "weekly_guide": {
+      "col_step": "Step & function",
+      "col_product": "Product & purpose",
+      "col_frequency": "Suggested frequency",
+      "every_day": "Daily",
+      "state_suggested": "Suggested day",
+      "state_optional": "Optional, as needed",
+      "state_none": "Not needed"
     }
   },
-
   "customer": {
     "account": {
       "title": "My account",
@@ -267,7 +275,6 @@
     "log_in": "Log in",
     "create_account": "Create account"
   },
-
   "gift_cards": {
     "issued": {
       "title": "Here’s your {{ value }} gift card for {{ shop }}",
@@ -281,7 +288,6 @@
       "qr_image_alt": "QR code: scan to redeem"
     }
   },
-
   "onboarding": {
     "product_title": "Example product",
     "collection_title": "Example collection"

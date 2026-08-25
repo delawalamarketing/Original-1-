@@ -16,6 +16,12 @@
 {%- liquid
   assign step = product.metafields.custom.routine_step.value
   assign short = product.metafields.custom.short_description.value | default: product.description
+  comment
+    A product that is published but not purchasable yet. It needs its own
+    state: "Sold out" is wrong (it was never in stock) and a price with no
+    buy button reads as broken.
+  endcomment
+  assign coming_soon = product.metafields.custom.coming_soon.value
   assign single_variant = false
   if product.variants.size == 1
     assign single_variant = true
@@ -26,14 +32,18 @@
 <article class="card" data-reveal {% if index %}data-reveal-delay="{{ index | times: 70 }}"{% endif %}>
   <div class="card__media">
     <div class="card__badges">
-      {%- if settings.show_sale_badge and product.compare_at_price > product.price -%}
-        <span class="badge badge--brass">
-          {{ 'products.product.on_sale' | t: amount: product.compare_at_price | minus: product.price | money_without_trailing_zeros }}
-        </span>
+      {%- if coming_soon -%}
+        <span class="badge badge--soon">{{ 'products.product.coming_soon' | t }}</span>
+      {%- else -%}
+        {%- if settings.show_sale_badge and product.compare_at_price > product.price -%}
+          <span class="badge badge--brass">
+            {{ 'products.product.on_sale' | t: amount: product.compare_at_price | minus: product.price | money_without_trailing_zeros }}
+          </span>
+        {%- endif -%}
+        {%- unless product.available -%}
+          <span class="badge badge--sold-out">{{ 'products.product.sold_out' | t }}</span>
+        {%- endunless -%}
       {%- endif -%}
-      {%- unless product.available -%}
-        <span class="badge badge--sold-out">{{ 'products.product.sold_out' | t }}</span>
-      {%- endunless -%}
     </div>
 
     {%- if product.featured_image -%}
@@ -77,9 +87,11 @@
     {%- endif -%}
 
     <div class="card__footer">
-      {% render 'price', product: product %}
+      {%- unless coming_soon -%}
+        {% render 'price', product: product %}
+      {%- endunless -%}
 
-      {%- if show_quick_add != false and product.available -%}
+      {%- if show_quick_add != false and product.available and coming_soon != true -%}
         <div class="card__cta">
           {%- if single_variant -%}
             <product-form>

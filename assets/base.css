@@ -1046,14 +1046,20 @@ body.drawer-open { overflow: hidden; }
   margin-bottom: var(--sp-7);
 }
 
+/* An <ol>: the order is the message, so it should survive CSS being stripped. */
 .ritual__grid {
   display: grid;
   gap: var(--sp-4);
   grid-template-columns: repeat(2, 1fr);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
 }
-@media (min-width: 990px) {
-  .ritual__grid { grid-template-columns: repeat(4, 1fr); }
-}
+@media (min-width: 750px) { .ritual__grid { grid-template-columns: repeat(3, 1fr); } }
+/* Five equal columns, as the visual guide specifies. Below this the fifth card
+   orphans onto its own row, which is what the guide's own mobile mock shows. */
+@media (min-width: 990px) { .ritual__grid { grid-template-columns: repeat(5, 1fr); } }
 
 .step-card {
   position: relative;
@@ -1723,4 +1729,175 @@ body.drawer-open { overflow: hidden; }
      Five items across two columns leaves the fifth stranded in a half-width
      cell. Let a trailing odd item span the full row. */
   .trust-bar__item:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+
+/* --------------------------------------------------------------------------
+   20. FIVE-STEP METHOD ADDITIONS
+   -------------------------------------------------------------------------- */
+.step-card__freq {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.04em;
+  color: var(--o-ink-3);
+  margin: 0;
+}
+
+/* Stand-in for a product with no photography yet. Drawn from the palette so it
+   needs no uploaded asset, and deliberately quiet - it should read as "not
+   here yet", not as a missing image. */
+.step-card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: var(--o-sage-wash);
+  color: var(--o-sage);
+}
+.step-card--soon .step-card__media { background: var(--o-sage-wash); }
+
+.badge--soon {
+  background: rgba(104, 114, 88, 0.14);
+  color: var(--o-teal-dark);
+}
+
+.step-card__notify {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--o-teal-dark);
+  position: relative;
+  z-index: 2;
+}
+
+.five-step__footnote {
+  margin: var(--sp-6) 0 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  color: var(--o-ink-2);
+}
+
+/* --------------------------------------------------------------------------
+   21. WEEKLY GUIDE
+   -------------------------------------------------------------------------- */
+.weekly__scroll { overflow-x: auto; }
+
+.weekly {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+  background: var(--o-paper);
+}
+.weekly caption { text-align: left; }
+
+.weekly th,
+.weekly td {
+  border: 1px solid var(--o-line-soft);
+  padding: var(--sp-3) var(--sp-3);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.weekly thead th {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--o-ink-2);
+  white-space: nowrap;
+}
+.weekly thead th abbr { text-decoration: none; border: 0; }
+
+.weekly__step { white-space: nowrap; }
+.weekly__num {
+  display: inline-grid;
+  place-items: center;
+  width: 24px; height: 24px;
+  margin-right: var(--sp-2);
+  border-radius: 50%;
+  background: var(--o-sage);
+  color: var(--o-paper);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.weekly__verb {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  letter-spacing: 0.02em;
+}
+
+.weekly__product-name { display: block; font-weight: 600; }
+.weekly__purpose { display: block; color: var(--o-ink-3); font-size: var(--fs-xs); }
+
+.weekly__day-col { text-align: center; width: 1%; }
+
+.dot {
+  display: inline-block;
+  width: 13px; height: 13px;
+  border-radius: 50%;
+}
+.dot--on  { background: var(--o-sage); }
+.dot--opt { border: 1.5px solid var(--o-sage); }
+
+.weekly__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-5);
+  justify-content: center;
+  margin-top: var(--sp-5);
+  font-size: var(--fs-xs);
+  color: var(--o-ink-2);
+}
+.weekly__legend span { display: inline-flex; align-items: center; gap: var(--sp-2); }
+
+.weekly__foot {
+  margin-top: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  text-align: center;
+}
+.weekly__footnote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  color: var(--o-ink-2);
+}
+
+/* The day words are the phone substitute for the day columns. */
+.weekly__days-words { display: none; }
+
+@media (max-width: 749px) {
+  /* Reflow the seven-day grid into one card per step. The day columns go and
+     the days return as words, which is what the visual guide asks for on
+     phones - the same information, minus the horizontal scroll. */
+  .weekly, .weekly tbody, .weekly tr, .weekly th, .weekly td { display: block; }
+  .weekly thead { display: none; }
+  .weekly { background: transparent; }
+
+  .weekly tr {
+    border: 1px solid var(--o-line);
+    border-radius: var(--radius);
+    background: var(--o-paper);
+    padding: var(--sp-4);
+    margin-bottom: var(--sp-4);
+  }
+  .weekly th, .weekly td { border: 0; padding: 0; }
+  .weekly__product { margin-top: var(--sp-2); }
+  .weekly__day-col { display: none; }
+
+  .weekly__freq { margin-top: var(--sp-2); color: var(--o-ink-3); font-size: var(--fs-xs); }
+  .weekly__days-words {
+    display: block;
+    margin-top: 2px;
+    color: var(--o-teal-dark);
+    font-weight: 600;
+  }
+}
+
+.pdp__soon-note {
+  margin: 0 0 var(--sp-4);
+  color: var(--o-ink-2);
 }
