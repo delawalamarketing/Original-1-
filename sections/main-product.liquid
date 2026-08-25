@@ -10,8 +10,14 @@
   assign size_label = product.metafields.custom.size.value
   assign claim_line = product.metafields.custom.claim_line.value
   assign benefits = product.metafields.custom.benefits.value
-  assign ingredients_full = product.metafields.custom.ingredients_full.value
-  assign how_to_use = product.metafields.custom.how_to_use.value
+  comment
+    No `.value` on these two, unlike the fields above. They are rich text, and
+    for a rich text metafield `.value` hands back the parsed structure rather
+    than markup - printing it gives you the object, not the paragraphs. The
+    bare metafield renders as HTML, which is what the accordion wants.
+  endcomment
+  assign ingredients_full = product.metafields.custom.ingredients_full
+  assign how_to_use = product.metafields.custom.how_to_use
   assign has_selling_plans = false
   if product.selling_plan_groups.size > 0
     assign has_selling_plans = true

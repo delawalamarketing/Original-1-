@@ -25,15 +25,15 @@
             "text": "<p>Formulated and filled in a certified Canadian facility. Bottled in recyclable Italian glass. Paraben-free, cruelty-free, vegan-friendly.</p>"
           }
         },
-        "newsletter": {
-          "type": "newsletter",
+        "text-contact": {
+          "type": "text",
           "settings": {
-            "heading": "Join the 1%",
-            "text": "Ritual guides, restock alerts and 10% off your first order."
+            "heading": "Talk to us",
+            "text": "<p>info@originalonepercent.com</p><p>A person answers, usually within one working day.</p>"
           }
         }
       },
-      "block_order": ["pages-all", "text-promise", "newsletter"],
+      "block_order": ["pages-all", "text-promise", "text-contact"],
       "settings": {
         "show_payment_icons": true,
         "show_policy_links": false

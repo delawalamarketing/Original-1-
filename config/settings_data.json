@@ -12,7 +12,7 @@
     "page_width": 1360,
     "logo_width": 150,
     "brand_tagline": "One percent more you, every day.",
-    "brand_blurb": "Conscious lifestyle & skincare. Formulated in a certified Canadian facility, bottled in eco-friendly Italian glass.",
+    "brand_blurb": "Conscious lifestyle and skincare. Five essentials, one simple weekly rhythm. Formulated in a certified Canadian facility, bottled in eco-friendly Italian glass.",
     "cart_type": "drawer",
     "cart_free_shipping_bar": true,
     "cart_free_shipping_threshold": 100,
@@ -20,7 +20,7 @@
     "cart_reassurance": "Free shipping in Canada over $100 · 30-day returns · Secure checkout",
     "show_sale_badge": true,
     "show_step_badge": true,
-    "social_instagram": "",
+    "social_instagram": "https://www.instagram.com/original1percent",
     "social_tiktok": "",
     "social_facebook": "",
     "social_youtube": ""

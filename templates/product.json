@@ -10,7 +10,7 @@
         "benefits": {
           "type": "benefits",
           "settings": {
-            "fallback_text": "Brightens and evens tone\nDeeply hydrates without a heavy finish\nFormulated without parabens or harsh chemicals\nSuitable for sensitive skin"
+            "fallback_text": "Supports a smooth, even-looking finish\nLeaves skin feeling hydrated, not heavy\nFormulated without parabens or harsh chemicals\nDesigned for everyday use"
           }
         },
         "variant_picker": { "type": "variant_picker", "settings": {} },
@@ -33,7 +33,7 @@
         "accordion": {
           "type": "accordion",
           "settings": {
-            "how_to_use": "<p>Apply to clean skin morning and night. Follow with the next step in your ritual while skin is still damp.</p>",
+            "how_to_use": "<p>Apply to clean skin. Follow with the next step while skin is still damp. You do not need every step every day: the weekly guide on the home page shows a suggested rhythm.</p>",
             "shipping": "<p>Free shipping on Canadian orders over $100. Orders ship within 1–2 business days from Ontario. Return anything within 30 days, opened or not, for a full refund.</p>"
           }
         }
@@ -70,11 +70,9 @@
       "blocks": {
         "t1": { "type": "item", "settings": { "icon": "flask", "text": "Certified Canadian facility" } },
         "t2": { "type": "item", "settings": { "icon": "leaf", "text": "Paraben & sulphate free" } },
-        "t3": { "type": "item", "settings": { "icon": "rabbit", "text": "Cruelty-free & vegan" } },
-        "t4": { "type": "item", "settings": { "icon": "bottle", "text": "Eco-friendly Italian glass" } },
-        "t5": { "type": "item", "settings": { "icon": "return", "text": "30-day returns" } }
+        "t3": { "type": "item", "settings": { "icon": "rabbit", "text": "Cruelty-free & vegan" } }
       },
-      "block_order": ["t1", "t2", "t3", "t4", "t5"],
+      "block_order": ["t1", "t2", "t3"],
       "settings": {}
     },
 
@@ -84,8 +82,8 @@
         "f1": {
           "type": "faq",
           "settings": {
-            "question": "How do I use this with the rest of the ritual?",
-            "answer": "<p>Toner first on clean skin, then serum, then lotion last. Frank Castor is the weekly one. Use it on skin or hair, or as the final step at night.</p>"
+            "question": "How does this fit with the other steps?",
+            "answer": "<p>Tone after cleansing, then nourish, then moisturize to finish. Frank Castor is the lubrication step, used as needed on skin or hair. Mineral Veil, the hydration step, is coming soon.</p>"
           }
         },
         "f2": {
@@ -98,8 +96,8 @@
         "f3": {
           "type": "faq",
           "settings": {
-            "question": "When will I see a difference?",
-            "answer": "<p>Hydration is immediate. Tone and texture changes usually show at the three to four week mark with consistent twice-daily use.</p>"
+            "question": "How often should I use this?",
+            "answer": "<p>It depends on the step. Each product lists a suggested frequency, and the weekly guide on the home page shows how the five fit together across a week.</p>"
           }
         }
       },

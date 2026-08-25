@@ -14,10 +14,9 @@
         "t1": { "type": "item", "settings": { "icon": "flask", "text": "Certified Canadian facility" } },
         "t2": { "type": "item", "settings": { "icon": "leaf", "text": "Paraben & sulphate free" } },
         "t3": { "type": "item", "settings": { "icon": "rabbit", "text": "Cruelty-free & vegan" } },
-        "t4": { "type": "item", "settings": { "icon": "bottle", "text": "Eco-friendly Italian glass" } },
-        "t5": { "type": "item", "settings": { "icon": "truck", "text": "Free shipping over $100" } }
+        "t4": { "type": "item", "settings": { "icon": "bottle", "text": "Eco-friendly Italian glass" } }
       },
-      "block_order": ["t1", "t2", "t3", "t4", "t5"],
+      "block_order": ["t1", "t2", "t3", "t4"],
       "settings": {}
     }
   },
