@@ -15,8 +15,8 @@
       },
       "block_order": ["announcement-1"],
       "settings": {
-        "bg": "#304824",
-        "fg": "#E4E2DD"
+        "bg": "#263B25",
+        "fg": "#E8E4DB"
       }
     },
     "header": {

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="{{ settings.color_forest | default: '#304824' }}">
+    <meta name="theme-color" content="{{ settings.color_forest | default: '#263B25' }}">
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
@@ -55,12 +55,24 @@
         --o-bone-tint: {{ settings.color_bone | color_mix: '#ffffff', 65 }};
         --o-paper:     {{ settings.color_paper }};
         --o-ink:       {{ settings.color_ink }};
-        --o-ink-2:     {{ settings.color_ink | color_mix: settings.color_bone, 65 }};
-        --o-ink-3:     {{ settings.color_ink | color_mix: settings.color_bone, 45 }};
+        {%- comment -%}
+          78/63 rather than 65/45. At 45 the meta tier landed on 2.7:1 against
+          the canvas, which is a WCAG failure - it reads as grey-on-grey for
+          compare-at prices, review counts and input placeholders. 63 is the
+          lightest mix that still clears 4.5:1, and 78 keeps the secondary tier
+          visibly distinct from it rather than collapsing the two together.
+        {%- endcomment -%}
+        --o-ink-2:     {{ settings.color_ink | color_mix: settings.color_bone, 78 }};
+        --o-ink-3:     {{ settings.color_ink | color_mix: settings.color_bone, 63 }};
         --o-forest:      {{ settings.color_forest }};
         --o-forest-dark: {{ settings.color_forest | color_darken: 8 }};
         --o-sage:      {{ settings.color_sage }};
-        --o-sage-soft: {{ settings.color_sage | color_lighten: 14 }};
+        {%- comment -%}
+          30%, not 14%. The soft tint is the only thing carrying the eyebrow and
+          the footer headings on the forest surface; mineral olive itself is
+          2.4:1 there, and lightening by 14 only reaches 4.0:1. 30 clears 6:1.
+        {%- endcomment -%}
+        --o-sage-soft: {{ settings.color_sage | color_lighten: 30 }};
         --o-sage-wash: {{ settings.color_sage | color_mix: settings.color_paper, 18 }};
         --o-teal:      {{ settings.color_teal }};
         {%- comment -%} 16% keeps the eyebrow above 4.5:1 on the bone canvas. {%- endcomment -%}

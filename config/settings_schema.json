@@ -12,53 +12,55 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "Sampled from the Original 1% packaging and logo lockup. Changing these updates the whole store."
+        "content": "The five colours from the Original 1% visual guide. Every other shade in the theme is mixed from these automatically. Changing one updates the whole store."
       },
       {
         "type": "color",
         "id": "color_bone",
-        "label": "Canvas (bone)",
-        "default": "#E4E2DD",
-        "info": "The page background. Matches the packaging backdrop."
+        "label": "Canvas (soft stone)",
+        "default": "#E8E4DB",
+        "info": "The page background."
       },
       {
         "type": "color",
         "id": "color_paper",
-        "label": "Surface (paper)",
-        "default": "#FAF9F7",
+        "label": "Surface (warm ivory)",
+        "default": "#F7F4ED",
         "info": "Cards, inputs and raised panels."
       },
       {
         "type": "color",
         "id": "color_ink",
-        "label": "Ink",
-        "default": "#14181A"
+        "label": "Text (charcoal)",
+        "default": "#171B16"
       },
       {
         "type": "color",
         "id": "color_forest",
-        "label": "Primary action (forest)",
-        "default": "#304824",
+        "label": "Primary action (forest green)",
+        "default": "#263B25",
         "info": "Buttons, footer, dark sections."
       },
       {
         "type": "color",
         "id": "color_sage",
-        "label": "Sage",
-        "default": "#99BA8F"
+        "label": "Accent (mineral olive)",
+        "default": "#687258",
+        "info": "Icons, rules and section washes. Keep it dark enough to stay legible on the canvas."
       },
       {
         "type": "color",
         "id": "color_teal",
-        "label": "Teal",
-        "default": "#469D99"
+        "label": "Accent, secondary",
+        "default": "#687258",
+        "info": "Retired as a separate colour. Set to mineral olive so the five-colour system holds. Drives eyebrows, focus rings and small icons."
       },
       {
         "type": "color",
         "id": "color_brass",
-        "label": "Brass accent",
-        "default": "#B27409",
-        "info": "Prices, step numbers, badges."
+        "label": "Step numbers & badges",
+        "default": "#263B25",
+        "info": "Retired as a gold accent. Set to forest green to match the brand's own weekly guide, where step numbers are green circles."
       }
     ]
   },

@@ -9,28 +9,38 @@
    -------------------------------------------------------------------------- */
 :root {
   /* Brand core ---------------------------------------------------------- */
-  --o-bone:        #E4E2DD;  /* primary canvas - the packaging backdrop      */
-  --o-bone-tint:   #EDEBE6;  /* raised surface                                */
-  --o-paper:       #FAF9F7;  /* cards, inputs                                 */
+  /* Five named colours from the Shopify Visual Guide. Everything else on this
+     list is derived from them, either here or by layout/theme.liquid, which
+     recomputes the same ramp from the merchant's theme settings. Keep the two
+     in step: these values are the no-JS/no-settings fallback.               */
+  --o-bone:        #E8E4DB;  /* "Soft stone"  - primary canvas                */
+  --o-bone-tint:   #F0EDE8;  /* raised surface                                */
+  --o-paper:       #F7F4ED;  /* "Warm ivory"  - cards, inputs                 */
   --o-white:       #FFFFFF;
 
-  --o-ink:         #14181A;  /* headings & body                               */
-  --o-ink-2:       #4A534F;  /* secondary copy                                */
-  --o-ink-3:       #7C857F;  /* meta, captions                                */
+  --o-ink:         #171B16;  /* "Charcoal"    - headings & body               */
+  --o-ink-2:       #454741;  /* secondary copy          - 7.4:1 on canvas     */
+  --o-ink-3:       #64655F;  /* meta, captions          - 4.6:1 on canvas     */
 
-  --o-forest:      #304824;  /* primary action - deep, from the carton        */
-  --o-forest-dark: #223318;
-  --o-sage:        #99BA8F;  /* logo mark fill                                */
-  --o-sage-soft:   #C9DBC2;
-  --o-sage-wash:   #EBF1E8;
-  --o-teal:        #469D99;  /* logo ring                                     */
+  --o-forest:      #263B25;  /* "Forest green" - primary action               */
+  --o-forest-dark: #162215;
+  --o-sage:        #687258;  /* "Mineral olive" - icons, rules, accents       */
+  /* Light enough to clear 4.5:1 on forest - the footer headings and the
+     eyebrow on dark surfaces both sit on it.                                 */
+  --o-sage-soft:   #B4BBA8;
+  --o-sage-wash:   #DDDDD2;
+  /* Teal and brass are retired: the guide names a five-colour system and the
+     brand's own weekly-guide chart draws step numbers as olive circles, not
+     gold. Both tokens now resolve into the palette so existing rules keep
+     working without a sweep through every reference.                         */
+  --o-teal:        #687258;
   /* Dark enough to clear 4.5:1 on bone - .eyebrow uses it at 12px.           */
-  --o-teal-dark:   #2A6D6A;
-  --o-brass:       #B27409;  /* accent - price, badges, rules                 */
-  --o-brass-soft:  #E8D3A8;
+  --o-teal-dark:   #3E4434;
+  --o-brass:       #263B25;
+  --o-brass-soft:  #C5CDBF;
 
-  --o-line:        rgba(20, 24, 26, 0.12);
-  --o-line-soft:   rgba(20, 24, 26, 0.07);
+  --o-line:        rgba(23, 27, 22, 0.12);
+  --o-line-soft:   rgba(23, 27, 22, 0.07);
   --o-success:     #2F7B4F;
   --o-error:       #A03A2B;
 
@@ -65,9 +75,12 @@
   --radius-lg: 16px;
   --radius-pill: 999px;
 
-  --shadow-sm: 0 1px 2px rgba(20, 24, 26, 0.05);
-  --shadow: 0 4px 16px rgba(20, 24, 26, 0.07);
-  --shadow-lg: 0 16px 48px rgba(20, 24, 26, 0.12);
+  /* Reserved for genuinely floating layers - the nav submenu and the cart
+     drawer. Section content uses hairlines instead: "thin borders instead of
+     heavy shadows" is an explicit brand style rule.                          */
+  --shadow-sm: 0 1px 2px rgba(23, 27, 22, 0.05);
+  --shadow: 0 4px 16px rgba(23, 27, 22, 0.07);
+  --shadow-lg: 0 16px 48px rgba(23, 27, 22, 0.12);
 
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --dur: 220ms;
@@ -229,14 +242,15 @@ button { font: inherit; cursor: pointer; }
   color: var(--o-teal-dark);
   margin: 0 0 var(--sp-3);
 }
-.surface-forest .eyebrow { color: var(--o-sage); }
+/* Mineral olive is only 2.4:1 on forest. The soft tint clears 4.5:1. */
+.surface-forest .eyebrow { color: var(--o-sage-soft); }
 
 .lede {
   font-size: var(--fs-md);
   line-height: 1.7;
   color: var(--o-ink-2);
 }
-.surface-forest .lede { color: rgba(250, 249, 247, 0.82); }
+.surface-forest .lede { color: rgba(247, 244, 237, 0.82); }
 
 .meta {
   font-size: var(--fs-xs);
@@ -347,9 +361,9 @@ button { font: inherit; cursor: pointer; }
   text-transform: uppercase;
   line-height: 1.4;
 }
-.badge--brass { background: rgba(178, 116, 9, 0.12); color: var(--o-brass); }
-.badge--teal  { background: rgba(70, 157, 153, 0.14); color: var(--o-teal-dark); }
-.badge--sold-out { background: rgba(20, 24, 26, 0.08); color: var(--o-ink-2); }
+.badge--brass { background: rgba(38, 59, 37, 0.10); color: var(--o-brass); }
+.badge--teal  { background: rgba(104, 114, 88, 0.14); color: var(--o-teal-dark); }
+.badge--sold-out { background: rgba(23, 27, 22, 0.08); color: var(--o-ink-2); }
 
 /* --------------------------------------------------------------------------
    7. FORMS
@@ -379,7 +393,7 @@ button { font: inherit; cursor: pointer; }
 .input:focus, .select:focus, .textarea:focus {
   outline: none;
   border-color: var(--o-teal);
-  box-shadow: 0 0 0 3px rgba(70, 157, 153, 0.16);
+  box-shadow: 0 0 0 3px rgba(104, 114, 88, 0.18);
 }
 .input::placeholder { color: var(--o-ink-3); }
 
@@ -432,11 +446,14 @@ button { font: inherit; cursor: pointer; }
   flex-direction: column;
   height: 100%;
   background: var(--o-paper);
+  border: 1px solid var(--o-line-soft);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
-.card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+/* "Thin borders instead of heavy shadows" - the hover state deepens the
+   hairline rather than lifting the card off the page. */
+.card:hover { border-color: var(--o-line); transform: translateY(-2px); }
 
 .card__media {
   position: relative;
@@ -567,7 +584,7 @@ button { font: inherit; cursor: pointer; }
   position: sticky;
   top: 0;
   z-index: var(--z-header);
-  background: rgba(228, 226, 221, 0.88);
+  background: rgba(232, 228, 219, 0.88);
   backdrop-filter: saturate(180%) blur(14px);
   -webkit-backdrop-filter: saturate(180%) blur(14px);
   border-bottom: 1px solid transparent;
@@ -575,7 +592,7 @@ button { font: inherit; cursor: pointer; }
 }
 .header[data-scrolled="true"] {
   border-bottom-color: var(--o-line-soft);
-  background: rgba(228, 226, 221, 0.96);
+  background: rgba(232, 228, 219, 0.96);
 }
 
 .header__inner {
@@ -687,7 +704,7 @@ button { font: inherit; cursor: pointer; }
 }
 .header__submenu a::after { content: none; }
 .header__submenu a:hover,
-.header__submenu a[aria-current="page"] { background: rgba(20, 24, 26, 0.05); }
+.header__submenu a[aria-current="page"] { background: rgba(23, 27, 22, 0.05); }
 
 .header__actions {
   justify-self: end;
@@ -707,7 +724,7 @@ button { font: inherit; cursor: pointer; }
   position: relative;
   transition: background var(--dur) var(--ease);
 }
-.icon-btn:hover { background: rgba(20, 24, 26, 0.06); }
+.icon-btn:hover { background: rgba(23, 27, 22, 0.06); }
 
 .cart-count {
   position: absolute;
@@ -746,7 +763,7 @@ button { font: inherit; cursor: pointer; }
 .drawer__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(20, 24, 26, 0.42);
+  background: rgba(23, 27, 22, 0.42);
   opacity: 0;
   transition: opacity 300ms var(--ease);
 }
@@ -837,7 +854,7 @@ body.drawer-open { overflow: hidden; }
 .ship-meter__track {
   height: 5px;
   border-radius: var(--radius-pill);
-  background: rgba(20, 24, 26, 0.1);
+  background: rgba(23, 27, 22, 0.1);
   overflow: hidden;
 }
 .ship-meter__fill {
@@ -921,9 +938,9 @@ body.drawer-open { overflow: hidden; }
   z-index: 1;
   background: linear-gradient(
     100deg,
-    rgba(20, 24, 26, 0.62) 0%,
-    rgba(20, 24, 26, 0.34) 46%,
-    rgba(20, 24, 26, 0.06) 82%
+    rgba(23, 27, 22, 0.62) 0%,
+    rgba(23, 27, 22, 0.34) 46%,
+    rgba(23, 27, 22, 0.06) 82%
   );
 }
 .hero__inner {
@@ -934,7 +951,7 @@ body.drawer-open { overflow: hidden; }
 .hero__content { max-width: 620px; }
 .hero--light .hero__content { color: var(--o-paper); }
 .hero--light .hero__content h1 { color: var(--o-paper); }
-.hero--light .hero__content .lede { color: rgba(250, 249, 247, 0.9); }
+.hero--light .hero__content .lede { color: rgba(247, 244, 237, 0.9); }
 .hero--light .eyebrow { color: var(--o-sage-soft); }
 
 .hero__title {
@@ -970,7 +987,7 @@ body.drawer-open { overflow: hidden; }
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
 }
-.hero--light .hero__proof { color: rgba(250, 249, 247, 0.86); }
+.hero--light .hero__proof { color: rgba(247, 244, 237, 0.86); }
 .hero__proof li { display: flex; align-items: center; gap: 6px; }
 .hero__proof { list-style: none; padding: 0; margin-left: 0; }
 
@@ -1044,11 +1061,12 @@ body.drawer-open { overflow: hidden; }
   flex-direction: column;
   height: 100%;
   background: var(--o-paper);
+  border: 1px solid var(--o-line-soft);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
-.step-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+.step-card:hover { border-color: var(--o-line); transform: translateY(-3px); }
 
 .step-card__num {
   position: absolute;
@@ -1112,11 +1130,12 @@ body.drawer-open { overflow: hidden; }
   align-items: center;
   gap: var(--sp-3);
   padding-block: var(--sp-3);
-  border-bottom: 1px solid rgba(250, 249, 247, 0.14);
+  border-bottom: 1px solid rgba(247, 244, 237, 0.14);
   font-size: var(--fs-base);
 }
-.surface-forest .bundle__list li { color: rgba(250, 249, 247, 0.9); }
+.surface-forest .bundle__list li { color: rgba(247, 244, 237, 0.9); }
 .bundle__list svg { color: var(--o-sage); flex: none; }
+.surface-forest .bundle__list svg { color: var(--o-sage-soft); }
 
 .bundle__price {
   display: flex;
@@ -1403,7 +1422,7 @@ body.drawer-open { overflow: hidden; }
   z-index: var(--z-sticky-atc);
   padding: var(--sp-3) var(--gutter);
   padding-bottom: calc(var(--sp-3) + env(safe-area-inset-bottom, 0px));
-  background: rgba(250, 249, 247, 0.96);
+  background: rgba(247, 244, 237, 0.96);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-top: 1px solid var(--o-line-soft);
@@ -1485,7 +1504,7 @@ body.drawer-open { overflow: hidden; }
    -------------------------------------------------------------------------- */
 .footer {
   background: var(--o-forest);
-  color: rgba(250, 249, 247, 0.78);
+  color: rgba(247, 244, 237, 0.78);
   padding-block: var(--sp-8) var(--sp-5);
 }
 /* `:not(.btn)` is load-bearing. `.footer a` scores (0,1,1) and would outrank
@@ -1533,7 +1552,8 @@ body.drawer-open { overflow: hidden; }
   font-weight: 600;
   letter-spacing: var(--tracking-wider);
   text-transform: uppercase;
-  color: var(--o-sage);
+  /* The footer is always forest, so this needs the light tint, not the olive. */
+  color: var(--o-sage-soft);
   margin: 0 0 var(--sp-4);
 }
 .footer__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); font-size: var(--fs-sm); }
@@ -1549,11 +1569,11 @@ body.drawer-open { overflow: hidden; }
 .footer__social a {
   width: 40px; height: 40px;
   display: grid; place-items: center;
-  border: 1px solid rgba(250, 249, 247, 0.24);
+  border: 1px solid rgba(247, 244, 237, 0.24);
   border-radius: 50%;
   transition: background var(--dur) var(--ease);
 }
-.footer__social a:hover { background: rgba(250, 249, 247, 0.12); text-decoration: none; }
+.footer__social a:hover { background: rgba(247, 244, 237, 0.12); text-decoration: none; }
 
 .footer__bottom {
   display: flex;
@@ -1563,7 +1583,7 @@ body.drawer-open { overflow: hidden; }
   flex-wrap: wrap;
   margin-top: var(--sp-8);
   padding-top: var(--sp-5);
-  border-top: 1px solid rgba(250, 249, 247, 0.16);
+  border-top: 1px solid rgba(247, 244, 237, 0.16);
   font-size: var(--fs-xs);
 }
 .footer__payments { display: flex; gap: var(--sp-2); flex-wrap: wrap; align-items: center; }
@@ -1682,9 +1702,9 @@ body.drawer-open { overflow: hidden; }
   .hero__scrim {
     background: linear-gradient(
       180deg,
-      rgba(20, 24, 26, 0.74) 0%,
-      rgba(20, 24, 26, 0.46) 56%,
-      rgba(20, 24, 26, 0.14) 100%
+      rgba(23, 27, 22, 0.74) 0%,
+      rgba(23, 27, 22, 0.46) 56%,
+      rgba(23, 27, 22, 0.14) 100%
     );
   }
 
