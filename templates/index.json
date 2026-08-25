@@ -365,7 +365,8 @@
         "text": "<p>Most skincare asks you to overhaul everything at once. We think the opposite works better: four honest formulas, used consistently, getting you one percent closer to the skin you want every single day.</p><p>Everything is made in a certified Canadian facility, without parabens, and bottled in Italian glass we would happily leave out on the counter.</p>",
         "signature": "",
         "cta_label": "Read our story",
-        "cta_link": ""
+        "cta_link": "",
+        "anchor_id": "philosophy"
       }
     },
     "testimonials": {
