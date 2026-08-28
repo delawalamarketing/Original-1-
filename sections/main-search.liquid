@@ -26,7 +26,7 @@
         <div class="collection__grid">
           {%- for item in search.results -%}
             {%- if item.object_type == 'product' -%}
-              {% render 'product-card', product: item, index: forloop.index0, lazy: forloop.index > 4 %}
+              {% render 'product-card', product: item, index: forloop.index0, lazy: forloop.index %}
             {%- else -%}
               <article class="card">
                 <div class="card__body">
@@ -69,3 +69,15 @@
 {% schema %}
 { "name": "Search", "tag": "section", "settings": [] }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'product-card', product: item, index: forloop.index0, lazy: forloop.index
+    > 4 %}"
+  to: "{% render 'product-card', product: item, index: forloop.index0, lazy: forloop.index
+    %}"
+  position: 1241..1327
+{% endcomment %}

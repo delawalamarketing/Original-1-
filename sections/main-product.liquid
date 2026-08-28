@@ -336,19 +336,11 @@
               {%- endif -%}
 
               {%- if how_to_use != blank or block.settings.how_to_use != blank -%}
-                {% render 'accordion-item',
-                     id: 'how',
-                     section_id: section.id,
-                     title: 'How to use',
-                     content: how_to_use | default: block.settings.how_to_use %}
+                {% render 'accordion-item', id: 'how', section_id: section.id, title: 'How to use', content: how_to_use, default: block.settings.how_to_use %}
               {%- endif -%}
 
               {%- if ingredients_full != blank or block.settings.ingredients != blank -%}
-                {% render 'accordion-item',
-                     id: 'ing',
-                     section_id: section.id,
-                     title: 'Full ingredients',
-                     content: ingredients_full | default: block.settings.ingredients %}
+                {% render 'accordion-item', id: 'ing', section_id: section.id, title: 'Full ingredients', content: ingredients_full, default: block.settings.ingredients %}
               {%- endif -%}
 
               {%- if block.settings.shipping != blank -%}
@@ -523,3 +515,28 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {% render 'accordion-item',
+                         id: 'how',
+                         section_id: section.id,
+                         title: 'How to use',
+                         content: how_to_use | default: block.settings.how_to_use %}
+  to: "{% render 'accordion-item', id: 'how', section_id: section.id, title: 'How
+    to use', content: how_to_use, default: block.settings.how_to_use %}"
+  position: 16914..17056
+- from: |-
+    {% render 'accordion-item',
+                         id: 'ing',
+                         section_id: section.id,
+                         title: 'Full ingredients',
+                         content: ingredients_full | default: block.settings.ingredients %}
+  to: "{% render 'accordion-item', id: 'ing', section_id: section.id, title: 'Full
+    ingredients', content: ingredients_full, default: block.settings.ingredients %}"
+  position: 17192..17347
+{% endcomment %}
