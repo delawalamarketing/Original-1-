@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>{{ 'gift_cards.issued.title' | t: value: gift_card.initial_value | money, shop: shop.name }}</title>
+    <title>{{ 'gift_cards.issued.title' | t: value: gift_card.initial_value | money: shop: shop.name }}</title>
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     {{ 'base.css' | asset_url | stylesheet_tag }}
     <style>
@@ -48,3 +48,15 @@
     </div>
   </body>
 </html>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{{ 'gift_cards.issued.title' | t: value: gift_card.initial_value | money,
+    shop: shop.name }}"
+  to: "{{ 'gift_cards.issued.title' | t: value: gift_card.initial_value | money: shop:
+    shop.name }}"
+  position: 211..303
+{% endcomment %}
