@@ -26,8 +26,15 @@
         <div class="collection__grid">
           {%- for item in search.results -%}
             {%- if item.object_type == 'product' -%}
-              {%- comment -%} `lazy` is a boolean. Keep the `> 4`. {%- endcomment -%}
-              {% render 'product-card', product: item, index: forloop.index0, lazy: forloop.index > 4 %}
+              {%- comment -%}
+                Resolved before the render tag: expressions in a render
+                argument list fail Shopify's Liquid validation.
+              {%- endcomment -%}
+              {%- assign lazy_load = false -%}
+              {%- if forloop.index > 4 -%}
+                {%- assign lazy_load = true -%}
+              {%- endif -%}
+              {% render 'product-card', product: item, index: forloop.index0, lazy: lazy_load %}
             {%- else -%}
               <article class="card">
                 <div class="card__body">

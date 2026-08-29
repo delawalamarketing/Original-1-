@@ -350,25 +350,27 @@
                      content: product.description %}
               {%- endif -%}
 
+              {%- comment -%}
+                The fallback is resolved into a variable before the render tag.
+                A filter inside a render argument list fails Shopify's Liquid
+                validation, and the file is refused on deploy.
+              {%- endcomment -%}
               {%- if how_to_use != blank or block.settings.how_to_use != blank -%}
-                {%- comment -%}
-                  `| default:` is a filter on `content`, not a second render
-                  argument. The snippet reads `content` only, so turning the
-                  pipe into a comma silently drops the theme-editor fallback.
-                {%- endcomment -%}
+                {%- assign how_to_content = how_to_use | default: block.settings.how_to_use -%}
                 {% render 'accordion-item',
                      id: 'how',
                      section_id: section.id,
                      title: 'How to use',
-                     content: how_to_use | default: block.settings.how_to_use %}
+                     content: how_to_content %}
               {%- endif -%}
 
               {%- if ingredients_full != blank or block.settings.ingredients != blank -%}
+                {%- assign ingredients_content = ingredients_full | default: block.settings.ingredients -%}
                 {% render 'accordion-item',
                      id: 'ing',
                      section_id: section.id,
                      title: 'Full ingredients',
-                     content: ingredients_full | default: block.settings.ingredients %}
+                     content: ingredients_content %}
               {%- endif -%}
 
               {%- if block.settings.shipping != blank -%}

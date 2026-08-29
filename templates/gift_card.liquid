@@ -5,10 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     {%- comment -%}
-      `money` takes no arguments. The comma starts the next `t` argument; a
-      colon there is malformed Liquid and breaks this title.
+      The money filter has to be applied before the translation, not inside its
+      argument list: a pipe part-way through `t:`'s arguments ends the argument
+      list, and the comma that follows is then a syntax error.
     {%- endcomment -%}
-    <title>{{ 'gift_cards.issued.title' | t: value: gift_card.initial_value | money, shop: shop.name }}</title>
+    {%- assign gift_card_value = gift_card.initial_value | money -%}
+    <title>{{ 'gift_cards.issued.title' | t: value: gift_card_value, shop: shop.name }}</title>
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     {{ 'base.css' | asset_url | stylesheet_tag }}
     <style>

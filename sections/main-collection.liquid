@@ -48,15 +48,17 @@
       <div class="collection__grid">
         {%- for product in collection.products -%}
           {%- comment -%}
-            `lazy` is a boolean, not a counter: the first four cards are above
-            the fold and must load eagerly. An automated rewrite once flattened
-            this tag and dropped the `> 4`, which silently made every image
-            lazy including the LCP one. Keep the comparison.
+            The first four cards are above the fold and must load eagerly;
+            everything after them is lazy. The comparison is resolved into a
+            variable first because Shopify's Liquid validator rejects
+            expressions inside a render tag's argument list - written inline it
+            fails validation and the whole file is refused on deploy.
           {%- endcomment -%}
-          {% render 'product-card',
-               product: product,
-               index: forloop.index0,
-               lazy: forloop.index > 4 %}
+          {%- assign lazy_load = false -%}
+          {%- if forloop.index > 4 -%}
+            {%- assign lazy_load = true -%}
+          {%- endif -%}
+          {% render 'product-card', product: product, index: forloop.index0, lazy: lazy_load %}
         {%- endfor -%}
       </div>
 
