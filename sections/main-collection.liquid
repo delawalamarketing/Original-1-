@@ -47,6 +47,12 @@
     {%- if collection.products.size > 0 -%}
       <div class="collection__grid">
         {%- for product in collection.products -%}
+          {%- comment -%}
+            `lazy` is a boolean, not a counter: the first four cards are above
+            the fold and must load eagerly. An automated rewrite once flattened
+            this tag and dropped the `> 4`, which silently made every image
+            lazy including the LCP one. Keep the comparison.
+          {%- endcomment -%}
           {% render 'product-card',
                product: product,
                index: forloop.index0,

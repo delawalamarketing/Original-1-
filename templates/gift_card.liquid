@@ -4,6 +4,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    {%- comment -%}
+      `money` takes no arguments. The comma starts the next `t` argument; a
+      colon there is malformed Liquid and breaks this title.
+    {%- endcomment -%}
     <title>{{ 'gift_cards.issued.title' | t: value: gift_card.initial_value | money, shop: shop.name }}</title>
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     {{ 'base.css' | asset_url | stylesheet_tag }}

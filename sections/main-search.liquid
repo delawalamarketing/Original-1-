@@ -26,6 +26,7 @@
         <div class="collection__grid">
           {%- for item in search.results -%}
             {%- if item.object_type == 'product' -%}
+              {%- comment -%} `lazy` is a boolean. Keep the `> 4`. {%- endcomment -%}
               {% render 'product-card', product: item, index: forloop.index0, lazy: forloop.index > 4 %}
             {%- else -%}
               <article class="card">

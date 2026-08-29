@@ -351,6 +351,11 @@
               {%- endif -%}
 
               {%- if how_to_use != blank or block.settings.how_to_use != blank -%}
+                {%- comment -%}
+                  `| default:` is a filter on `content`, not a second render
+                  argument. The snippet reads `content` only, so turning the
+                  pipe into a comma silently drops the theme-editor fallback.
+                {%- endcomment -%}
                 {% render 'accordion-item',
                      id: 'how',
                      section_id: section.id,
