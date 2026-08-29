@@ -13,7 +13,9 @@
           }
         }
       },
-      "block_order": ["announcement-1"],
+      "block_order": [
+        "announcement-1"
+      ],
       "settings": {
         "bg": "#263B25",
         "fg": "#E8E4DB"
@@ -22,9 +24,12 @@
     "header": {
       "type": "header",
       "settings": {
-        "menu": "main-menu-v2"
+        "menu": "main-menu"
       }
     }
   },
-  "order": ["announcement-bar", "header"]
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
 }

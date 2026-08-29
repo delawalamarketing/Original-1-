@@ -69,7 +69,10 @@
 {
   "name": "Mobile menu",
   "settings": [
-    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu-v2" },
+    {
+      "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu",
+      "info": "Only standard handles work as a default here. A custom one fails schema validation and the file is rejected on deploy."
+    },
     { "type": "header", "content": "Promo panel" },
     { "type": "text", "id": "promo_heading", "label": "Heading", "default": "New here?" },
     {
