@@ -13,7 +13,7 @@
       "type": "hero",
       "settings": {
         "image": "shopify://shop_images/9-IMG_3866.jpg",
-        "overlay": 55,
+        "overlay": 100,
         "text_scheme": "light",
         "show_lockup": false,
         "eyebrow": "Conscious lifestyle & skincare",
@@ -23,7 +23,9 @@
         "cta_label": "Explore the five steps",
         "cta_link": "/#five-step-method",
         "cta2_label": "",
-        "cta2_link": ""
+        "cta2_link": "",
+        "focal_desktop": "center center",
+        "focal_mobile": "center 30%"
       }
     },
     "trust-bar": {

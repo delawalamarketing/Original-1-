@@ -932,16 +932,30 @@ body.drawer-open { overflow: hidden; }
 .hero__media img, .hero__media video {
   width: 100%; height: 100%;
   object-fit: cover;
+  object-position: var(--hero-focal, center center);
 }
+/* Two gradients, not one. The horizontal pass grounds the copy column; the
+   vertical pass catches the end of the headline, which runs further right than
+   the column does and was landing on the thin end of a single left-to-right
+   ramp. Neither is opaque enough to flatten the photograph. */
 .hero__scrim {
   position: absolute; inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    100deg,
-    rgba(23, 27, 22, 0.62) 0%,
-    rgba(23, 27, 22, 0.34) 46%,
-    rgba(23, 27, 22, 0.06) 82%
-  );
+  background:
+    linear-gradient(
+      100deg,
+      rgba(23, 27, 22, 0.80) 0%,
+      rgba(23, 27, 22, 0.70) 35%,
+      rgba(23, 27, 22, 0.55) 55%,
+      rgba(23, 27, 22, 0.20) 85%,
+      rgba(23, 27, 22, 0.10) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba(23, 27, 22, 0.42) 0%,
+      rgba(23, 27, 22, 0.10) 55%,
+      rgba(23, 27, 22, 0) 100%
+    );
 }
 .hero__inner {
   position: relative;
@@ -949,10 +963,18 @@ body.drawer-open { overflow: hidden; }
   padding-block: clamp(3rem, 9vw, var(--sp-9));
 }
 .hero__content { max-width: 620px; }
-.hero--light .hero__content { color: var(--o-paper); }
+/* A photograph has no fixed brightness, so the scrim alone cannot guarantee
+   contrast - a pale wall behind the subject will defeat any gradient soft
+   enough to keep the image looking like an image. The shadow is the floor
+   under all of this text: invisible on dark ground, and the difference between
+   readable and not on a light one. */
+.hero--light .hero__content { color: var(--o-paper); text-shadow: 0 1px 18px rgba(23, 27, 22, 0.55); }
 .hero--light .hero__content h1 { color: var(--o-paper); }
-.hero--light .hero__content .lede { color: rgba(247, 244, 237, 0.9); }
-.hero--light .eyebrow { color: var(--o-sage-soft); }
+.hero--light .hero__content .lede { color: var(--o-paper); }
+/* Was --o-sage-soft, which is a mid tint chosen to sit on the forest surface.
+   Over photography it washed out. This one is close enough to the paper tone
+   to stay legible, and still reads as the brand green rather than white. */
+.hero--light .eyebrow { color: #D8DFCE; }
 
 .hero__title {
   font-size: clamp(1.75rem, 4.2vw, 3.15rem);
@@ -967,8 +989,11 @@ body.drawer-open { overflow: hidden; }
      brand colour rather than two different greens. */
   color: var(--o-forest);
 }
-/* Over dark imagery forest green would disappear - keep the light sage there. */
-.hero--light .hero__title em { color: var(--o-sage-soft); }
+/* Over imagery, forest green disappears and the mid sage is barely better -
+   this is the line that was unreadable on the launched hero. A near-paper
+   tint keeps the accent without betting legibility on how bright the
+   photograph happens to be behind it. */
+.hero--light .hero__title em { color: #D8DFCE; }
 
 .hero__actions {
   display: flex;
@@ -1659,36 +1684,34 @@ body.drawer-open { overflow: hidden; }
 @media (max-width: 749px) {
 
   /* ---- Hero ----
-     A 16:9 image cover-cropped into a portrait viewport shows only its middle
-     third, and the shipped artwork puts its type-safe bone field on the left - so a centred crop lands on the seam, the worst possible slice.
+     This used to stack on phones: a photo band, then the copy on a flat bone
+     panel below it. The reasoning was that overlaying could not work, because
+     "the text column runs to 87% of the hero's height" and any veil dark
+     enough to carry the proof row that far down would reduce the photograph to
+     wallpaper.
 
-     Overlaying copy on it doesn't work either. The text column runs to 87% of
-     the hero's height, and a veil that still reads at the proof row would have
-     to stay near-opaque that far down, reducing the photograph to wallpaper.
-     So stack instead: a photo band, then the copy on solid bone. Legibility is
-     guaranteed and the image is never cropped through its seam. */
-  /* Art-directed: a purpose-made portrait source is loaded via <picture>, so
-     the hero keeps its full-bleed overlay. Those sources carry their type-safe
-     field across the top, so anchor the copy there. */
+     That was true of the old hero. This one is an eyebrow, a two-line heading,
+     one sentence and one button - the proof row and the second button are both
+     gone. The copy now occupies the lower half, so a bottom-anchored gradient
+     grounds it while leaving the top of the image untouched, and the seam
+     between photo and panel disappears.
+
+     A landscape source cropped into a tall viewport still only shows a slice
+     of itself, so the focal point is a merchant setting rather than a fixed
+     centre crop. */
+  .hero {
+    align-items: end;
+    min-height: clamp(560px, 86vh, 760px);
+  }
+  .hero__media img, .hero__media video {
+    object-position: var(--hero-focal-mobile, center 30%);
+  }
+  .hero__inner { padding-block: 2rem 3rem; }
+
+  /* A purpose-made portrait source carries its type-safe field across the top,
+     so anchor the copy there instead. */
   .hero--art-directed { align-items: start; }
   .hero--art-directed .hero__inner { padding-top: 2.25rem; }
-
-  /* No portrait source: the only safe move with a landscape crop is to stop
-     overlaying altogether - show it as a band above the copy. */
-  .hero:not(.hero--art-directed) {
-    display: block;
-    min-height: 0;
-  }
-  .hero:not(.hero--art-directed) .hero__media {
-    position: relative;
-    inset: auto;
-    height: 52vw;
-    min-height: 210px;
-    max-height: 330px;
-  }
-  .hero:not(.hero--art-directed) .hero__media img,
-  .hero:not(.hero--art-directed) .hero__media video { height: 100%; }
-  .hero:not(.hero--art-directed) .hero__inner { padding-block: 2rem 2.75rem; }
 
   /* These four repeat the trust bar sitting directly beneath the hero. On a
      phone that duplication costs a third of the hero's height for no new
@@ -1703,14 +1726,16 @@ body.drawer-open { overflow: hidden; }
     color: var(--o-forest);
   }
 
-  /* The default scrim runs left-to-right, which does nothing once the copy
-     stacks to full width. Run it top-to-bottom for uploaded imagery. */
+  /* The desktop scrim runs left-to-right, which does nothing once the copy is
+     full width. On a phone the copy sits at the bottom, so the veil belongs at
+     the bottom: heavy where the text is, clear across the subject's face. */
   .hero__scrim {
     background: linear-gradient(
-      180deg,
-      rgba(23, 27, 22, 0.74) 0%,
-      rgba(23, 27, 22, 0.46) 56%,
-      rgba(23, 27, 22, 0.14) 100%
+      to top,
+      rgba(23, 27, 22, 0.86) 0%,
+      rgba(23, 27, 22, 0.72) 32%,
+      rgba(23, 27, 22, 0.34) 62%,
+      rgba(23, 27, 22, 0.12) 100%
     );
   }
 

@@ -41,7 +41,7 @@
   needs a different mobile crop and veil from an arbitrary uploaded photo.
 {%- endcomment -%}
 <section class="hero {% if scheme == 'light' %}hero--light{% endif %}{% if use_bundled_hero %} hero--bundled{% endif %}{% if art_directed %} hero--art-directed{% endif %}"
-         style="--section-pt:0;--section-pb:0;">
+         style="--section-pt:0;--section-pb:0;--hero-focal:{{ section.settings.focal_desktop }};--hero-focal-mobile:{{ section.settings.focal_mobile }};">
 
   {%- if section.settings.video != blank -%}
     <div class="hero__media">
@@ -212,8 +212,36 @@
       "type": "range",
       "id": "overlay",
       "label": "Overlay strength",
-      "min": 0, "max": 90, "step": 5, "unit": "%", "default": 55,
-      "info": "Text over imagery needs at least 4.5:1 contrast. If in doubt, go darker."
+      "min": 0, "max": 100, "step": 5, "unit": "%", "default": 100,
+      "info": "Scales the whole veil. 100% is the tuned setting: it holds 4.5:1 behind the headline even over a pale photograph. Lower values show more of the image and less of the text."
+    },
+    {
+      "type": "paragraph",
+      "content": "The copy sits over the photograph on every screen size. If a face or product gets cropped out on phones, move the focal point rather than uploading a second image."
+    },
+    {
+      "type": "select",
+      "id": "focal_desktop",
+      "label": "Focal point (desktop)",
+      "options": [
+        { "value": "center top", "label": "Top" },
+        { "value": "center center", "label": "Middle" },
+        { "value": "center bottom", "label": "Bottom" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "select",
+      "id": "focal_mobile",
+      "label": "Focal point (mobile)",
+      "options": [
+        { "value": "center top", "label": "Top" },
+        { "value": "center 30%", "label": "Upper middle" },
+        { "value": "center center", "label": "Middle" },
+        { "value": "center bottom", "label": "Bottom" }
+      ],
+      "default": "center 30%",
+      "info": "A landscape photo cropped into a tall phone viewport shows only a slice of itself. Upper middle usually keeps a face in frame."
     },
     {
       "type": "select",
