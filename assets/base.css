@@ -1703,8 +1703,17 @@ body.drawer-open { overflow: hidden; }
     align-items: end;
     min-height: clamp(560px, 86vh, 760px);
   }
-  .hero__media img, .hero__media video {
-    object-position: var(--hero-focal-mobile, center 30%);
+  /* object-position cannot crop this. With object-fit: cover, a landscape
+     source in a portrait viewport scales to fit the HEIGHT and crops the
+     width - so the full vertical extent always shows, empty backdrop above
+     the subject included, and the vertical half of object-position is inert.
+
+     The only way to lose the top of the frame is to make the media taller
+     than the hero and pin it to the bottom; the overflow is clipped by the
+     hero's own overflow: hidden. 135% shows the lower ~74% of the photo. */
+  .hero:not(.hero--art-directed) .hero__media {
+    inset: auto 0 0 0;
+    height: var(--hero-mobile-zoom, 135%);
   }
   .hero__inner { padding-block: 2rem 3rem; }
 

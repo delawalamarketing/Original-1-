@@ -41,7 +41,7 @@
   needs a different mobile crop and veil from an arbitrary uploaded photo.
 {%- endcomment -%}
 <section class="hero {% if scheme == 'light' %}hero--light{% endif %}{% if use_bundled_hero %} hero--bundled{% endif %}{% if art_directed %} hero--art-directed{% endif %}"
-         style="--section-pt:0;--section-pb:0;--hero-focal:{{ section.settings.focal_desktop }};--hero-focal-mobile:{{ section.settings.focal_mobile }};">
+         style="--section-pt:0;--section-pb:0;--hero-focal:{{ section.settings.focal_desktop }};--hero-mobile-zoom:{{ section.settings.mobile_zoom }}%;">
 
   {%- if section.settings.video != blank -%}
     <div class="hero__media">
@@ -231,17 +231,11 @@
       "default": "center center"
     },
     {
-      "type": "select",
-      "id": "focal_mobile",
-      "label": "Focal point (mobile)",
-      "options": [
-        { "value": "center top", "label": "Top" },
-        { "value": "center 30%", "label": "Upper middle" },
-        { "value": "center center", "label": "Middle" },
-        { "value": "center bottom", "label": "Bottom" }
-      ],
-      "default": "center 30%",
-      "info": "A landscape photo cropped into a tall phone viewport shows only a slice of itself. Upper middle usually keeps a face in frame."
+      "type": "range",
+      "id": "mobile_zoom",
+      "label": "Mobile crop",
+      "min": 100, "max": 180, "step": 5, "unit": "%", "default": 135,
+      "info": "Crops the top of the photo on phones. A landscape image in a tall viewport shows its full height, so any empty space above the subject shows too. Raise this until the subject fills the frame. Ignored when a mobile image is uploaded."
     },
     {
       "type": "select",

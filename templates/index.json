@@ -23,7 +23,7 @@
         "cta_label": "Explore the five steps",
         "cta_link": "/#five-step-method",
         "focal_desktop": "center center",
-        "focal_mobile": "center 30%"
+        "mobile_zoom": 135
       }
     },
     "trust-bar": {
