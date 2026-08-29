@@ -11,13 +11,28 @@
   assign claim_line = product.metafields.custom.claim_line.value
   assign benefits = product.metafields.custom.benefits.value
   comment
-    No `.value` on these two, unlike the fields above. They are rich text, and
-    for a rich text metafield `.value` hands back the parsed structure rather
-    than markup - printing it gives you the object, not the paragraphs. The
-    bare metafield renders as HTML, which is what the accordion wants.
+    These two are plain multi-line text, deliberately. Rich text was tried and
+    reverted: a rich_text_field carries a JSON structure, and neither `.value`
+    nor the bare metafield reliably renders it as markup through a `{{ }}` in a
+    snippet - it prints the raw JSON at the shopper. Plain text with the line
+    breaks converted is predictable, and one line per step is all this content
+    needs. Captured rather than assigned so an empty metafield stays blank and
+    the `default` below can fall through to the theme-editor text.
   endcomment
-  assign ingredients_full = product.metafields.custom.ingredients_full
-  assign how_to_use = product.metafields.custom.how_to_use
+  assign how_to_use_raw = product.metafields.custom.how_to_use.value
+  assign ingredients_raw = product.metafields.custom.ingredients_full.value
+
+  capture how_to_use
+    if how_to_use_raw != blank
+      echo how_to_use_raw | escape | newline_to_br
+    endif
+  endcapture
+
+  capture ingredients_full
+    if ingredients_raw != blank
+      echo ingredients_raw | escape | newline_to_br
+    endif
+  endcapture
   assign has_selling_plans = false
   if product.selling_plan_groups.size > 0
     assign has_selling_plans = true

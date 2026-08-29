@@ -1866,38 +1866,181 @@ body.drawer-open { overflow: hidden; }
   color: var(--o-ink-2);
 }
 
-/* The day words are the phone substitute for the day columns. */
-.weekly__days-words { display: none; }
+/* --------------------------------------------------------------------------
+   21b. WEEKLY GUIDE - PHONE AND TABLET
+   The seven-column grid is replaced below 900px by a day switcher. See the
+   comment in sections/weekly-guide.liquid for why.
+   -------------------------------------------------------------------------- */
+.weekly-today { display: none; }
 
-@media (max-width: 749px) {
-  /* Reflow the seven-day grid into one card per step. The day columns go and
-     the days return as words, which is what the visual guide asks for on
-     phones - the same information, minus the horizontal scroll. */
-  .weekly, .weekly tbody, .weekly tr, .weekly th, .weekly td { display: block; }
-  .weekly thead { display: none; }
-  .weekly { background: transparent; }
-
-  .weekly tr {
-    border: 1px solid var(--o-line);
-    border-radius: var(--radius);
-    background: var(--o-paper);
-    padding: var(--sp-4);
-    margin-bottom: var(--sp-4);
-  }
-  .weekly th, .weekly td { border: 0; padding: 0; }
-  .weekly__product { margin-top: var(--sp-2); }
-  .weekly__day-col { display: none; }
-
-  .weekly__freq { margin-top: var(--sp-2); color: var(--o-ink-3); font-size: var(--fs-xs); }
-  .weekly__days-words {
-    display: block;
-    margin-top: 2px;
-    color: var(--o-teal-dark);
-    font-weight: 600;
-  }
+@media (max-width: 899px) {
+  .weekly__scroll { display: none; }
+  .weekly-today { display: block; }
+  /* The legend describes dots that are not on screen in this layout. */
+  .weekly__legend { display: none; }
 }
+
+.weekly-today__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: var(--sp-5);
+}
+.weekly-today__day {
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  border: 1px solid var(--o-line);
+  border-radius: var(--radius);
+  background: var(--o-paper);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--o-ink-2);
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.weekly-today__radio:checked + .weekly-today__day {
+  background: var(--o-forest);
+  border-color: var(--o-forest);
+  color: var(--o-paper);
+}
+/* The input is visually hidden, so the ring has to be drawn on the label. */
+.weekly-today__radio:focus-visible + .weekly-today__day {
+  outline: 2px solid var(--o-teal);
+  outline-offset: 2px;
+}
+
+.weekly-today__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--sp-3);
+}
+.weekly-today__item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border: 1px solid var(--o-line-soft);
+  border-radius: var(--radius);
+  background: var(--o-paper);
+}
+.weekly-today__num {
+  display: grid;
+  place-items: center;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--o-sage);
+  color: var(--o-paper);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.weekly-today__body { display: grid; gap: 1px; min-width: 0; }
+.weekly-today__verb {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  line-height: 1.15;
+}
+.weekly-today__product { font-size: var(--fs-sm); font-weight: 600; }
+.weekly-today__product a { text-decoration: none; }
+.weekly-today__purpose { font-size: var(--fs-xs); color: var(--o-ink-3); }
+
+/* Both chips are hidden until a day selects one. Where :has() is unsupported
+   neither appears, and the list still reads as the five steps. */
+.weekly-today .chip { display: none; }
+.chip {
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.chip--on  { background: var(--o-forest); color: var(--o-paper); }
+.chip--opt { background: transparent; border: 1px solid var(--o-sage); color: var(--o-teal-dark); }
+
+.weekly-today:has(input[data-day="mon"]:checked) .weekly-today__item[data-mon="none"] { display: none; }
+.weekly-today:has(input[data-day="mon"]:checked) .weekly-today__item[data-mon="suggested"] .chip--on  { display: inline-flex; }
+.weekly-today:has(input[data-day="mon"]:checked) .weekly-today__item[data-mon="optional"]  .chip--opt { display: inline-flex; }
+.weekly-today:has(input[data-day="mon"]:checked) .weekly-today__item[data-mon="optional"]  { opacity: 0.72; }
+.weekly-today:has(input[data-day="tue"]:checked) .weekly-today__item[data-tue="none"] { display: none; }
+.weekly-today:has(input[data-day="tue"]:checked) .weekly-today__item[data-tue="suggested"] .chip--on  { display: inline-flex; }
+.weekly-today:has(input[data-day="tue"]:checked) .weekly-today__item[data-tue="optional"]  .chip--opt { display: inline-flex; }
+.weekly-today:has(input[data-day="tue"]:checked) .weekly-today__item[data-tue="optional"]  { opacity: 0.72; }
+.weekly-today:has(input[data-day="wed"]:checked) .weekly-today__item[data-wed="none"] { display: none; }
+.weekly-today:has(input[data-day="wed"]:checked) .weekly-today__item[data-wed="suggested"] .chip--on  { display: inline-flex; }
+.weekly-today:has(input[data-day="wed"]:checked) .weekly-today__item[data-wed="optional"]  .chip--opt { display: inline-flex; }
+.weekly-today:has(input[data-day="wed"]:checked) .weekly-today__item[data-wed="optional"]  { opacity: 0.72; }
+.weekly-today:has(input[data-day="thu"]:checked) .weekly-today__item[data-thu="none"] { display: none; }
+.weekly-today:has(input[data-day="thu"]:checked) .weekly-today__item[data-thu="suggested"] .chip--on  { display: inline-flex; }
+.weekly-today:has(input[data-day="thu"]:checked) .weekly-today__item[data-thu="optional"]  .chip--opt { display: inline-flex; }
+.weekly-today:has(input[data-day="thu"]:checked) .weekly-today__item[data-thu="optional"]  { opacity: 0.72; }
+.weekly-today:has(input[data-day="fri"]:checked) .weekly-today__item[data-fri="none"] { display: none; }
+.weekly-today:has(input[data-day="fri"]:checked) .weekly-today__item[data-fri="suggested"] .chip--on  { display: inline-flex; }
+.weekly-today:has(input[data-day="fri"]:checked) .weekly-today__item[data-fri="optional"]  .chip--opt { display: inline-flex; }
+.weekly-today:has(input[data-day="fri"]:checked) .weekly-today__item[data-fri="optional"]  { opacity: 0.72; }
+.weekly-today:has(input[data-day="sat"]:checked) .weekly-today__item[data-sat="none"] { display: none; }
+.weekly-today:has(input[data-day="sat"]:checked) .weekly-today__item[data-sat="suggested"] .chip--on  { display: inline-flex; }
+.weekly-today:has(input[data-day="sat"]:checked) .weekly-today__item[data-sat="optional"]  .chip--opt { display: inline-flex; }
+.weekly-today:has(input[data-day="sat"]:checked) .weekly-today__item[data-sat="optional"]  { opacity: 0.72; }
+.weekly-today:has(input[data-day="sun"]:checked) .weekly-today__item[data-sun="none"] { display: none; }
+.weekly-today:has(input[data-day="sun"]:checked) .weekly-today__item[data-sun="suggested"] .chip--on  { display: inline-flex; }
+.weekly-today:has(input[data-day="sun"]:checked) .weekly-today__item[data-sun="optional"]  .chip--opt { display: inline-flex; }
+.weekly-today:has(input[data-day="sun"]:checked) .weekly-today__item[data-sun="optional"]  { opacity: 0.72; }
+
+@media (max-width: 399px) {
+  /* At 375px the chip and the three-column row start to fight. Drop the chip
+     onto its own line rather than letting the product name truncate. */
+  .weekly-today__item { grid-template-columns: auto 1fr; }
+  .weekly-today .chip { grid-column: 2; justify-self: start; }
+}
+
 
 .pdp__soon-note {
   margin: 0 0 var(--sp-4);
   color: var(--o-ink-2);
+}
+
+/* --------------------------------------------------------------------------
+   22. FIVE-STEP METHOD - RESPONSIVE
+   -------------------------------------------------------------------------- */
+/* Five cards never divide evenly into two or three columns, so the last card
+   is always the odd one. Rather than leave it stranded in a half-width cell,
+   let it take the full row - the same treatment the trust bar already gets. */
+@media (max-width: 989px) {
+  .ritual__grid > .step-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .ritual__grid > .step-card:last-child:nth-child(odd) .step-card__media { aspect-ratio: 16 / 9; }
+}
+
+@media (min-width: 750px) and (max-width: 989px) {
+  /* Three columns, five cards: the last row holds two. Only stretch the fifth
+     when it is genuinely alone. */
+  .ritual__grid > .step-card:last-child:nth-child(3n + 1) { grid-column: 1 / -1; }
+  .ritual__grid > .step-card:last-child:nth-child(odd):not(:nth-child(3n + 1)) { grid-column: auto; }
+  .ritual__grid > .step-card:last-child:nth-child(odd):not(:nth-child(3n + 1)) .step-card__media { aspect-ratio: 3 / 4; }
+}
+
+@media (min-width: 990px) {
+  /* At five across each card is roughly 240px. Tighten the body and let the
+     price row wrap rather than squeezing the Add button off the edge. */
+  .step-card__body { padding: var(--sp-3); gap: 6px; }
+  .step-card__title { font-size: var(--fs-md); }
+  .step-card__foot { flex-wrap: wrap; row-gap: var(--sp-2); }
+  .step-card__num { width: 30px; height: 30px; top: var(--sp-3); left: var(--sp-3); }
+}
+
+@media (max-width: 479px) {
+  /* Two cards on a 375px screen leaves about 150px each. The label and the
+     frequency line both need to stay on one line to stay legible. */
+  .step-card__label { letter-spacing: var(--tracking-wide); }
+  .step-card__body { padding: var(--sp-3); }
+  .step-card__foot { flex-direction: column; align-items: flex-start; }
+  .five-step__footnote { font-size: var(--fs-md); }
 }

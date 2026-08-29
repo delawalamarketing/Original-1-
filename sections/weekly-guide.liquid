@@ -63,28 +63,6 @@
               assign title = block.settings.title | default: p.title
               assign purpose = block.settings.purpose | default: p.metafields.custom.purpose.value
               assign frequency = block.settings.frequency | default: p.metafields.custom.use_frequency.value
-
-              comment
-                Build the plain-words day list for the phone layout, and count
-                the suggested days so a full week can collapse to "Daily"
-                rather than spelling out all seven.
-              endcomment
-              assign suggested_words = ''
-              assign suggested_count = 0
-              for i in (0..6)
-                assign key = 'day_' | append: day_keys[i]
-                if block.settings[key] == 'suggested'
-                  assign suggested_count = suggested_count | plus: 1
-                  if suggested_words == blank
-                    assign suggested_words = day_short[i]
-                  else
-                    assign suggested_words = suggested_words | append: ' / ' | append: day_short[i]
-                  endif
-                endif
-              endfor
-              if suggested_count == 7
-                assign suggested_words = 'sections.weekly_guide.every_day' | t
-              endif
             -%}
 
             <tr {{ block.shopify_attributes }}>
@@ -106,17 +84,7 @@
                 {%- endif -%}
               </td>
 
-              <td class="weekly__freq">
-                {{ frequency }}
-                {%- if suggested_words != blank -%}
-                  {%- comment -%}
-                    Shown only on phones, where the day columns are gone. It is
-                    hidden from the desktop layout with CSS rather than a
-                    second markup block.
-                  {%- endcomment -%}
-                  <span class="weekly__days-words">{{ suggested_words }}</span>
-                {%- endif -%}
-              </td>
+              <td class="weekly__freq">{{ frequency }}</td>
 
               {%- for i in (0..6) -%}
                 {%- liquid
@@ -148,6 +116,73 @@
       </table>
     </div>
 
+    {%- comment -%}
+      ---- Phone and tablet: "what do I do today?" -------------------------
+      A seven-column grid of dots does not survive a 375px screen. Shrinking it
+      is the wrong fix, because the question a shopper actually has on a phone
+      is not "show me the week", it is "what am I meant to do today".
+
+      So below 900px the table is replaced by a day switcher. Pick a day and
+      the list shows only the steps that belong to it, each marked suggested or
+      optional. It defaults to the real current day.
+
+      Switching is done with radio inputs and :has(), so it works with
+      JavaScript disabled - the script below only moves the initial selection
+      from Monday to today. Where :has() is unsupported the list simply shows
+      every step with both labels, which is still readable.
+
+      Only one of the two views is ever in the DOM's accessibility tree,
+      because the other is display:none. No duplicate reading.
+    {%- endcomment -%}
+    <div class="weekly-today" data-weekly-today>
+      <div class="weekly-today__days" role="group" aria-label="{{ 'sections.weekly_guide.pick_day' | t | escape }}">
+        {%- for i in (0..6) -%}
+          <input
+            class="weekly-today__radio visually-hidden"
+            type="radio"
+            name="weekly-day-{{ section.id }}"
+            id="wd-{{ section.id }}-{{ day_keys[i] }}"
+            data-day="{{ day_keys[i] }}"
+            {% if i == 0 %}checked{% endif %}>
+          <label class="weekly-today__day" for="wd-{{ section.id }}-{{ day_keys[i] }}">
+            <span aria-hidden="true">{{ day_short[i] | slice: 0, 2 }}</span>
+            <span class="visually-hidden">{{ day_long[i] }}</span>
+          </label>
+        {%- endfor -%}
+      </div>
+
+      <ol class="weekly-today__list" role="list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign p = block.settings.product
+            assign title = block.settings.title | default: p.title
+            assign purpose = block.settings.purpose | default: p.metafields.custom.purpose.value
+          -%}
+          <li class="weekly-today__item"
+              data-mon="{{ block.settings.day_mon }}"
+              data-tue="{{ block.settings.day_tue }}"
+              data-wed="{{ block.settings.day_wed }}"
+              data-thu="{{ block.settings.day_thu }}"
+              data-fri="{{ block.settings.day_fri }}"
+              data-sat="{{ block.settings.day_sat }}"
+              data-sun="{{ block.settings.day_sun }}">
+            <span class="weekly-today__num" aria-hidden="true">{{ block.settings.step_number }}</span>
+            <span class="weekly-today__body">
+              <span class="weekly-today__verb">{{ block.settings.step_label }}</span>
+              <span class="weekly-today__product">
+                {%- if p != blank -%}<a href="{{ p.url }}">{{ title }}</a>{%- else -%}{{ title }}{%- endif -%}
+              </span>
+              {%- if purpose != blank -%}
+                <span class="weekly-today__purpose">{{ purpose }}</span>
+              {%- endif -%}
+            </span>
+            <span class="chip chip--on">{{ 'sections.weekly_guide.state_suggested' | t }}</span>
+            <span class="chip chip--opt">{{ 'sections.weekly_guide.state_optional' | t }}</span>
+          </li>
+        {%- endfor -%}
+      </ol>
+    </div>
+
     <div class="weekly__legend">
       <span><span class="dot dot--on" aria-hidden="true"></span>{{ 'sections.weekly_guide.state_suggested' | t }}</span>
       <span><span class="dot dot--opt" aria-hidden="true"></span>{{ 'sections.weekly_guide.state_optional' | t }}</span>
@@ -168,6 +203,21 @@
 
   </div>
 </section>
+
+{%- comment -%}
+  Moves the initial selection from Monday to the actual current day. Everything
+  else about the switcher works without this.
+{%- endcomment -%}
+<script>
+  (function () {
+    var days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    var today = days[new Date().getDay()];
+    document.querySelectorAll('[data-weekly-today]').forEach(function (el) {
+      var input = el.querySelector('input[data-day="' + today + '"]');
+      if (input) { input.checked = true; }
+    });
+  })();
+</script>
 
 {% schema %}
 {

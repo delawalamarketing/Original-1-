@@ -172,7 +172,8 @@
       "every_day": "Daily",
       "state_suggested": "Suggested day",
       "state_optional": "Optional, as needed",
-      "state_none": "Not needed"
+      "state_none": "Not needed",
+      "pick_day": "Pick a day"
     }
   },
   "customer": {

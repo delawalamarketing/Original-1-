@@ -15,7 +15,7 @@
         "image": "shopify://shop_images/9-IMG_3866.jpg",
         "overlay": 55,
         "text_scheme": "light",
-        "show_lockup": true,
+        "show_lockup": false,
         "eyebrow": "Conscious lifestyle & skincare",
         "heading": "Skincare, understood",
         "heading_emphasis": "in five steps.",
