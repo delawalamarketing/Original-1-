@@ -16,7 +16,10 @@
       "blocks": {
         "pages-all": {
           "type": "pages",
-          "settings": { "heading": "Explore", "show_policies": true }
+          "settings": {
+            "heading": "Explore",
+            "show_policies": true
+          }
         },
         "text-promise": {
           "type": "text",
@@ -29,16 +32,23 @@
           "type": "text",
           "settings": {
             "heading": "Talk to us",
-            "text": "<p>info@originalonepercent.com</p><p>A person answers, usually within one working day.</p>"
+            "text": "<p>info@originalonepercent.com</p>"
           }
         }
       },
-      "block_order": ["pages-all", "text-promise", "text-contact"],
+      "block_order": [
+        "pages-all",
+        "text-promise",
+        "text-contact"
+      ],
       "settings": {
         "show_payment_icons": true,
         "show_policy_links": false
       }
     }
   },
-  "order": ["newsletter-cta", "footer"]
+  "order": [
+    "newsletter-cta",
+    "footer"
+  ]
 }

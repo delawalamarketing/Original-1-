@@ -301,9 +301,9 @@
       ],
       "settings": {
         "surface": "surface-bone",
-        "eyebrow": "What's inside",
-        "heading": "Actives you can actually name",
-        "text": "<p>No filler, no mystery blends. A short list of ingredients we can point to, and what each one is there for.</p>"
+        "eyebrow": "What’s inside",
+        "heading": "Ingredients with a purpose",
+        "text": "<p>No mystery blends. No unnecessary complexity. A considered list of ingredients, with a clear reason for each one being there.</p>"
       }
     },
     "story": {
@@ -313,8 +313,8 @@
         "layout": "media_first",
         "media_shape": "landscape",
         "eyebrow": "Why we started",
-        "heading": "One percent, compounded",
-        "text": "<p>Most skincare asks you to overhaul everything at once. We think the opposite works better: five purposeful formulas, used consistently, getting you one percent closer to the skin you want.</p><p>Understand what your skin needs. Choose the appropriate step. Maintain it consistently. Everything is made in a certified Canadian facility, without parabens, and bottled in Italian glass we would happily leave out on the counter.</p>",
+        "heading": "One percent, compounded.",
+        "text": "<p>Skincare doesn’t need to be complicated. It needs to be understood.</p><p>Original 1% was built around a simple idea: meaningful change comes from small, intentional steps practiced consistently. Rather than asking your skin to do everything at once, we focus on five essential areas of care: hydration, lubrication, elasticity, nourishment, and moisture.</p><p>Understand what your skin needs. Choose the right step. Use it consistently. Then build from there.</p><p>It’s our approach to skincare and to progress itself: 1% better every day.</p><p>Our formulas are purposefully designed and made in a certified Canadian facility, with clean ingredients, then presented in Italian glass chosen to make everyday skincare feel considered, functional, and worth keeping within reach.</p>",
         "signature": "",
         "cta_label": "Read our story",
         "cta_link": "",
@@ -344,28 +344,12 @@
             "question": "Is this suitable for sensitive skin?",
             "answer": "<p>Everything is formulated without parabens or harsh chemicals, and the Orchid Lotion is fragrance-free. As with any new product, patch test on your inner arm for 24 hours first.</p>"
           }
-        },
-        "f4": {
-          "type": "faq",
-          "settings": {
-            "question": "When will Mineral Veil be available?",
-            "answer": "<p>Mineral Veil, the hydration step, is not on sale yet. Join the list below and we will tell you the moment it is. The other four steps work as a routine without it.</p>"
-          }
-        },
-        "f5": {
-          "type": "faq",
-          "settings": {
-            "question": "What if it does not work for me?",
-            "answer": "<p>Return it within 30 days, opened or not, and we will refund you. Skincare is personal and we would rather you find the right thing.</p>"
-          }
         }
       },
       "block_order": [
         "f1",
         "f2",
-        "f3",
-        "f4",
-        "f5"
+        "f3"
       ],
       "settings": {
         "surface": "surface-bone",

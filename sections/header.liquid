@@ -62,17 +62,10 @@
               Ships with the theme so a fresh install is already branded.
               Uploading a logo in Theme settings replaces it.
 
-              Two files rather than one lockup: the O1% mark and the wordmark set
-              their own heights, so the mark stays legible when logo_width is
-              turned down without the wordmark shrinking past readable.
+              Wordmark only. The mark used to sit beside it, but the two
+              together plus the descriptor made the bar busy - the mark now
+              opens the homepage hero instead, where it has room.
             {%- endcomment -%}
-            <img
-              class="header__logo-mark"
-              src="{{ 'logo-mark.png' | asset_url }}"
-              alt=""
-              width="240" height="240"
-              fetchpriority="high"
-            >
             <img
               class="header__logo-wordmark"
               src="{{ 'logo-wordmark.png' | asset_url }}"

@@ -2078,3 +2078,18 @@ body.drawer-open { overflow: hidden; }
   .step-card__foot { flex-direction: column; align-items: flex-start; }
   .five-step__footnote { font-size: var(--fs-md); }
 }
+
+/* The O1% mark, moved out of the header where it crowded the wordmark and the
+   descriptor. Height is a merchant setting so it can be tuned against the
+   eyebrow beneath it rather than guessed at here. */
+.hero__mark {
+  display: block;
+  height: var(--hero-mark-h, 46px);
+  width: auto;
+  margin: 0 0 var(--sp-4);
+}
+/* Tints a dark monochrome PNG to paper white, alpha intact. */
+.hero__mark--light { filter: brightness(0) invert(1); }
+@media (max-width: 749px) {
+  .hero__mark { height: calc(var(--hero-mark-h, 46px) * 0.85); margin-bottom: var(--sp-3); }
+}

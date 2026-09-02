@@ -50,12 +50,16 @@
                     <li><a href="{{ page.url }}">{{ page.title }}</a></li>
                   {%- endif -%}
                 {%- endfor -%}
+                {%- comment -%}
+                  Named policies only. shop.policies also contains Shopify's
+                  Contact information entry, which duplicates the contact block
+                  and the Contact page already listed above it.
+                {%- endcomment -%}
                 {%- if block.settings.show_policies -%}
-                  {%- for policy in shop.policies -%}
-                    {%- if policy != blank -%}
-                      <li><a href="{{ policy.url }}">{{ policy.title }}</a></li>
-                    {%- endif -%}
-                  {%- endfor -%}
+                  {%- if shop.privacy_policy != blank -%}<li><a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a></li>{%- endif -%}
+                  {%- if shop.refund_policy != blank -%}<li><a href="{{ shop.refund_policy.url }}">{{ shop.refund_policy.title }}</a></li>{%- endif -%}
+                  {%- if shop.terms_of_service != blank -%}<li><a href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title }}</a></li>{%- endif -%}
+                  {%- if shop.shipping_policy != blank -%}<li><a href="{{ shop.shipping_policy.url }}">{{ shop.shipping_policy.title }}</a></li>{%- endif -%}
                 {%- endif -%}
               </ul>
             </div>
@@ -110,9 +114,10 @@
       <p style="margin:0;">
         {{ 'sections.footer.copyright' | t: year: current_year, shop: shop.name }}
         {%- if section.settings.show_policy_links -%}
-          {%- for policy in shop.policies -%}
-            {%- if policy != blank %} &middot; <a href="{{ policy.url }}">{{ policy.title }}</a>{% endif -%}
-          {%- endfor -%}
+          {%- if shop.privacy_policy != blank %} &middot; <a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a>{% endif -%}
+          {%- if shop.refund_policy != blank %} &middot; <a href="{{ shop.refund_policy.url }}">{{ shop.refund_policy.title }}</a>{% endif -%}
+          {%- if shop.terms_of_service != blank %} &middot; <a href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title }}</a>{% endif -%}
+          {%- if shop.shipping_policy != blank %} &middot; <a href="{{ shop.shipping_policy.url }}">{{ shop.shipping_policy.title }}</a>{% endif -%}
         {%- endif -%}
       </p>
 

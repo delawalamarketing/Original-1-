@@ -41,7 +41,7 @@
   needs a different mobile crop and veil from an arbitrary uploaded photo.
 {%- endcomment -%}
 <section class="hero {% if scheme == 'light' %}hero--light{% endif %}{% if use_bundled_hero %} hero--bundled{% endif %}{% if art_directed %} hero--art-directed{% endif %}"
-         style="--section-pt:0;--section-pb:0;--hero-focal:{{ section.settings.focal_desktop }};--hero-mobile-zoom:{{ section.settings.mobile_zoom }}%;">
+         style="--section-pt:0;--section-pb:0;--hero-focal:{{ section.settings.focal_desktop }};--hero-mobile-zoom:{{ section.settings.mobile_zoom }}%;--hero-mark-h:{{ section.settings.mark_height }}px;">
 
   {%- if section.settings.video != blank -%}
     <div class="hero__media">
@@ -136,6 +136,28 @@
         {%- endif -%}
       {%- endif -%}
 
+      {%- if section.settings.show_mark -%}
+        {%- if section.settings.mark_image != blank -%}
+          <img class="hero__mark"
+               src="{{ section.settings.mark_image | image_url: width: 320 }}"
+               srcset="{{ section.settings.mark_image | image_url: width: 160 }} 1x,
+                       {{ section.settings.mark_image | image_url: width: 320 }} 2x"
+               alt=""
+               width="{{ section.settings.mark_image.width }}"
+               height="{{ section.settings.mark_image.height }}">
+        {%- else -%}
+          {%- comment -%}
+            The bundled mark is drawn dark, for the bone header. Over
+            photography it has to be light, and brightness(0) invert(1) turns a
+            monochrome PNG white while leaving its transparency alone - sharper
+            than shipping a second file and it follows the text scheme.
+          {%- endcomment -%}
+          <img class="hero__mark{% if scheme == 'light' %} hero__mark--light{% endif %}"
+               src="{{ 'logo-mark.png' | asset_url }}"
+               alt="" width="240" height="240">
+        {%- endif -%}
+      {%- endif -%}
+
       {%- if section.settings.eyebrow != blank -%}
         <p class="eyebrow">{{ section.settings.eyebrow }}</p>
       {%- endif -%}
@@ -214,6 +236,25 @@
       "label": "Overlay strength",
       "min": 0, "max": 100, "step": 5, "unit": "%", "default": 100,
       "info": "Scales the whole veil. 100% is the tuned setting: it holds 4.5:1 behind the headline even over a pale photograph. Lower values show more of the image and less of the text."
+    },
+    { "type": "header", "content": "Brand mark" },
+    {
+      "type": "checkbox",
+      "id": "show_mark",
+      "label": "Show the O1% mark above the copy",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "mark_image",
+      "label": "Mark image",
+      "info": "Transparent PNG. Leave empty to use the bundled mark, which is tinted to match the text colour automatically."
+    },
+    {
+      "type": "range",
+      "id": "mark_height",
+      "label": "Mark height",
+      "min": 28, "max": 96, "step": 2, "unit": "px", "default": 46
     },
     {
       "type": "paragraph",
