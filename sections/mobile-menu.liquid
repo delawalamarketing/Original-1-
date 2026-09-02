@@ -1,3 +1,19 @@
+{%- liquid
+  comment
+    The schema default below has to stay a standard handle. Shopify validates
+    link_list defaults on deploy and rejects the whole file if the handle is
+    not one it knows - silently, leaving the previously deployed version live.
+    This section spent several commits serving a stale copy of itself that way.
+
+    So the v2 menu is resolved here instead of being named as a default, and
+    the section setting is the fallback.
+  endcomment
+  assign nav = linklists['main-menu-v2']
+  if nav == blank or nav.links.size == 0
+    assign nav = section.settings.menu
+  endif
+-%}
+
 <drawer-element
   id="MobileMenu"
   class="drawer drawer--left"
@@ -18,7 +34,7 @@
 
     <div class="drawer__body">
       <ul class="mobile-nav">
-        {%- for link in section.settings.menu.links -%}
+        {%- for link in nav.links -%}
           <li>
             <a href="{{ link.url }}">
               {{ link.title }}
