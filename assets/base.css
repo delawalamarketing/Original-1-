@@ -1043,7 +1043,11 @@ body.drawer-open { overflow: hidden; }
   gap: var(--sp-4) var(--sp-5);
 }
 @media (min-width: 750px) {
-  .trust-bar__list { grid-template-columns: repeat(5, 1fr); }
+  .trust-bar__list {
+    grid-template-columns: repeat(var(--trust-bar-count, 5), 1fr);
+    max-width: calc(var(--trust-bar-count, 5) * 220px);
+    margin-inline: auto;
+  }
 }
 .trust-bar__item {
   display: flex;

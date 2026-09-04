@@ -6,7 +6,7 @@
 
 <section class="trust-bar">
   <div class="container">
-    <ul class="trust-bar__list">
+    <ul class="trust-bar__list" style="--trust-bar-count: {{ section.blocks.size }};">
       {%- for block in section.blocks -%}
         <li class="trust-bar__item" {{ block.shopify_attributes }}>
           {% render 'icon', name: block.settings.icon, size: 24 %}
