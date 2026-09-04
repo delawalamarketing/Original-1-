@@ -379,8 +379,7 @@
         "surface": "surface-bone",
         "eyebrow": "Before you ask",
         "heading": "Questions, answered",
-        "single_open": true,
-        "footer_text": "Still deciding? Email us and a human will answer."
+        "single_open": true
       }
     }
   },
