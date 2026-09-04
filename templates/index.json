@@ -314,7 +314,7 @@
         "media_shape": "landscape",
         "eyebrow": "Why we started",
         "heading": "One percent, compounded.",
-        "text": "<p>Skincare doesn’t need to be complicated. It needs to be understood.</p><p>Original 1% was built around a simple idea: meaningful change comes from small, intentional steps practiced consistently. Rather than asking your skin to do everything at once, we focus on five essential areas of care: hydration, lubrication, elasticity, nourishment, and moisture.</p><p>Understand what your skin needs. Choose the right step. Use it consistently. Then build from there.</p><p>It’s our approach to skincare and to progress itself: 1% better every day.</p><p>Our formulas are purposefully designed and made in a certified Canadian facility, with clean ingredients, then presented in Italian glass chosen to make everyday skincare feel considered, functional, and worth keeping within reach.</p>",
+        "text": "<p>Skincare doesn’t need to be complicated. It needs to be understood.</p><p><strong>Original 1%</strong> was built around a simple idea: meaningful change comes from small, intentional steps practiced consistently. Rather than asking your skin to do everything at once, we focus on five essential areas of care: hydration, lubrication, elasticity, nourishment, and moisture.</p><p>Understand what your skin needs. Choose the right step. Use it consistently. Then build from there.</p><p>It’s our approach to skincare and to progress itself: <strong>1% better every day.</strong></p><p>Our formulas are purposefully designed and made in a certified Canadian facility, with clean ingredients, then presented in Italian glass chosen to make everyday skincare feel considered, functional, and worth keeping within reach.</p>",
         "signature": "",
         "cta_label": "Read our story",
         "cta_link": "",
@@ -356,7 +356,7 @@
         "eyebrow": "Before you ask",
         "heading": "Questions, answered",
         "single_open": true,
-        "footer_text": "Still deciding? Email us and a human will answer."
+        "footer_text": ""
       }
     }
   },

@@ -6,7 +6,7 @@
       "type": "newsletter",
       "settings": {
         "color_scheme": "sage",
-        "heading": "One percent more you, every day.",
+        "heading": "<strong>One percent more you, every day.</strong>",
         "text": "<p>Ritual guides, restock notes and 10% off your first order. No noise. We email roughly twice a month.</p>",
         "align": "center"
       }
