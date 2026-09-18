@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "Footer",
   "type": "footer",
@@ -6,9 +15,12 @@
       "type": "newsletter",
       "settings": {
         "color_scheme": "sage",
+        "align": "center",
+        "eyebrow": "Join the 1%",
         "heading": "<strong>One percent more you, every day.</strong>",
         "text": "<p>Ritual guides, restock notes and 10% off your first order. No noise. We email roughly twice a month.</p>",
-        "align": "center"
+        "button_label": "Send it",
+        "disclaimer": "Unsubscribe any time. We never sell your data."
       }
     },
     "footer": {
