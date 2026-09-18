@@ -156,7 +156,7 @@
           "settings": {
             "product": "mineral-veil",
             "step_number": "1",
-            "step_label": "Hydrate",
+            "step_label": "Hydration",
             "title": "",
             "purpose": "Supports surface hydration and freshness",
             "frequency": "Daily / as needed",
@@ -174,7 +174,7 @@
           "settings": {
             "product": "frank-castor",
             "step_number": "2",
-            "step_label": "Lubricate",
+            "step_label": "Softening",
             "title": "",
             "purpose": "Provides lipid care for softness and comfort",
             "frequency": "2-3 times weekly",
@@ -192,7 +192,7 @@
           "settings": {
             "product": "rice-toner",
             "step_number": "3",
-            "step_label": "Tone",
+            "step_label": "Toning",
             "title": "",
             "purpose": "Lightweight conditioning after cleansing",
             "frequency": "Daily",
