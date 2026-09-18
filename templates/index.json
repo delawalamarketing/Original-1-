@@ -14,16 +14,20 @@
       "settings": {
         "image": "shopify://shop_images/9-IMG_3866.jpg",
         "overlay": 100,
+        "show_mark": true,
+        "mark_height": 46,
+        "focal_desktop": "center center",
+        "mobile_zoom": 135,
         "text_scheme": "light",
         "show_lockup": false,
         "eyebrow": "Conscious lifestyle & skincare",
-        "heading": "Skincare, understood",
-        "heading_emphasis": "in five steps.",
-        "subheading": "<p>Five purposeful formulas organized around a simple, consistent ritual.</p>",
+        "heading": "Purposeful formulas.",
+        "heading_emphasis": "Care that fits your skin.",
+        "subheading": "",
         "cta_label": "Explore the five steps",
         "cta_link": "/#five-step-method",
-        "focal_desktop": "center center",
-        "mobile_zoom": 135
+        "cta2_label": "",
+        "cta2_link": ""
       }
     },
     "trust-bar": {
@@ -76,6 +80,7 @@
             "step_number": "1",
             "step_label": "Hydrate",
             "title": "Mineral Veil",
+            "frequency": "",
             "description": "Supports surface hydration and freshness."
           }
         },
@@ -86,6 +91,7 @@
             "step_number": "2",
             "step_label": "Lubricate",
             "title": "Frank Castor",
+            "frequency": "",
             "description": "Provides lipid care for softness and comfort."
           }
         },
@@ -96,6 +102,7 @@
             "step_number": "3",
             "step_label": "Tone",
             "title": "Rice Toner",
+            "frequency": "",
             "description": "Lightweight conditioning after cleansing."
           }
         },
@@ -106,6 +113,7 @@
             "step_number": "4",
             "step_label": "Nourish",
             "title": "Rice Silk Serum",
+            "frequency": "",
             "description": "Refined serum care for smooth, conditioned skin."
           }
         },
@@ -116,6 +124,7 @@
             "step_number": "5",
             "step_label": "Moisturize",
             "title": "Orchid Lotion",
+            "frequency": "",
             "description": "Locks in comfort and a well-moisturized feel."
           }
         }
@@ -132,8 +141,10 @@
         "anchor_id": "five-step-method",
         "eyebrow": "Intelligent skin maintenance",
         "heading": "Five essentials.",
-        "subheading": "<p>One complete approach to skin maintenance. These are not five things to layer on every day. Think of them as five areas to address across the week, according to how your skin looks and feels.</p>",
+        "subheading": "<p>Explore hydration, softening, toning, nourishment, and moisturization through a flexible collection. Choose the products that suit your skin - you do not need every formula at every application.<br/><br/>Our weekly guide offers a starting point. Adjust your routine to your skin’s comfort and tolerance, follow each product’s directions, and keep gentle cleansing and daily sun protection at its foundation.<br/><br/>Original 1%® </p><p>1% more you, every day™.</p>",
         "footnote": "Understand what your skin needs. Choose the appropriate step. Maintain it consistently.",
+        "cta_label": "",
+        "cta_link": "",
         "notify_link": "/#newsletter"
       }
     },
@@ -146,6 +157,7 @@
             "product": "mineral-veil",
             "step_number": "1",
             "step_label": "Hydrate",
+            "title": "",
             "purpose": "Supports surface hydration and freshness",
             "frequency": "Daily / as needed",
             "day_mon": "suggested",
@@ -163,6 +175,7 @@
             "product": "frank-castor",
             "step_number": "2",
             "step_label": "Lubricate",
+            "title": "",
             "purpose": "Provides lipid care for softness and comfort",
             "frequency": "2-3 times weekly",
             "day_mon": "optional",
@@ -180,6 +193,7 @@
             "product": "rice-toner",
             "step_number": "3",
             "step_label": "Tone",
+            "title": "",
             "purpose": "Lightweight conditioning after cleansing",
             "frequency": "Daily",
             "day_mon": "suggested",
@@ -197,6 +211,7 @@
             "product": "rice-silk-serum",
             "step_number": "4",
             "step_label": "Nourish",
+            "title": "",
             "purpose": "Refined serum care for smooth, conditioned skin",
             "frequency": "3-4 times weekly",
             "day_mon": "suggested",
@@ -214,6 +229,7 @@
             "product": "orchid-lotion",
             "step_number": "5",
             "step_label": "Moisturize",
+            "title": "",
             "purpose": "Locks in comfort and a well-moisturized feel",
             "frequency": "Daily",
             "day_mon": "suggested",
@@ -309,6 +325,7 @@
     "story": {
       "type": "image-with-text",
       "settings": {
+        "anchor_id": "philosophy",
         "surface": "surface-paper",
         "layout": "media_first",
         "media_shape": "landscape",
@@ -317,8 +334,7 @@
         "text": "<p>Skincare doesn’t need to be complicated. It needs to be understood.</p><p><strong>Original 1%</strong> was built around a simple idea: meaningful change comes from small, intentional steps practiced consistently. Rather than asking your skin to do everything at once, we focus on five essential areas of care: hydration, lubrication, elasticity, nourishment, and moisture.</p><p>Understand what your skin needs. Choose the right step. Use it consistently. Then build from there.</p><p>It’s our approach to skincare and to progress itself: <strong>1% better every day.</strong></p><p>Our formulas are purposefully designed and made in a certified Canadian facility, with clean ingredients, then presented in Italian glass chosen to make everyday skincare feel considered, functional, and worth keeping within reach.</p>",
         "signature": "",
         "cta_label": "Read our story",
-        "cta_link": "",
-        "anchor_id": "philosophy"
+        "cta_link": ""
       }
     },
     "faq": {
